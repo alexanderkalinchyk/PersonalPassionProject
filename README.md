@@ -31,13 +31,16 @@ Planning:
 Week 1: 
 *	Basics van Vue.js leren
 * Registratie en login
+
 Week 2:
 *	API van restaurants vinden en implementeren
 *	Gerechten kunnen weergeven
 *	Swipe functie en animatie
+
 Week 3
 *	Gerechten die een user goed vindt komen in een “favorites” lijst
 *	Details kunnen bekijken van gerechten die in een lijst staan. (restaurant menu, prijs etc)
+
 Week 4
 *	Css toevoegen + responsive maken
 *	Alles afwerken
