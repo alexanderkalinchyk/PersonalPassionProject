@@ -14,9 +14,9 @@ Waarom Vue.js?
 
 - Nieuw voor mij
 - SEO friendly
-- et is lightweight and zeer snel
-- envoudige structuur
-- oede Documentatie
+- Het is lightweight and zeer snel
+- Eenvoudige structuur
+- Goede Documentatie
 
 Deliverables:
 
