@@ -1,3 +1,16 @@
 <template>
-  <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi laborum ab et, fuga, magnam quos minima odio modi qui repellat obcaecati possimus consequatur expedita praesentium officiis sapiente eveniet enim facere!</div>
+  <div class="swipe">
+    <h1>This is a swipe page</h1>
+    <SwipeCards />
+  </div>
 </template>
+
+<script>
+import SwipeCards from '../components/SwipeCards'
+export default {
+  name: 'swipe',
+  components: {
+    SwipeCards
+  }
+}
+</script>
