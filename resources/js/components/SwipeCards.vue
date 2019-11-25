@@ -1,6 +1,13 @@
 <template>
   <section class="container">
     <div
+      v-if="loading"
+      class="loading-cards fixed fixed--center"
+      style="z-index: 4; color: white; text-align:center;"
+    >
+      <h2>Loading...</h2>
+    </div>
+    <div
       v-if="current"
       class="fixed fixed--center"
       style="z-index: 3"
@@ -20,11 +27,13 @@
         class="rounded-borders card card--one"
       >
         <div style="height: 100%">
-          <img :src="`/images/${current.src}`" class="rounded-borders" />
+          <img :src="`${current.image_url}`" class="rounded-borders" />
           <div class="text">
             <h2>
               {{ current.name }},
-              <span>{{ current.age }}</span>
+              <span>{{ Number(current.distance).toFixed(1) }}</span
+              >,
+              <span>{{ current.price }}</span>
             </h2>
           </div>
         </div>
@@ -36,11 +45,12 @@
       style="z-index: 2"
     >
       <div style="height: 100%">
-        <img :src="`/images/${next.src}`" class="rounded-borders" />
+        <img :src="`${next.image_url}`" class="rounded-borders" />
         <div class="text">
           <h2>
-            {{ next.name }},
-            <span>{{ next.age }}</span>
+            {{ next.name }}, <span>{{ Number(next.distance).toFixed(1) }}</span
+            >,
+            <span>{{ next.price }}</span>
           </h2>
         </div>
       </div>
@@ -64,6 +74,7 @@
 </template>
 <script>
 import { Vue2InteractDraggable, InteractEventBus } from 'vue2-interact'
+import axios from 'axios'
 const EVENTS = {
   MATCH: 'match',
   REJECT: 'reject'
@@ -74,6 +85,8 @@ export default {
   components: { Vue2InteractDraggable },
   data() {
     return {
+      loading: true,
+      businesses: [],
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -90,12 +103,18 @@ export default {
       ]
     }
   },
+  mounted() {
+    axios
+      .get('api/businesses')
+      .then(response => (this.businesses = response.data.businesses))
+      .finally(() => (this.loading = false))
+  },
   computed: {
     current() {
-      return this.cards[this.index]
+      return this.businesses[this.index]
     },
     next() {
-      return this.cards[this.index + 1]
+      return this.businesses[this.index + 1]
     }
   },
   methods: {
@@ -120,9 +139,8 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  background: #eceff1;
-  width: 100%;
-  height: 100vh;
+  background-color: #f9f9f9;
+  height: 85vh;
 }
 .header {
   width: 100%;
@@ -150,16 +168,17 @@ export default {
     padding: 24px;
   }
 }
+
 .footer {
-  width: 77vw;
-  bottom: 0;
+  width: 20vw;
+  bottom: 4vh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  padding-bottom: 30px;
   justify-content: space-around;
   align-items: center;
 }
+
 .btn {
   position: relative;
   width: 50px;
@@ -167,8 +186,6 @@ export default {
   padding: 0.2rem;
   border-radius: 50%;
   background-color: white;
-  box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.02),
-    0 10px 14px 1px rgba(0, 0, 0, 0.02), 0 4px 18px 3px rgba(0, 0, 0, 0.02);
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
@@ -186,22 +203,21 @@ export default {
     }
   }
   &--like {
-    background-color: red;
     padding: 0.5rem;
-    color: white;
-    box-shadow: 0 10px 13px -6px rgba(0, 0, 0, 0.2),
-      0 20px 31px 3px rgba(0, 0, 0, 0.14), 0 8px 38px 7px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.23);
     i {
       font-size: 32px;
     }
   }
   &--decline {
-    color: red;
+    color: dislike;
   }
-  &--skip {
-    color: green;
+  box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.23);
+  i {
+    font-size: 32px;
   }
 }
+
 .flex {
   display: flex;
   &--center {
@@ -209,6 +225,7 @@ export default {
     justify-content: center;
   }
 }
+
 .fixed {
   position: fixed;
   &--center {
@@ -221,8 +238,8 @@ export default {
   border-radius: 12px;
 }
 .card {
-  width: 80vw;
-  height: 60vh;
+  width: 22rem;
+  height: 30rem;
   color: white;
   img {
     object-fit: cover;
@@ -259,9 +276,11 @@ export default {
     }
   }
 }
+
 .transition {
   animation: appear 200ms ease-in;
 }
+
 @keyframes appear {
   from {
     transform: translate(-48%, -48%);

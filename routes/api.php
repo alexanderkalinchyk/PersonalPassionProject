@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         $context = stream_context_create($opts);
 
         // Open the file using the HTTP headers set above
-        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?term=burrito&location=san+francisco&limit=2', false, $context);
+        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?term=burrito&location=san+francisco&limit=3', false, $context);
 
         return $file;
     });
