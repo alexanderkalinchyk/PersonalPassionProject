@@ -56,7 +56,7 @@
       </div>
     </div>
     <div
-      v-if="index + 2 < cards.length"
+      v-if="index + 2 < businesses.length"
       class="rounded-borders card card--three fixed fixed--center"
       style="z-index: 1"
     >
@@ -92,15 +92,7 @@ export default {
       interactEventBus: {
         draggedRight: EVENTS.MATCH,
         draggedLeft: EVENTS.REJECT
-      },
-      cards: [
-        { src: 'alexander.jpg', name: 'Pasta', age: 5 },
-        { src: 'bona.jpg', name: 'Chicken', age: 3 },
-        { src: 'ichi.jpg', name: 'Pork', age: 7 },
-        { src: 'sushi.jpg', name: 'Sushi', age: 5 },
-        { src: 'ichi2.jpg', name: 'Pork2', age: 1 },
-        { src: 'bona.jpg', name: 'Chicken', age: 3 }
-      ]
+      }
     }
   },
   mounted() {
