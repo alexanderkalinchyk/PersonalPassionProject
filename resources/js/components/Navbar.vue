@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">{{ appName }}</router-link>
+      <router-link :to="{ name: user ? 'welcome' : 'welcome' }" class="navbar-brand">{{ appName }}</router-link>
 
       <button
         class="navbar-toggler"
@@ -59,9 +59,6 @@
               >{{ $t('login') }}</router-link>
             </li>
             <li class="nav-item">
-              <router-link :to="{ name: 'swipe' }" class="nav-link" active-class="active">Swipe</router-link>
-            </li>
-            <li class="nav-item">
               <router-link
                 :to="{ name: 'register' }"
                 class="nav-link"
@@ -76,8 +73,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import LocaleDropdown from "./LocaleDropdown";
+import { mapGetters } from 'vuex'
+import LocaleDropdown from './LocaleDropdown'
 
 export default {
   components: {
@@ -89,19 +86,19 @@ export default {
   }),
 
   computed: mapGetters({
-    user: "auth/user"
+    user: 'auth/user'
   }),
 
   methods: {
     async logout() {
       // Log out the user.
-      await this.$store.dispatch("auth/logout");
+      await this.$store.dispatch('auth/logout')
 
       // Redirect to login.
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: 'login' })
     }
   }
-};
+}
 </script>
 
 <style scoped>

@@ -8,6 +8,7 @@
 <script>
 import SwipeCards from '../components/SwipeCards'
 export default {
+  middleware: 'auth',
   name: 'swipe',
   components: {
     SwipeCards
