@@ -3,7 +3,7 @@
     <div
       v-if="loading"
       class="loading-cards fixed fixed--center"
-      style="z-index: 4; color: white; text-align:center;"
+      style="z-index: 4; color: black; text-align:center;"
     >
       <h2>Loading...</h2>
     </div>
@@ -31,25 +31,20 @@
           <div class="text">
             <h2>
               {{ current.name }},
-              <span>{{ Number(current.distance).toFixed(1) }}</span
-              >,
+              <span>{{ Number(current.distance).toFixed(1) }}</span>,
               <span>{{ current.price }}</span>
             </h2>
           </div>
         </div>
       </Vue2InteractDraggable>
     </div>
-    <div
-      v-if="next"
-      class="rounded-borders card card--two fixed fixed--center"
-      style="z-index: 2"
-    >
+    <div v-if="next" class="rounded-borders card card--two fixed fixed--center" style="z-index: 2">
       <div style="height: 100%">
         <img :src="`${next.image_url}`" class="rounded-borders" />
         <div class="text">
           <h2>
-            {{ next.name }}, <span>{{ Number(next.distance).toFixed(1) }}</span
-            >,
+            {{ next.name }},
+            <span>{{ Number(next.distance).toFixed(1) }}</span>,
             <span>{{ next.price }}</span>
           </h2>
         </div>
@@ -87,6 +82,7 @@ export default {
     return {
       loading: true,
       businesses: [],
+      currentItemData: [],
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -111,6 +107,7 @@ export default {
   },
   methods: {
     match() {
+      console.log(current.name)
       InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')
     },
     reject() {
