@@ -107,6 +107,7 @@ export default {
   },
   methods: {
     match() {
+      /*
       this.currentItemData = {
         user_id: 5,
         business_id: this.businesses[this.index].id,
@@ -115,7 +116,7 @@ export default {
         price: this.businesses[this.index].price,
         distance: this.businesses[this.index].distance
       }
-
+      */
       const formData = new FormData()
       formData.set('user_id', 5)
       formData.set('business_id', this.businesses[this.index].id)
