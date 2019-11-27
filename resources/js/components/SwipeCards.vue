@@ -82,7 +82,7 @@ export default {
     return {
       loading: true,
       businesses: [],
-      currentItemData: [],
+      currentItemData: {},
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -107,7 +107,41 @@ export default {
   },
   methods: {
     match() {
-      console.log(current.name)
+      this.currentItemData = {
+        user_id: 5,
+        business_id: this.businesses[this.index].id,
+        name: this.businesses[this.index].name,
+        image_url: this.businesses[this.index].image_url,
+        price: this.businesses[this.index].price,
+        distance: this.businesses[this.index].distance
+      }
+
+      const formData = new FormData()
+      formData.set('user_id', 5)
+      formData.set('business_id', this.businesses[this.index].id)
+      formData.set('name', this.businesses[this.index].name)
+      formData.set('image_url', this.businesses[this.index].image_url)
+      formData.set('price', this.businesses[this.index].price)
+      formData.set('distance', this.businesses[this.index].distance)
+      /*
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1])
+      }
+      */
+      axios({
+        method: 'post',
+        url: 'api/favorites',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+        .then(function(response) {
+          //handle success
+          console.log(response)
+        })
+        .catch(function(response) {
+          //handle error
+          console.log(response)
+        })
       InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')
     },
     reject() {

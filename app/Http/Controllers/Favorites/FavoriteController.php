@@ -36,7 +36,8 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        \App\Favorite::create([
+        console.log("store function");
+        $test =  Favorite::create([
             'user_id' => $request->get('user_id'),
             'business_id' => $request->get('business_id'),
             'name' => $request->get('name'),
@@ -45,7 +46,7 @@ class FavoriteController extends Controller
             'distance' => $request->get('distance')
           ]);
 
-          return redirect('/favorites');
+          return response()->json($test);
     }
 
     /**
