@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Favorites;
 
 use App\Favorite;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
 class FavoriteController extends Controller
@@ -36,7 +37,6 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        console.log("store function");
         $test =  Favorite::create([
             'user_id' => $request->get('user_id'),
             'business_id' => $request->get('business_id'),
@@ -55,9 +55,10 @@ class FavoriteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $favorites = Favorite::all();
+        return response()->json($favorites);
     }
 
     /**

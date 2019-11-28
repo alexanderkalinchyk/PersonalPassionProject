@@ -41,9 +41,7 @@ class LoginController extends Controller
         if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
             return false;
         }
-
         $this->guard()->setToken($token);
-
         return true;
     }
 

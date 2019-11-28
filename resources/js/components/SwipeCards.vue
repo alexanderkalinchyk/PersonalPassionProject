@@ -82,7 +82,7 @@ export default {
     return {
       loading: true,
       businesses: [],
-      currentItemData: {},
+      user: [],
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -92,6 +92,7 @@ export default {
     }
   },
   mounted() {
+    this.getCurrentUser()
     axios
       .get('api/businesses')
       .then(response => (this.businesses = response.data.businesses))
@@ -106,19 +107,30 @@ export default {
     }
   },
   methods: {
+    getCurrentUser() {
+      axios.get('/api/user').then(response => (this.user = response.data))
+    },
     match() {
-      /*
-      this.currentItemData = {
-        user_id: 5,
-        business_id: this.businesses[this.index].id,
-        name: this.businesses[this.index].name,
-        image_url: this.businesses[this.index].image_url,
-        price: this.businesses[this.index].price,
-        distance: this.businesses[this.index].distance
+      InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')
+    },
+    reject() {
+      InteractEventBus.$emit(EVENTS.REJECT), console.log('click - reject')
+    },
+    emitAndNext(event) {
+      console.log('swipe - ', event)
+      if (event == 'match') {
+        this.postData()
       }
-      */
+      this.$emit(event, this.index)
+      setTimeout(() => (this.isVisible = false), 200)
+      setTimeout(() => {
+        this.index++
+        this.isVisible = true
+      }, 200)
+    },
+    postData() {
       const formData = new FormData()
-      formData.set('user_id', 5)
+      formData.set('user_id', this.user.id)
       formData.set('business_id', this.businesses[this.index].id)
       formData.set('name', this.businesses[this.index].name)
       formData.set('image_url', this.businesses[this.index].image_url)
@@ -143,19 +155,6 @@ export default {
           //handle error
           console.log(response)
         })
-      InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')
-    },
-    reject() {
-      InteractEventBus.$emit(EVENTS.REJECT), console.log('click - reject')
-    },
-    emitAndNext(event) {
-      console.log('swipe - ', event)
-      this.$emit(event, this.index)
-      setTimeout(() => (this.isVisible = false), 200)
-      setTimeout(() => {
-        this.index++
-        this.isVisible = true
-      }, 200)
     }
   }
 }

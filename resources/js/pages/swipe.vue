@@ -1,17 +1,24 @@
 <template>
   <div class="swipe">
-    <h1>This is a swipe page</h1>
+    <FavoriteList />
     <SwipeCards />
   </div>
 </template>
 
 <script>
 import SwipeCards from '../components/SwipeCards'
+import FavoriteList from '../components/FavoriteList'
 export default {
   middleware: 'auth',
   name: 'swipe',
   components: {
-    SwipeCards
+    SwipeCards,
+    FavoriteList
   }
 }
 </script>
+<style lang="scss" scoped>
+.swipe {
+  display: flex;
+}
+</style>

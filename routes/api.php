@@ -16,10 +16,12 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
 
+    //get current user data
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
+    //fetch api data
     Route::get('/businesses', function (Request $request) {
         $opts = [
             "http" => [
@@ -40,6 +42,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
     Route::post('favorites', 'Favorites\FavoriteController@store');
+    Route::get('favorites', 'Favorites\FavoriteController@show');
+    Route::get('favorites/{id}', 'Favorites\FavoriteController@showbyuserid');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
