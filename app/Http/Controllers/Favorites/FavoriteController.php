@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Favorites;
 use App\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class FavoriteController extends Controller
@@ -58,6 +59,11 @@ class FavoriteController extends Controller
     public function show()
     {
         $favorites = Favorite::all();
+        return response()->json($favorites);
+    }
+    public function showbyuserid($id)
+    {
+        $favorites = DB::table('favorites')->where('user_id', $id)->get();
         return response()->json($favorites);
     }
 
