@@ -22,21 +22,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     //fetch api data
-    Route::get('/businesses', function (Request $request) {
-        $opts = [
-            "http" => [
-                "method" => "GET",
-                "header" => "Authorization: Bearer xNvYySEOsLIwtxMvP-wG34D9IueBb5m5Fk8edWjcsge-hrLBCVj_0yH1wSIZblF5jtE3dn_12Vb50RCU9KMrg4xPOnbJh2RUl_5ZE6QFtsv9cN59Jn_ssCR53y7ZXXYx"
-            ]
-        ];
+    Route::get('businesses/{location}/{radius}/{offset}', 'Businesses\BusinessController@showbusinesses');
 
-        $context = stream_context_create($opts);
-
-        // Open the file using the HTTP headers set above
-        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?term=burrito&location=san+francisco&limit=3', false, $context);
-
-        return $file;
-    });
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');

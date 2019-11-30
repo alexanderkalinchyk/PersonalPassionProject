@@ -94,7 +94,7 @@ export default {
   mounted() {
     this.getCurrentUser()
     axios
-      .get('api/businesses')
+      .get('api/businesses/San Francisco/10000/0')
       .then(response => (this.businesses = response.data.businesses))
       .finally(() => (this.loading = false))
   },
