@@ -33,7 +33,7 @@ export default {
     user: 'auth/user'
   }),
   mounted() {
-    console.log(this.user.id)
+    //console.log(this.user.id)
     axios
       .get(`/api/favorites/${this.user.id}`)
       .then(response => {

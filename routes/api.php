@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('favorites/{id}', 'Favorites\FavoriteController@showbyuserid');
 
     Route::post('offset/{id}', 'Offset\OffsetController@updatebyuserid');
+    Route::get('offset/get/{id}', 'Offset\OffsetController@offsetbyuserid');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

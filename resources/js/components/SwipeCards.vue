@@ -78,11 +78,12 @@ const EVENTS = {
 export default {
   name: 'SwipeCards',
   components: { Vue2InteractDraggable },
-  data() {
+  data: function() {
     return {
       loading: true,
       businesses: [],
       user: [],
+      offset: [],
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -91,12 +92,8 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted: function() {
     this.getCurrentUser()
-    axios
-      .get('api/businesses/San Francisco/10000/0')
-      .then(response => (this.businesses = response.data.businesses))
-      .finally(() => (this.loading = false))
   },
   computed: {
     current() {
@@ -108,7 +105,24 @@ export default {
   },
   methods: {
     getCurrentUser() {
-      axios.get('/api/user').then(response => (this.user = response.data))
+      axios.get('/api/user').then(response => {
+        this.user = response.data
+        //console.log('user', this.user)
+        this.getCurrentUserOffset()
+      })
+    },
+    getCurrentUserOffset() {
+      //console.log('userid offset', this.user.id)
+      axios.get(`/api/offset/get/${this.user.id}`).then(response => {
+        this.offset = response.data
+        this.getBusinesses()
+      })
+    },
+    getBusinesses() {
+      axios
+        .get(`api/businesses/San Francisco/10000/${this.offset[0].offset}`)
+        .then(response => (this.businesses = response.data.businesses))
+        .finally(() => (this.loading = false))
     },
     match() {
       InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')
@@ -132,6 +146,7 @@ export default {
       }, 200)
     },
     updateOffset() {
+      //console.log(this.user.id)
       axios.post(`/api/offset/${this.user.id}`)
     },
     postData() {
@@ -142,11 +157,6 @@ export default {
       formData.set('image_url', this.businesses[this.index].image_url)
       formData.set('price', this.businesses[this.index].price)
       formData.set('distance', this.businesses[this.index].distance)
-      /*
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
-      */
       axios({
         method: 'post',
         url: 'api/favorites',

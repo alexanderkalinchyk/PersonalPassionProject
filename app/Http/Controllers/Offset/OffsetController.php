@@ -40,6 +40,14 @@ class OffsetController extends Controller
     {
             //
     }
+    public function offsetbyuserid($id)
+    {
+        $offset = DB::table('offset')->where('user_id', $id)->get();
+        return response()->json($offset);
+
+        //if offset not found
+        //create offset
+    }
     public function updatebyuserid($id)
     {
         $offset =  DB::table('offset')

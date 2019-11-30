@@ -54,7 +54,7 @@ class BusinessController extends Controller
         $context = stream_context_create($opts);
 
         // Open the file using the HTTP headers set above
-        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?&location='.$location.'&radius='.$radius.'&offset='.$offset.'&limit=3', false, $context);
+        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?&location='.$location.'&radius='.$radius.'&offset='.$offset.'&limit=10', false, $context);
 
         return $file;
 
