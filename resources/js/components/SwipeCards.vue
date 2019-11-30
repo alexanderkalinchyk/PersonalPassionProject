@@ -119,7 +119,10 @@ export default {
     emitAndNext(event) {
       console.log('swipe - ', event)
       if (event == 'match') {
+        this.updateOffset()
         this.postData()
+      } else {
+        this.updateOffset()
       }
       this.$emit(event, this.index)
       setTimeout(() => (this.isVisible = false), 200)
@@ -127,6 +130,9 @@ export default {
         this.index++
         this.isVisible = true
       }, 200)
+    },
+    updateOffset() {
+      axios.post(`/api/offset/${this.user.id}`)
     },
     postData() {
       const formData = new FormData()
