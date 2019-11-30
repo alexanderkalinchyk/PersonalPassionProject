@@ -1,7 +1,7 @@
 <template>
   <div class="swipe">
-    <FavoriteList />
-    <SwipeCards />
+    <FavoriteList :messageson="messageson" />
+    <SwipeCards @sistersaid="messageSon($event)" />
   </div>
 </template>
 
@@ -14,6 +14,16 @@ export default {
   components: {
     SwipeCards,
     FavoriteList
+  },
+  data() {
+    return {
+      messageson: ''
+    }
+  },
+  methods: {
+    messageSon(message) {
+      this.messageson = message
+    }
   }
 }
 </script>

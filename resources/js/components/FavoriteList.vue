@@ -1,6 +1,7 @@
 <template>
   <section class="favorites-list">
     <h2>Favorites</h2>
+    <div v-if="messageson" v-html="messageson"></div>
     <button class="btn btn-primary">Cant Decide?</button>
     <p v-if="loading">Loading...</p>
     <article v-if="!loading" v-for="item in favoriteItems" :key="item.id" class="favorite-item">
@@ -23,6 +24,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default {
+  props: ['messageson'],
   data() {
     return {
       favoriteItems: [],

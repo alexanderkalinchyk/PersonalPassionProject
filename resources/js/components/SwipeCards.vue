@@ -133,6 +133,7 @@ export default {
     emitAndNext(event) {
       console.log('swipe - ', event)
       if (event == 'match') {
+        this.addToFavorites()
         this.updateOffset()
         this.postData()
       } else {
@@ -148,6 +149,10 @@ export default {
     updateOffset() {
       //console.log(this.user.id)
       axios.post(`/api/offset/${this.user.id}`)
+    },
+    addToFavorites() {
+      //this.$emit('cardswipes', 'Sushi restaurant')
+      this.$emit('sistersaid', 'Mom said do your homework!')
     },
     postData() {
       const formData = new FormData()
