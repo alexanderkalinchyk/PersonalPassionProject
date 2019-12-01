@@ -17,7 +17,11 @@
         {{Number(message.distance).toFixed(1)}} km -
         <span>{{message.price}}</span>
       </p>
-      <button @click="moreInfo(message.business_id)" class="btn btn-primary">More Info</button>
+      <router-link
+        :to="{ path: `/details/${message.business_id}`}"
+        class="btn btn-primary"
+        active-class="active"
+      >More Info</router-link>
       <br />
       <br />
       <button @click="showData" class="btn btn-info">Invite Friends</button>
@@ -37,7 +41,7 @@
         <span>{{item.price}}</span>
       </p>
       <router-link
-        :to="{ name: 'details', params: { msg: 'hi' }}"
+        :to="{ path: `/details/${item.business_id}`}"
         class="btn btn-primary"
         active-class="active"
       >More Info</router-link>

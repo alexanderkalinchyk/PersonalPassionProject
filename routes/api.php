@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     //fetch api data
     Route::get('businesses/{location}/{radius}/{offset}', 'Businesses\BusinessController@showbusinesses');
+    Route::get('businesses/{id}', 'Businesses\BusinessController@getbusinessbyid');
 
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');

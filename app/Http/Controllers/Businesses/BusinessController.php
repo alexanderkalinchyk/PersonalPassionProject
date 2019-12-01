@@ -58,7 +58,26 @@ class BusinessController extends Controller
 
         return $file;
 
-        return response()->json($file);
+        //return response()->json($file);
+    }
+    public function getbusinessbyid($id)
+    {
+        return "hi";
+       $opts = [
+            "http" => [
+                "method" => "GET",
+                "header" => "Authorization: Bearer xNvYySEOsLIwtxMvP-wG34D9IueBb5m5Fk8edWjcsge-hrLBCVj_0yH1wSIZblF5jtE3dn_12Vb50RCU9KMrg4xPOnbJh2RUl_5ZE6QFtsv9cN59Jn_ssCR53y7ZXXYx"
+            ]
+        ];
+
+        $context = stream_context_create($opts);
+
+        // Open the file using the HTTP headers set above
+        $file = file_get_contents('https://api.yelp.com/v3/businesses/bUr4iq2mKKiBOu2HKynylg', false, $context);
+
+        return $file;
+
+        //return response()->json($file);
     }
 
     /**

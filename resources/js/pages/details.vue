@@ -1,40 +1,85 @@
 <template>
-  <div>
+  <div class="details">
+    <div>
+      <router-link :to="{ name: 'swipe'}" class="btn-primary" active-class="active">Back</router-link>
+    </div>
     <FavoriteList :messageson="messageson" />
-    <div>{{ welcome }}</div>
+    <section class="container">
+      <div
+        v-if="loading"
+        class="loading-cards fixed fixed--center"
+        style="z-index: 4; color: black; text-align:center;"
+      >
+        <h2>Loading...</h2>
+      </div>
+      <div class="loading-cards fixed fixed--center">
+        <div style="height: 100%" class="rounded-borders card card--one">
+          <div style="height: 100%">
+            <img :src="`${details.image_url}`" :alt="details.name" class="rounded-borders" />
+            <div class="text">
+              <h2>
+                <span></span>
+                <span>km</span>
+                <span>$$$</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 import FavoriteList from '../components/FavoriteList'
+import axios from 'axios'
 export default {
   name: 'favorite_details',
   components: {
     FavoriteList
   },
-  props: ['msg'],
+  props: {
+    msg: String
+  },
   data() {
     return {
       messageson: [],
-      welcome: 'This is your profile'
+      welcome: 'This is your profile',
+      details: [],
+      loading: true
     }
+  },
+  watch: {
+    $route(to, from) {
+      console.log('new route')
+      this.getBusinesses()
+    }
+  },
+  mounted() {
+    console.log('mounted')
+    console.log(this.$route.params)
+    this.getBusinesses()
   },
   methods: {
     SendData(message) {
       this.messageson = message
-      //     console.log('messageson', this.messageson)
-    }
-  },
-  mounted() {
-    console.log(this.msg)
-    if (this.msg) {
-      this.welcome = this.msg
+    },
+    getBusinesses() {
+      console.log('id', this.$route.params.id)
+      axios
+        .get(`api/businesses/3231323`)
+        .then(response => console.log(response))
+        //.then(response => (this.details = response.data))
+        .finally(() => (this.loading = false))
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.details {
+  display: flex;
+}
 .container {
   background-color: #f9f9f9;
   height: 85vh;
@@ -167,7 +212,7 @@ export default {
     background: rgba(0, 0, 0, 0.5);
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    text-indent: 20px;
+    padding: 0.5rem;
     span {
       font-weight: normal;
     }

@@ -9,10 +9,9 @@ export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
   { path: '/swipe', name: 'swipe', component: page('swipe.vue') },
   {
-    path: '/details',
+    path: '/details/:id',
     name: 'details',
-    component: page('details.vue'),
-    props: true
+    component: page('details.vue')
   },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
