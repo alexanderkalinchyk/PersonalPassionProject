@@ -91,15 +91,13 @@ export default {
   border-bottom: 1px solid #000000;
 }
 .item-img {
-  width: 11rem;
-  height: 7rem;
-  display: block;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
   position: relative;
   overflow: hidden;
+  border-radius: 15px;
   img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
   }
 }

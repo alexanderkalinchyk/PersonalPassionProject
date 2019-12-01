@@ -25,9 +25,10 @@
         @draggedRight="emitAndNext('match')"
         @draggedLeft="emitAndNext('reject')"
         class="rounded-borders card card--one"
+        :key="current.id"
       >
         <div style="height: 100%">
-          <img :src="`${current.image_url}`" class="rounded-borders" />
+          <img :src="`${current.image_url}`" :alt="current.name" class="rounded-borders" />
           <div class="text">
             <h2>
               {{ current.name }},
@@ -145,6 +146,15 @@ export default {
       setTimeout(() => {
         this.index++
         this.isVisible = true
+        console.log('index', this.index)
+        console.log('business length', this.businesses.length)
+        if (this.index == this.businesses.length) {
+          console.log('fetching new shit')
+          this.index = 0
+          this.businesses = []
+          this.loading = true
+          this.getCurrentUserOffset()
+        }
       }, 200)
     },
     updateOffset() {
