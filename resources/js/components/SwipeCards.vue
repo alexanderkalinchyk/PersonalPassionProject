@@ -31,8 +31,8 @@
           <img :src="`${current.image_url}`" :alt="current.name" class="rounded-borders" />
           <div class="text">
             <h2>
-              {{ current.name }},
-              <span>{{ Number(current.distance).toFixed(1) }}</span>,
+              <span>{{ current.name }}</span>
+              <span>{{ Number(current.distance).toFixed(1) }} km</span>
               <span>{{ current.price }}</span>
             </h2>
           </div>
@@ -334,7 +334,7 @@ export default {
     background: rgba(0, 0, 0, 0.5);
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    text-indent: 20px;
+    padding: 0.5rem;
     span {
       font-weight: normal;
     }

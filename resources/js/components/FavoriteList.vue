@@ -36,7 +36,12 @@
         {{item.distance}} km -
         <span>{{item.price}}</span>
       </p>
-      <button @click="moreInfo(item.business_id)" class="btn btn-primary">More Info</button>
+      <router-link
+        :to="{ name: 'details', params: { msg: 'hi' }}"
+        class="btn btn-primary"
+        active-class="active"
+      >More Info</router-link>
+      <!--  <button @click="moreInfo(item.business_id)"></button> -->
       <br />
       <br />
       <button @click="showData" class="btn btn-info">Invite Friends</button>

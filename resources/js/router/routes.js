@@ -8,6 +8,12 @@ function page (path) {
 export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
   { path: '/swipe', name: 'swipe', component: page('swipe.vue') },
+  {
+    path: '/details',
+    name: 'details',
+    component: page('details.vue'),
+    props: true
+  },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
