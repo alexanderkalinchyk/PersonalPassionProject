@@ -1,7 +1,7 @@
 <template>
   <div class="swipe">
     <FavoriteList :messageson="messageson" />
-    <SwipeCards @sistersaid="messageSon($event)" />
+    <SwipeCards @swipeDataList="SendData($event)" />
   </div>
 </template>
 
@@ -17,12 +17,13 @@ export default {
   },
   data() {
     return {
-      messageson: ''
+      messageson: []
     }
   },
   methods: {
-    messageSon(message) {
+    SendData(message) {
       this.messageson = message
+      //     console.log('messageson', this.messageson)
     }
   }
 }

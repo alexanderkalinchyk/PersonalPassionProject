@@ -84,6 +84,7 @@ export default {
       businesses: [],
       user: [],
       offset: [],
+      list: [],
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -151,8 +152,17 @@ export default {
       axios.post(`/api/offset/${this.user.id}`)
     },
     addToFavorites() {
-      //this.$emit('cardswipes', 'Sushi restaurant')
-      this.$emit('sistersaid', 'Mom said do your homework!')
+      this.list.push({
+        user_id: this.user.id,
+        business_id: this.businesses[this.index].id,
+        name: this.businesses[this.index].name,
+        image_url: this.businesses[this.index].image_url,
+        price: this.businesses[this.index].price,
+        distance: this.businesses[this.index].distance
+      })
+      //console.log('data', this.list[0])
+      this.$emit('swipeDataList', this.list)
+      //this.list = []
     },
     postData() {
       const formData = new FormData()

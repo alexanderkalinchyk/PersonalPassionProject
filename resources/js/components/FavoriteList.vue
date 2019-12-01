@@ -1,12 +1,35 @@
 <template>
   <section class="favorites-list">
     <h2>Favorites</h2>
-    <div v-if="messageson" v-html="messageson"></div>
     <button class="btn btn-primary">Cant Decide?</button>
     <p v-if="loading">Loading...</p>
-    <article v-if="!loading" v-for="item in favoriteItems" :key="item.id" class="favorite-item">
+    <article
+      v-if="messageson != ''"
+      v-for="message in messageson.slice().reverse()"
+      :key="message.id"
+      class="favorite-item"
+    >
       <div class="item-img">
-        <img :src="item.image_url" alt="Salmon_Sushi" />
+        <img :src="message.image_url" :alt="message.name" />
+      </div>
+      <h3>{{message.name}}</h3>
+      <p>
+        {{Number(message.distance).toFixed(1)}} km -
+        <span>{{message.price}}</span>
+      </p>
+      <button @click="moreInfo(message.business_id)" class="btn btn-primary">More Info</button>
+      <br />
+      <br />
+      <button @click="showData" class="btn btn-info">Invite Friends</button>
+    </article>
+    <article
+      v-if="!loading"
+      v-for="item in favoriteItems.slice().reverse()"
+      :key="item.id"
+      class="favorite-item"
+    >
+      <div class="item-img">
+        <img :src="item.image_url" :alt="item.name" />
       </div>
       <h3>{{item.name}}</h3>
       <p>
@@ -24,7 +47,12 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default {
-  props: ['messageson'],
+  props: {
+    messageson: {
+      default: '',
+      type: Array
+    }
+  },
   data() {
     return {
       favoriteItems: [],
