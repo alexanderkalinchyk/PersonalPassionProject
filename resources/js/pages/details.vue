@@ -18,7 +18,7 @@
             <img :src="`${details.image_url}`" :alt="details.name" class="rounded-borders" />
             <div class="text">
               <h2>
-                <span></span>
+                <span>{{details.name}}</span>
                 <span>km</span>
                 <span>$$$</span>
               </h2>
@@ -26,6 +26,7 @@
           </div>
         </div>
       </div>
+      <p v-html="details"></p>
     </section>
   </div>
 </template>
@@ -67,9 +68,9 @@ export default {
     getBusinesses() {
       console.log('id', this.$route.params.id)
       axios
-        .get(`api/businesses/3231323`)
-        .then(response => console.log(response))
-        //.then(response => (this.details = response.data))
+        .get(`/api/businesses/${this.$route.params.id}`)
+        //.then(response => console.log(response))
+        .then(response => (this.details = response.data))
         .finally(() => (this.loading = false))
     }
   }

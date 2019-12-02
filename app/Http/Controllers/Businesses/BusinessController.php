@@ -62,7 +62,6 @@ class BusinessController extends Controller
     }
     public function getbusinessbyid($id)
     {
-        return "hi";
        $opts = [
             "http" => [
                 "method" => "GET",
@@ -73,7 +72,7 @@ class BusinessController extends Controller
         $context = stream_context_create($opts);
 
         // Open the file using the HTTP headers set above
-        $file = file_get_contents('https://api.yelp.com/v3/businesses/bUr4iq2mKKiBOu2HKynylg', false, $context);
+        $file = file_get_contents('https://api.yelp.com/v3/businesses/'.$id, false, $context);
 
         return $file;
 
