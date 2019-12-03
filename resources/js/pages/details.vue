@@ -1,7 +1,12 @@
 <template>
   <div class="details">
     <div>
-      <router-link :to="{ name: 'swipe'}" class="btn-primary" active-class="active">Back</router-link>
+      <router-link
+        :to="{ name: 'swipe' }"
+        class="btn-primary"
+        active-class="active"
+        >Back</router-link
+      >
     </div>
     <FavoriteList :messageson="messageson" />
     <section class="container">
@@ -12,14 +17,23 @@
       >
         <h2>Loading...</h2>
       </div>
-      <div class="loading-cards fixed fixed--center">
+      <div v-if="!loading" class="loading-cards fixed fixed--center">
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img :src="`${details.image_url}`" :alt="details.name" class="rounded-borders" />
+            <img
+              :src="`${details.image_url}`"
+              :alt="details.name"
+              class="rounded-borders"
+            />
             <div class="text">
+              <div class="thumbnails">
+                <button v-for="photo in details.photos">
+                  <img :src="photo" :alt="details.name" />
+                </button>
+              </div>
               <h2>
-                <span>{{details.name}}</span>
-                <span>km</span>
+                <span>{{ details.name }}</span>
+                <span>{{ details.distance }} km away</span>
                 <span>$$$</span>
               </h2>
             </div>
@@ -111,7 +125,6 @@ export default {
     padding: 24px;
   }
 }
-
 .footer {
   width: 20vw;
   bottom: 4vh;
@@ -178,7 +191,7 @@ export default {
   }
 }
 .rounded-borders {
-  border-radius: 12px;
+  border-radius: 12px 12px 0px 0px;
 }
 .card {
   width: 22rem;
@@ -206,17 +219,27 @@ export default {
       0 20px 31px 3px rgba(0, 0, 0, 0.14), 0 8px 38px 7px rgba(0, 0, 0, 0.12);
   }
   .text {
-    position: absolute;
     bottom: 0;
     width: 100%;
-    background: black;
-    background: rgba(0, 0, 0, 0.5);
+    color: #3e3c3e;
+    background: white;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
     padding: 0.5rem;
     span {
       font-weight: normal;
     }
+  }
+}
+.thumbnails {
+  display: flex;
+  justify-content: space-around;
+  button {
+    width: 100px;
+    height: 100px;
+    background: none;
+    border: none;
+    outline: none;
   }
 }
 
@@ -233,4 +256,3 @@ export default {
   }
 }
 </style>
-

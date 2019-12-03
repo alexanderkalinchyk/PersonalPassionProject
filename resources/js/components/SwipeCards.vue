@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <button @click="test()"></button>
     <div
       v-if="loading"
       class="loading-cards fixed fixed--center"
@@ -28,7 +29,11 @@
         :key="current.id"
       >
         <div style="height: 100%">
-          <img :src="`${current.image_url}`" :alt="current.name" class="rounded-borders" />
+          <img
+            :src="`${current.image_url}`"
+            :alt="current.name"
+            class="rounded-borders"
+          />
           <div class="text">
             <h2>
               <span>{{ current.name }}</span>
@@ -39,13 +44,17 @@
         </div>
       </Vue2InteractDraggable>
     </div>
-    <div v-if="next" class="rounded-borders card card--two fixed fixed--center" style="z-index: 2">
+    <div
+      v-if="next"
+      class="rounded-borders card card--two fixed fixed--center"
+      style="z-index: 2"
+    >
       <div style="height: 100%">
         <img :src="`${next.image_url}`" class="rounded-borders" />
         <div class="text">
           <h2>
-            {{ next.name }},
-            <span>{{ Number(next.distance).toFixed(1) }}</span>,
+            {{ next.name }}, <span>{{ Number(next.distance).toFixed(1) }}</span
+            >,
             <span>{{ next.price }}</span>
           </h2>
         </div>
@@ -71,6 +80,9 @@
 <script>
 import { Vue2InteractDraggable, InteractEventBus } from 'vue2-interact'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+
 const EVENTS = {
   MATCH: 'match',
   REJECT: 'reject'
@@ -103,7 +115,8 @@ export default {
     },
     next() {
       return this.businesses[this.index + 1]
-    }
+    },
+    ...mapGetters({ message: 'favorites/test1' })
   },
   methods: {
     getCurrentUser() {

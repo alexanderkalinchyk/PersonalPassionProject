@@ -1,19 +1,29 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
 import * as types from '../mutation-types'
 
 // state
 export const state = {
-  message: 'hello'
+  message: 'hello',
+  test1: '',
+  info: ''
 }
 
 // getters
 export const getters = {
-  message: state => state.message
+  message: state => state.message,
+  test: state => state.test1,
+  info: state => state.info
 }
 
 // mutations
-export const mutations = {}
+export const mutations = {
+  [types.SET_INFO] (state, { info }) {
+    state.info = info
+  }
+}
 
 // actions
-export const actions = {}
+export const actions = {
+  setInfo ({ commit }, { info }) {
+    commit(types.SET_LOCALE, { info })
+  }
+}

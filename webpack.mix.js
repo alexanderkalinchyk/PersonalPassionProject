@@ -48,6 +48,9 @@ function publishAseets () {
     fs.removeSync(path.join(publicDir, 'dist'))
   }
 
-  fs.copySync(path.join(publicDir, 'build', 'dist'), path.join(publicDir, 'dist'))
+  fs.copySync(
+    path.join(publicDir, 'build', 'dist'),
+    path.join(publicDir, 'dist')
+  )
   fs.removeSync(path.join(publicDir, 'build'))
 }
