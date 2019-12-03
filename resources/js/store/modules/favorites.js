@@ -24,6 +24,6 @@ export const mutations = {
 // actions
 export const actions = {
   setInfo ({ commit }, { info }) {
-    commit(types.SET_LOCALE, { info })
+    commit(types.SET_INFO, { info })
   }
 }

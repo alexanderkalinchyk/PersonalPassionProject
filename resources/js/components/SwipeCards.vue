@@ -81,7 +81,6 @@
 import { Vue2InteractDraggable, InteractEventBus } from 'vue2-interact'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
 
 const EVENTS = {
   MATCH: 'match',
@@ -116,9 +115,15 @@ export default {
     next() {
       return this.businesses[this.index + 1]
     },
-    ...mapGetters({ message: 'favorites/test1' })
+    ...mapGetters({ message: 'favorites/info' })
   },
   methods: {
+    test() {
+      this.$store.dispatch('favorites/setInfo', {
+        info: this.businesses[this.index].id
+      })
+      console.log(this.message)
+    },
     getCurrentUser() {
       axios.get('/api/user').then(response => {
         this.user = response.data
