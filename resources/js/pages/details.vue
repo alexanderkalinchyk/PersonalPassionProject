@@ -32,15 +32,60 @@
                 </button>
               </div>
               <h2>
-                <span>{{ details.name }}</span>
+                <span>{{ info.name }}</span>
                 <span>{{ Number(info.distance).toFixed(1) }} km away</span>
-                <span>$$$</span>
+                <span>{{ info.price }}</span>
               </h2>
+              <span
+                v-for="(address, index) in details.location.display_address"
+              >
+                {{ address }}<span v-if="index == 0">,</span>
+              </span>
+              <div>
+                <span v-for="category in details.categories">{{
+                  category.title
+                }}</span>
+              </div>
+              <table>
+                <tr v-if="details.hours.is_open_now == true">
+                  OPEN NOW
+                </tr>
+                <tr v-for="hour in details.hours[0].open">
+                  <td>{{ hour.day }}</td>
+                  <td>{{ hour.start }}</td>
+                  <td>{{ hour.end }}</td>
+                </tr>
+              </table>
+
+              <div>
+                <a :href="details.url" target="_blank">Visit website</a>
+                Call:
+                <button>{{ details.display_phone }}</button>
+                <div v-if="details.messaging">
+                  message business:
+                  <a :href="details.messaging.url" target="_blank">{{
+                    details.messaging.use_case_text
+                  }}</a>
+                </div>
+              </div>
+              <div>
+                <span v-for="coordinate in details.coordinates">
+                  {{ coordinate }}
+                </span>
+                <button>navigate</button>
+              </div>
+
+              <div>
+                <h3>Rating</h3>
+                <span>{{ details.rating }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <button @click="test()" v-html="this.info"></button>
+      <div v-html="this.info"></div>
+      <br />
+      <div v-html="this.details"></div>
     </section>
   </div>
 </template>
@@ -80,9 +125,6 @@ export default {
     this.getBusinesses()
   },
   methods: {
-    test() {
-      console.log('info', this.info)
-    },
     SendData(message) {
       this.messageson = message
     },
