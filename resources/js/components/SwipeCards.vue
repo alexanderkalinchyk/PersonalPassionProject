@@ -120,7 +120,7 @@ export default {
   methods: {
     test() {
       this.$store.dispatch('favorites/setInfo', {
-        info: this.businesses[this.index].id
+        info: this.businesses[this.index]
       })
       console.log(this.message)
     },

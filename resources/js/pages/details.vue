@@ -21,7 +21,7 @@
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
             <img
-              :src="`${details.image_url}`"
+              :src="info.image_url"
               :alt="details.name"
               class="rounded-borders"
             />
@@ -33,14 +33,14 @@
               </div>
               <h2>
                 <span>{{ details.name }}</span>
-                <span>{{ details.distance }} km away</span>
+                <span>{{ Number(info.distance).toFixed(1) }} km away</span>
                 <span>$$$</span>
               </h2>
             </div>
           </div>
         </div>
       </div>
-      <p v-html="details"></p>
+      <button @click="test()" v-html="this.info"></button>
     </section>
   </div>
 </template>
@@ -48,6 +48,7 @@
 <script>
 import FavoriteList from '../components/FavoriteList'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   name: 'favorite_details',
   components: {
@@ -64,6 +65,9 @@ export default {
       loading: true
     }
   },
+  computed: mapGetters({
+    info: 'favorites/info'
+  }),
   watch: {
     $route(to, from) {
       console.log('new route')
@@ -76,6 +80,9 @@ export default {
     this.getBusinesses()
   },
   methods: {
+    test() {
+      console.log('info', this.info)
+    },
     SendData(message) {
       this.messageson = message
     },

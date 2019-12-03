@@ -5,46 +5,48 @@
     <p v-if="loading">Loading...</p>
     <article
       v-if="messageson != ''"
-      v-for="message in messageson.slice().reverse()"
+      v-for="(message, index) in messageson"
       :key="message.id"
       class="favorite-item"
     >
       <div class="item-img">
         <img :src="message.image_url" :alt="message.name" />
       </div>
-      <h3>{{message.name}}</h3>
+      <h3>{{ message.name }}</h3>
       <p>
-        {{Number(message.distance).toFixed(1)}} km -
-        <span>{{message.price}}</span>
+        {{ Number(message.distance).toFixed(1) }} km -
+        <span>{{ message.price }}</span>
       </p>
       <router-link
-        :to="{ path: `/details/${message.business_id}`}"
+        :to="{ path: `/details/${message.business_id}` }"
         class="btn btn-primary"
         active-class="active"
-      >More Info</router-link>
+        ><span @click="storeInfoFront(index)">More Info</span></router-link
+      >
       <br />
       <br />
       <button @click="showData" class="btn btn-info">Invite Friends</button>
     </article>
     <article
       v-if="!loading"
-      v-for="item in favoriteItems.slice().reverse()"
+      v-for="(item, index) in favoriteItems"
       :key="item.id"
       class="favorite-item"
     >
       <div class="item-img">
         <img :src="item.image_url" :alt="item.name" />
       </div>
-      <h3>{{item.name}}</h3>
+      <h3>{{ item.name }}</h3>
       <p>
-        {{item.distance}} km -
-        <span>{{item.price}}</span>
+        {{ item.distance }} km -
+        <span>{{ item.price }}</span>
       </p>
       <router-link
-        :to="{ path: `/details/${item.business_id}`}"
+        :to="{ path: `/details/${item.business_id}` }"
         class="btn btn-primary"
         active-class="active"
-      >More Info</router-link>
+        ><span @click="storeInfoBack(index)">More Info</span></router-link
+      >
       <!--  <button @click="moreInfo(item.business_id)"></button> -->
       <br />
       <br />
@@ -69,7 +71,8 @@ export default {
     }
   },
   computed: mapGetters({
-    user: 'auth/user'
+    user: 'auth/user',
+    info: 'favorites/info'
   }),
   mounted() {
     //console.log(this.user.id)
@@ -81,6 +84,20 @@ export default {
       .finally(() => (this.loading = false))
   },
   methods: {
+    storeInfoBack(index) {
+      console.log('favorite items', this.favoriteItems[index])
+      this.$store.dispatch('favorites/setInfo', {
+        info: this.favoriteItems[index]
+      })
+      console.log('info', this.info)
+    },
+    storeInfoFront(index) {
+      console.log('favorite items', this.messageson[index])
+      this.$store.dispatch('favorites/setInfo', {
+        info: this.messageson[index]
+      })
+      console.log('info', this.info)
+    },
     showData() {
       console.log(this.favoriteItems)
     },
