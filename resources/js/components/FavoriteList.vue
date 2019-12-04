@@ -14,7 +14,7 @@
       </div>
       <h3>{{ message.name }}</h3>
       <p>
-        {{ Number(message.distance).toFixed(1) }} km -
+        {{ Number(message.distance).toFixed(1) }}m -
         <span>{{ message.price }}</span>
       </p>
       <router-link
@@ -39,7 +39,7 @@
       </div>
       <h3>{{ item.name }}</h3>
       <p>
-        {{ item.distance }} km -
+        {{ item.distance }} m -
         <span>{{ item.price }}</span>
       </p>
       <router-link

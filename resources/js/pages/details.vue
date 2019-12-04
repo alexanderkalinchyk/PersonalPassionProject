@@ -25,12 +25,12 @@
               </div>
               <h2 v-if="info">
                 <span>{{ info.name }}</span>
-                <span>{{ Number(info.distance).toFixed(1) }} km away</span>
+                <span>{{ Number(info.distance).toFixed(1) }}m away</span>
                 <span>{{ info.price }}</span>
               </h2>
               <h2 v-else>
                 <span>{{ detailsLocal.name }}</span>
-                <span>{{ Number(detailsLocal.distance).toFixed(1) }} km away</span>
+                <span>{{ Number(detailsLocal.distance).toFixed(1) }}m away</span>
                 <span>{{ detailsLocal.price }}</span>
               </h2>
               <span v-for="(address, index) in details.location.display_address">
