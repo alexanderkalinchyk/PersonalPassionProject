@@ -21,8 +21,9 @@
         :to="{ path: `/details/${message.business_id}` }"
         class="btn btn-primary"
         active-class="active"
-        ><span @click="storeInfoFront(index)">More Info</span></router-link
       >
+        <span @click="storeInfoFront(index)">More Info</span>
+      </router-link>
       <br />
       <br />
       <button @click="showData" class="btn btn-info">Invite Friends</button>
@@ -45,8 +46,9 @@
         :to="{ path: `/details/${item.business_id}` }"
         class="btn btn-primary"
         active-class="active"
-        ><span @click="storeInfoBack(index)">More Info</span></router-link
       >
+        <span @click="storeInfoBack(index)">More Info</span>
+      </router-link>
       <!--  <button @click="moreInfo(item.business_id)"></button> -->
       <br />
       <br />
@@ -85,18 +87,18 @@ export default {
   },
   methods: {
     storeInfoBack(index) {
-      console.log('favorite items', this.favoriteItems[index])
+      //console.log('favorite items', this.favoriteItems[index])
       this.$store.dispatch('favorites/setInfo', {
         info: this.favoriteItems[index]
       })
-      console.log('info', this.info)
+      //console.log('info', this.info)
     },
     storeInfoFront(index) {
       console.log('favorite items', this.messageson[index])
       this.$store.dispatch('favorites/setInfo', {
         info: this.messageson[index]
       })
-      console.log('info', this.info)
+      //console.log('info', this.info)
     },
     showData() {
       console.log(this.favoriteItems)

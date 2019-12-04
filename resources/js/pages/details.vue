@@ -1,12 +1,7 @@
 <template>
   <div class="details">
     <div>
-      <router-link
-        :to="{ name: 'swipe' }"
-        class="btn-primary"
-        active-class="active"
-        >Back</router-link
-      >
+      <router-link :to="{ name: 'swipe' }" class="btn-primary" active-class="active">Back</router-link>
     </div>
     <FavoriteList :messageson="messageson" />
     <section class="container">
@@ -20,36 +15,37 @@
       <div v-if="!loading" class="loading-cards fixed fixed--center">
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img
-              :src="info.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
+            <img v-if="info" :src="info.image_url" :alt="details.name" class="rounded-borders" />
+            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
             <div class="text">
               <div class="thumbnails">
                 <button v-for="photo in details.photos">
                   <img :src="photo" :alt="details.name" />
                 </button>
               </div>
-              <h2>
+              <h2 v-if="info">
                 <span>{{ info.name }}</span>
                 <span>{{ Number(info.distance).toFixed(1) }} km away</span>
                 <span>{{ info.price }}</span>
               </h2>
-              <span
-                v-for="(address, index) in details.location.display_address"
-              >
-                {{ address }}<span v-if="index == 0">,</span>
+              <h2 v-else>
+                <span>{{ detailsLocal.name }}</span>
+                <span>{{ Number(detailsLocal.distance).toFixed(1) }} km away</span>
+                <span>{{ detailsLocal.price }}</span>
+              </h2>
+              <span v-for="(address, index) in details.location.display_address">
+                {{ address }}
+                <span v-if="index == 0">,</span>
               </span>
               <div>
-                <span v-for="category in details.categories">{{
+                <span v-for="category in details.categories">
+                  {{
                   category.title
-                }}</span>
+                  }}
+                </span>
               </div>
               <table>
-                <tr v-if="details.hours.is_open_now == true">
-                  OPEN NOW
-                </tr>
+                <tr v-if="details.hours.is_open_now == true">OPEN NOW</tr>
                 <tr v-for="hour in details.hours[0].open">
                   <td>{{ hour.day }}</td>
                   <td>{{ hour.start }}</td>
@@ -63,15 +59,15 @@
                 <button>{{ details.display_phone }}</button>
                 <div v-if="details.messaging">
                   message business:
-                  <a :href="details.messaging.url" target="_blank">{{
+                  <a :href="details.messaging.url" target="_blank">
+                    {{
                     details.messaging.use_case_text
-                  }}</a>
+                    }}
+                  </a>
                 </div>
               </div>
               <div>
-                <span v-for="coordinate in details.coordinates">
-                  {{ coordinate }}
-                </span>
+                <span v-for="coordinate in details.coordinates">{{ coordinate }}</span>
                 <button>navigate</button>
               </div>
 
@@ -83,9 +79,6 @@
           </div>
         </div>
       </div>
-      <div v-html="this.info"></div>
-      <br />
-      <div v-html="this.details"></div>
     </section>
   </div>
 </template>
@@ -105,9 +98,9 @@ export default {
   data() {
     return {
       messageson: [],
-      welcome: 'This is your profile',
       details: [],
-      loading: true
+      loading: true,
+      detailsLocal: ''
     }
   },
   computed: mapGetters({
@@ -117,24 +110,59 @@ export default {
     $route(to, from) {
       console.log('new route')
       this.getBusinesses()
+      this.storeLocaldata()
     }
   },
   mounted() {
-    console.log('mounted')
-    console.log(this.$route.params)
+    //console.log('mounted')
+    //console.log(this.$route.params)
     this.getBusinesses()
+    this.storeLocaldata()
   },
   methods: {
+    storeLocaldata() {
+      var retrievedObject
+      if (this.info) {
+        localStorage.setItem('detailsObject', JSON.stringify(this.info))
+        retrievedObject = localStorage.getItem('detailsObject')
+        //   console.log('retrieved', JSON.parse(retrievedObject))
+      } else {
+        retrievedObject = localStorage.getItem('detailsObject')
+        this.detailsLocal = JSON.parse(retrievedObject)
+        //  console.log('else retrieved', JSON.parse(retrievedObject))
+        //   console.log('info1', this.detailsLocal)
+      }
+    },
     SendData(message) {
       this.messageson = message
     },
     getBusinesses() {
-      console.log('id', this.$route.params.id)
-      axios
-        .get(`/api/businesses/${this.$route.params.id}`)
-        //.then(response => console.log(response))
-        .then(response => (this.details = response.data))
-        .finally(() => (this.loading = false))
+      // console.log('id', this.$route.params.id)
+      if (localStorage.getItem(`${this.$route.params.id}`) == null) {
+        console.log(localStorage.getItem(`${this.$route.params.id}`))
+        axios
+          .get(`/api/businesses/${this.$route.params.id}`)
+          //.then(response => console.log('response data', response.data))
+          .then(response => {
+            this.details = response.data
+            localStorage.setItem(
+              `${this.$route.params.id}`,
+              JSON.stringify(this.details)
+            )
+            console.log(
+              'localstorage get',
+              JSON.parse(localStorage.getItem(`${this.$route.params.id}`))
+            )
+          })
+          .finally(() => (this.loading = false))
+      } else {
+        console.log('else')
+        //console.log('id', this.$route.params.id)
+        this.details = JSON.parse(
+          localStorage.getItem(`${this.$route.params.id}`)
+        )
+        this.loading = false
+      }
     }
   }
 }
