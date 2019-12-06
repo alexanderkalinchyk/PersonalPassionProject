@@ -4,31 +4,6 @@
     <button class="btn btn-primary">Cant Decide?</button>
     <p v-if="loading">Loading...</p>
     <article
-      v-if="messageson != ''"
-      v-for="(message, index) in messageson"
-      :key="message.id"
-      class="favorite-item"
-    >
-      <div class="item-img">
-        <img :src="message.image_url" :alt="message.name" />
-      </div>
-      <h3>{{ message.name }}</h3>
-      <p>
-        {{ Number(message.distance).toFixed(1) }}m -
-        <span>{{ message.price }}</span>
-      </p>
-      <router-link
-        :to="{ path: `/details/${message.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoFront(index)">More Info</span>
-      </router-link>
-      <br />
-      <br />
-      <button @click="showData" class="btn btn-info">Invite Friends</button>
-    </article>
-    <article
       v-if="!loading"
       v-for="(item, index) in favoriteItems"
       :key="item.id"
@@ -53,6 +28,37 @@
       <br />
       <br />
       <button @click="showData" class="btn btn-info">Invite Friends</button>
+      <br />
+      <br />
+      <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
+    </article>
+    <article
+      v-if="messageson != ''"
+      v-for="(message, index) in messageson"
+      :key="message.id"
+      class="favorite-item"
+    >
+      <div class="item-img">
+        <img :src="message.image_url" :alt="message.name" />
+      </div>
+      <h3>{{ message.name }}</h3>
+      <p>
+        {{ Number(message.distance).toFixed(1) }}m -
+        <span>{{ message.price }}</span>
+      </p>
+      <router-link
+        :to="{ path: `/details/${message.business_id}` }"
+        class="btn btn-primary"
+        active-class="active"
+      >
+        <span @click="storeInfoFront(index)">More Info</span>
+      </router-link>
+      <br />
+      <br />
+      <button @click="showData" class="btn btn-info">Invite Friends</button>
+      <br />
+      <br />
+      <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
   </section>
 </template>
@@ -105,6 +111,12 @@ export default {
     },
     moreInfo(id) {
       console.log(id)
+    },
+    deleteFavorite(id, index) {
+      console.log('deleting', id, index)
+      this.favoriteItems.splice(index, 1)
+      this.messageson.splice(index, 1)
+      axios.post(`/api/favorites/delete/${id}`)
     }
   }
 }

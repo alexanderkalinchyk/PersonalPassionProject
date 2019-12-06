@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('favorites', 'Favorites\FavoriteController@store');
     Route::get('favorites', 'Favorites\FavoriteController@show');
     Route::get('favorites/{id}', 'Favorites\FavoriteController@showbyuserid');
+    Route::post('favorites/delete/{id}', 'Favorites\FavoriteController@destroy');
 
     Route::post('offset/{id}', 'Offset\OffsetController@updatebyuserid');
     Route::get('offset/get/{id}', 'Offset\OffsetController@offsetbyuserid');

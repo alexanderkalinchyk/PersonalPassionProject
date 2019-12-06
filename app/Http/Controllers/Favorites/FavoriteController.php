@@ -87,7 +87,7 @@ class FavoriteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            //
     }
 
     /**
@@ -98,6 +98,7 @@ class FavoriteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deletedFavorites = DB::table('favorites')->where('business_id', $id)->delete();
+        return response()->json($deletedFavorites);
     }
 }
