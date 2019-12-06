@@ -57,6 +57,156 @@
         </div>
       </div>
 
+      <!-- Location -->
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label text-md-right">{{
+          $t('categories')
+        }}</label>
+        <div class="col-md-7">
+          <div class="container">
+            <ul class="ks-cboxtags">
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxOne"
+                  value="coffee"
+                  v-model="checkedCategories"
+                /><label for="checkboxOne">Coffee & Tea</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxTwo"
+                  value="desserts"
+                  v-model="checkedCategories"
+                /><label for="checkboxTwo">Desserts</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxThree"
+                  value="meats"
+                  v-model="checkedCategories"
+                /><label for="checkboxThree">Meat</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxFour"
+                  value="seafoodmarkets"
+                  v-model="checkedCategories"
+                /><label for="checkboxFour">Seafood</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxFive"
+                  value="bars"
+                  v-model="checkedCategories"
+                /><label for="checkboxFive">Bars</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxSix"
+                  value="restaurants"
+                  v-model="checkedCategories"
+                /><label for="checkboxSix">Restaurants (all)</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxEight"
+                  value="french"
+                  v-model="checkedCategories"
+                /><label for="checkboxEight">French</label>
+              </li>
+              <li class="ks-selected">
+                <input
+                  type="checkbox"
+                  id="checkboxEleven"
+                  value="chinese"
+                  v-model="checkedCategories"
+                /><label for="checkboxEleven">Chinese</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxSeven"
+                  value="asianfusion"
+                  v-model="checkedCategories"
+                /><label for="checkboxSeven">Asian Fusion</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxNine"
+                  value="indpak"
+                  v-model="checkedCategories"
+                /><label for="checkboxNine">Indian</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxTen"
+                  value="italian"
+                  v-model="checkedCategories"
+                /><label for="checkboxTen">Italian</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxFourteen"
+                  value="thai"
+                  v-model="checkedCategories"
+                /><label for="checkboxFourteen">Thai</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxTwelve"
+                  value="japanese"
+                  v-model="checkedCategories"
+                /><label for="checkboxTwelve">Japanese</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxThirteen"
+                  value="mexican"
+                  v-model="checkedCategories"
+                /><label for="checkboxThirteen">Mexican</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxSeventeen"
+                  value="turkish"
+                  v-model="checkedCategories"
+                /><label for="checkboxSeventeen">Turkish</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxFifteen"
+                  value="mideastern"
+                  v-model="checkedCategories"
+                /><label for="checkboxFifteen">Middle Eastern</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="checkboxSixteen"
+                  value="russian"
+                  v-model="checkedCategories"
+                /><label for="checkboxSixteen">Russian</label>
+              </li>
+            </ul>
+            <span>{{ checkedCategories }}</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
@@ -81,9 +231,398 @@ export default {
   },
 
   data: () => ({
+    message: 'Toggle',
     location: null,
     gettingLocation: false,
     errorStr: null,
+    checkedCategories: [],
+    city_names: [
+      'Aberdeen',
+      'Abilene',
+      'Akron',
+      'Albany',
+      'Albuquerque',
+      'Alexandria',
+      'Allentown',
+      'Amarillo',
+      'Anaheim',
+      'Anchorage',
+      'Ann Arbor',
+      'Antioch',
+      'Apple Valley',
+      'Appleton',
+      'Arlington',
+      'Arvada',
+      'Asheville',
+      'Athens',
+      'Atlanta',
+      'Atlantic City',
+      'Augusta',
+      'Aurora',
+      'Austin',
+      'Bakersfield',
+      'Baltimore',
+      'Barnstable',
+      'Baton Rouge',
+      'Beaumont',
+      'Bel Air',
+      'Bellevue',
+      'Berkeley',
+      'Bethlehem',
+      'Billings',
+      'Birmingham',
+      'Bloomington',
+      'Boise',
+      'Boise City',
+      'Bonita Springs',
+      'Boston',
+      'Boulder',
+      'Bradenton',
+      'Bremerton',
+      'Bridgeport',
+      'Brighton',
+      'Brownsville',
+      'Bryan',
+      'Buffalo',
+      'Burbank',
+      'Burlington',
+      'Cambridge',
+      'Canton',
+      'Cape Coral',
+      'Carrollton',
+      'Cary',
+      'Cathedral City',
+      'Cedar Rapids',
+      'Champaign',
+      'Chandler',
+      'Charleston',
+      'Charlotte',
+      'Chattanooga',
+      'Chesapeake',
+      'Chicago',
+      'Chula Vista',
+      'Cincinnati',
+      'Clarke County',
+      'Clarksville',
+      'Clearwater',
+      'Cleveland',
+      'College Station',
+      'Colorado Springs',
+      'Columbia',
+      'Columbus',
+      'Concord',
+      'Coral Springs',
+      'Corona',
+      'Corpus Christi',
+      'Costa Mesa',
+      'Dallas',
+      'Daly City',
+      'Danbury',
+      'Davenport',
+      'Davidson County',
+      'Dayton',
+      'Daytona Beach',
+      'Deltona',
+      'Denton',
+      'Denver',
+      'Des Moines',
+      'Detroit',
+      'Downey',
+      'Duluth',
+      'Durham',
+      'El Monte',
+      'El Paso',
+      'Elizabeth',
+      'Elk Grove',
+      'Elkhart',
+      'Erie',
+      'Escondido',
+      'Eugene',
+      'Evansville',
+      'Fairfield',
+      'Fargo',
+      'Fayetteville',
+      'Fitchburg',
+      'Flint',
+      'Fontana',
+      'Fort Collins',
+      'Fort Lauderdale',
+      'Fort Smith',
+      'Fort Walton Beach',
+      'Fort Wayne',
+      'Fort Worth',
+      'Frederick',
+      'Fremont',
+      'Fresno',
+      'Fullerton',
+      'Gainesville',
+      'Garden Grove',
+      'Garland',
+      'Gastonia',
+      'Gilbert',
+      'Glendale',
+      'Grand Prairie',
+      'Grand Rapids',
+      'Grayslake',
+      'Green Bay',
+      'GreenBay',
+      'Greensboro',
+      'Greenville',
+      'Gulfport-Biloxi',
+      'Hagerstown',
+      'Hampton',
+      'Harlingen',
+      'Harrisburg',
+      'Hartford',
+      'Havre de Grace',
+      'Hayward',
+      'Hemet',
+      'Henderson',
+      'Hesperia',
+      'Hialeah',
+      'Hickory',
+      'High Point',
+      'Hollywood',
+      'Honolulu',
+      'Houma',
+      'Houston',
+      'Howell',
+      'Huntington',
+      'Huntington Beach',
+      'Huntsville',
+      'Independence',
+      'Indianapolis',
+      'Inglewood',
+      'Irvine',
+      'Irving',
+      'Jackson',
+      'Jacksonville',
+      'Jefferson',
+      'Jersey City',
+      'Johnson City',
+      'Joliet',
+      'Kailua',
+      'Kalamazoo',
+      'Kaneohe',
+      'Kansas City',
+      'Kennewick',
+      'Kenosha',
+      'Killeen',
+      'Kissimmee',
+      'Knoxville',
+      'Lacey',
+      'Lafayette',
+      'Lake Charles',
+      'Lakeland',
+      'Lakewood',
+      'Lancaster',
+      'Lansing',
+      'Laredo',
+      'Las Cruces',
+      'Las Vegas',
+      'Layton',
+      'Leominster',
+      'Lewisville',
+      'Lexington',
+      'Lincoln',
+      'Little Rock',
+      'Long Beach',
+      'Lorain',
+      'Los Angeles',
+      'Louisville',
+      'Lowell',
+      'Lubbock',
+      'Macon',
+      'Madison',
+      'Manchester',
+      'Marina',
+      'Marysville',
+      'McAllen',
+      'McHenry',
+      'Medford',
+      'Melbourne',
+      'Memphis',
+      'Merced',
+      'Mesa',
+      'Mesquite',
+      'Miami',
+      'Milwaukee',
+      'Minneapolis',
+      'Miramar',
+      'Mission Viejo',
+      'Mobile',
+      'Modesto',
+      'Monroe',
+      'Monterey',
+      'Montgomery',
+      'Moreno Valley',
+      'Murfreesboro',
+      'Murrieta',
+      'Muskegon',
+      'Myrtle Beach',
+      'Naperville',
+      'Naples',
+      'Nashua',
+      'Nashville',
+      'New Bedford',
+      'New Haven',
+      'New London',
+      'New Orleans',
+      'New York',
+      'New York City',
+      'Newark',
+      'Newburgh',
+      'Newport News',
+      'Norfolk',
+      'Normal',
+      'Norman',
+      'North Charleston',
+      'North Las Vegas',
+      'North Port',
+      'Norwalk',
+      'Norwich',
+      'Oakland',
+      'Ocala',
+      'Oceanside',
+      'Odessa',
+      'Ogden',
+      'Oklahoma City',
+      'Olathe',
+      'Olympia',
+      'Omaha',
+      'Ontario',
+      'Orange',
+      'Orem',
+      'Orlando',
+      'Overland Park',
+      'Oxnard',
+      'Palm Bay',
+      'Palm Springs',
+      'Palmdale',
+      'Panama City',
+      'Pasadena',
+      'Paterson',
+      'Pembroke Pines',
+      'Pensacola',
+      'Peoria',
+      'Philadelphia',
+      'Phoenix',
+      'Pittsburgh',
+      'Plano',
+      'Pomona',
+      'Pompano Beach',
+      'Port Arthur',
+      'Port Orange',
+      'Port Saint Lucie',
+      'Port St. Lucie',
+      'Portland',
+      'Portsmouth',
+      'Poughkeepsie',
+      'Providence',
+      'Provo',
+      'Pueblo',
+      'Punta Gorda',
+      'Racine',
+      'Raleigh',
+      'Rancho Cucamonga',
+      'Reading',
+      'Redding',
+      'Reno',
+      'Richland',
+      'Richmond',
+      'Richmond County',
+      'Riverside',
+      'Roanoke',
+      'Rochester',
+      'Rockford',
+      'Roseville',
+      'Round Lake Beach',
+      'Sacramento',
+      'Saginaw',
+      'Saint Louis',
+      'Saint Paul',
+      'Saint Petersburg',
+      'Salem',
+      'Salinas',
+      'Salt Lake City',
+      'San Antonio',
+      'San Bernardino',
+      'San Buenaventura',
+      'San Diego',
+      'San Francisco',
+      'San Jose',
+      'Santa Ana',
+      'Santa Barbara',
+      'Santa Clara',
+      'Santa Clarita',
+      'Santa Cruz',
+      'Santa Maria',
+      'Santa Rosa',
+      'Sarasota',
+      'Savannah',
+      'Scottsdale',
+      'Scranton',
+      'Seaside',
+      'Seattle',
+      'Sebastian',
+      'Shreveport',
+      'Simi Valley',
+      'Sioux City',
+      'Sioux Falls',
+      'South Bend',
+      'South Lyon',
+      'Spartanburg',
+      'Spokane',
+      'Springdale',
+      'Springfield',
+      'St. Louis',
+      'St. Paul',
+      'St. Petersburg',
+      'Stamford',
+      'Sterling Heights',
+      'Stockton',
+      'Sunnyvale',
+      'Syracuse',
+      'Tacoma',
+      'Tallahassee',
+      'Tampa',
+      'Temecula',
+      'Tempe',
+      'Thornton',
+      'Thousand Oaks',
+      'Toledo',
+      'Topeka',
+      'Torrance',
+      'Trenton',
+      'Tucson',
+      'Tulsa',
+      'Tuscaloosa',
+      'Tyler',
+      'Utica',
+      'Vallejo',
+      'Vancouver',
+      'Vero Beach',
+      'Victorville',
+      'Virginia Beach',
+      'Visalia',
+      'Waco',
+      'Warren',
+      'Washington',
+      'Waterbury',
+      'Waterloo',
+      'West Covina',
+      'West Valley City',
+      'Westminster',
+      'Wichita',
+      'Wilmington',
+      'Winston',
+      'Winter Haven',
+      'Worcester',
+      'Yakima',
+      'Yonkers',
+      'York',
+      'Youngstown'
+    ],
     form: new Form({
       range: '',
       location: ''
@@ -101,12 +640,17 @@ export default {
     })
     this.form.range = 10000
   },
-
+  watch: {
+    checkedCategories: function() {
+      console.log(this.checkedCategories)
+    }
+  },
   methods: {
     async update() {
-      const { data } = await this.form.patch('/api/settings/profile')
-
-      this.$store.dispatch('auth/updateUser', { user: data })
+      console.log(this.checkedCategories)
+      console.log(this.form)
+      //const { data } = await this.form.patch('/api/settings/profile')
+      //this.$store.dispatch('auth/updateUser', { user: data })
     },
     getLocation() {
       /*
@@ -153,5 +697,52 @@ export default {
   &:disabled {
     color: grey;
   }
+}
+
+ul.ks-cboxtags {
+  list-style: none;
+  padding: 20px;
+}
+ul.ks-cboxtags li {
+  display: inline;
+}
+ul.ks-cboxtags li label {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(139, 139, 139, 0.3);
+  color: #adadad;
+  border-radius: 25px;
+  white-space: nowrap;
+  margin: 3px 0px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+}
+
+ul.ks-cboxtags li label {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+ul.ks-cboxtags li input[type='checkbox']:checked + label {
+  border: 2px solid #1bdbf8;
+  background-color: #12bbd4;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+ul.ks-cboxtags li input[type='checkbox'] {
+  display: absolute;
+}
+ul.ks-cboxtags li input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+}
+ul.ks-cboxtags li input[type='checkbox']:focus + label {
+  border: 2px solid #e9a1ff;
 }
 </style>
