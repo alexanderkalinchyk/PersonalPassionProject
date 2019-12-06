@@ -33,14 +33,14 @@ export default {
     tabs() {
       return [
         {
-          icon: 'cog',
-          name: this.$t('preferences'),
-          route: 'settings.preferences'
-        },
-        {
           icon: 'user',
           name: this.$t('profile'),
           route: 'settings.profile'
+        },
+        {
+          icon: 'cog',
+          name: this.$t('preferences'),
+          route: 'settings.preferences'
         },
         {
           icon: 'lock',
