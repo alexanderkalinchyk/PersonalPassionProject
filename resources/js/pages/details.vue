@@ -1,7 +1,12 @@
 <template>
   <div class="details">
     <div>
-      <router-link :to="{ name: 'swipe' }" class="btn-primary" active-class="active">Back</router-link>
+      <router-link
+        :to="{ name: 'swipe' }"
+        class="btn-primary"
+        active-class="active"
+        >Back</router-link
+      >
     </div>
     <FavoriteList :messageson="messageson" />
     <section class="container">
@@ -15,8 +20,18 @@
       <div v-if="!loading" class="loading-cards fixed fixed--center">
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img v-if="info" :src="info.image_url" :alt="details.name" class="rounded-borders" />
-            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
+            <img
+              v-if="info"
+              :src="details.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
+            <img
+              v-else
+              :src="detailsLocal.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
             <div class="text">
               <div class="thumbnails">
                 <button v-for="photo in details.photos">
@@ -24,28 +39,32 @@
                 </button>
               </div>
               <h2 v-if="info">
-                <span>{{ info.name }}</span>
+                <span>{{ details.name }}</span>
                 <span>{{ Number(info.distance).toFixed(1) }}m away</span>
-                <span>{{ info.price }}</span>
+                <span>{{ details.price }}</span>
               </h2>
               <h2 v-else>
                 <span>{{ detailsLocal.name }}</span>
-                <span>{{ Number(detailsLocal.distance).toFixed(1) }}m away</span>
+                <span
+                  >{{ Number(detailsLocal.distance).toFixed(1) }}m away</span
+                >
                 <span>{{ detailsLocal.price }}</span>
               </h2>
-              <span v-for="(address, index) in details.location.display_address">
+              <span
+                v-for="(address, index) in details.location.display_address"
+              >
                 {{ address }}
                 <span v-if="index == 0">,</span>
               </span>
               <div>
                 <span v-for="category in details.categories">
-                  {{
-                  category.title
-                  }}
+                  {{ category.title }}
                 </span>
               </div>
               <table>
-                <tr v-if="details.hours.is_open_now == true">OPEN NOW</tr>
+                <tr v-if="details.hours.is_open_now == true">
+                  OPEN NOW
+                </tr>
                 <tr v-for="hour in details.hours[0].open">
                   <td>{{ hour.day }}</td>
                   <td>{{ hour.start }}</td>
@@ -60,14 +79,14 @@
                 <div v-if="details.messaging">
                   message business:
                   <a :href="details.messaging.url" target="_blank">
-                    {{
-                    details.messaging.use_case_text
-                    }}
+                    {{ details.messaging.use_case_text }}
                   </a>
                 </div>
               </div>
               <div>
-                <span v-for="coordinate in details.coordinates">{{ coordinate }}</span>
+                <span v-for="coordinate in details.coordinates">{{
+                  coordinate
+                }}</span>
                 <button>navigate</button>
               </div>
 
@@ -121,15 +140,20 @@ export default {
   },
   methods: {
     storeLocaldata() {
+      //
+      // store data locally to show info after page refresh
+      // data stored: name, distance, image_url, price
+      //
       var retrievedObject
       if (this.info) {
         localStorage.setItem('detailsObject', JSON.stringify(this.info))
-        retrievedObject = localStorage.getItem('detailsObject')
+        console.log('hello?', this.info)
+        //retrievedObject = localStorage.getItem('detailsObject')
         //   console.log('retrieved', JSON.parse(retrievedObject))
       } else {
         retrievedObject = localStorage.getItem('detailsObject')
         this.detailsLocal = JSON.parse(retrievedObject)
-        //  console.log('else retrieved', JSON.parse(retrievedObject))
+        console.log('else retrieved', this.detailsLocal)
         //   console.log('info1', this.detailsLocal)
       }
     },
@@ -137,9 +161,10 @@ export default {
       this.messageson = message
     },
     getBusinesses() {
+      this.loading = true
       // console.log('id', this.$route.params.id)
       if (localStorage.getItem(`${this.$route.params.id}`) == null) {
-        console.log(localStorage.getItem(`${this.$route.params.id}`))
+        //console.log(localStorage.getItem(`${this.$route.params.id}`))
         axios
           .get(`/api/businesses/${this.$route.params.id}`)
           //.then(response => console.log('response data', response.data))
@@ -149,10 +174,8 @@ export default {
               `${this.$route.params.id}`,
               JSON.stringify(this.details)
             )
-            console.log(
-              'localstorage get',
-              JSON.parse(localStorage.getItem(`${this.$route.params.id}`))
-            )
+            this.loading = false
+            console.log('localstorage get')
           })
           .finally(() => (this.loading = false))
       } else {
