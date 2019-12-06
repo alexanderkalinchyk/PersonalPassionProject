@@ -1,5 +1,5 @@
 <template>
-  <card :title="$t('your_info')">
+  <card :title="$t('your_preferences')">
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
       <alert-success :form="form" :message="$t('info_updated')" />
 
@@ -34,15 +34,6 @@
             name="email"
           />
           <has-error :form="form" field="email" />
-        </div>
-      </div>
-      <!-- Gravatar -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">Gravatar</label>
-        <div class="col-md-7 flex-center">
-          <a href="https://en.gravatar.com/emails/" target="_blank">{{
-            $t('gravatar')
-          }}</a>
         </div>
       </div>
 
@@ -96,9 +87,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.flex-center {
-  display: flex;
-  align-items: center;
-}
-</style>

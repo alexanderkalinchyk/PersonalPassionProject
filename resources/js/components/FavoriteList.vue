@@ -30,7 +30,12 @@
       <button @click="showData" class="btn btn-info">Invite Friends</button>
       <br />
       <br />
-      <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
+      <button
+        @click="deleteFavorite(item.business_id, index)"
+        class="btn btn-danger"
+      >
+        Remove
+      </button>
     </article>
     <article
       v-if="messageson != ''"
@@ -58,7 +63,12 @@
       <button @click="showData" class="btn btn-info">Invite Friends</button>
       <br />
       <br />
-      <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
+      <button
+        @click="deleteFavorite(message.business_id, index)"
+        class="btn btn-danger"
+      >
+        Remove
+      </button>
     </article>
   </section>
 </template>
@@ -113,7 +123,7 @@ export default {
       console.log(id)
     },
     deleteFavorite(id, index) {
-      console.log('deleting', id, index)
+      //console.log('deleting', id, index)
       this.favoriteItems.splice(index, 1)
       this.messageson.splice(index, 1)
       axios.post(`/api/favorites/delete/${id}`)
