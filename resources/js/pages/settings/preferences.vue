@@ -5,9 +5,11 @@
 
       <!-- Range -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{
+        <label class="col-md-3 col-form-label text-md-right">
+          {{
           $t('range')
-        }}</label>
+          }}
+        </label>
         <div class="col-md-7 flex-center">
           <input
             v-model="form.range"
@@ -26,9 +28,11 @@
 
       <!-- Location -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{
+        <label class="col-md-3 col-form-label text-md-right">
+          {{
           $t('location')
-        }}</label>
+          }}
+        </label>
         <div class="col-md-7">
           <input
             v-model="form.location"
@@ -38,12 +42,8 @@
             name="location"
             placeholder="Enter your city"
           />
-          <button disabled @click="getLocation()" class="btn custom-btn">
-            Use my current location
-          </button>
-          <div v-if="errorStr">
-            Sorry, but the following error occurred: {{ errorStr }}
-          </div>
+          <button disabled @click="getLocation()" class="btn custom-btn">Use my current location</button>
+          <div v-if="errorStr">Sorry, but the following error occurred: {{ errorStr }}</div>
 
           <div v-if="gettingLocation">
             <i>Getting your location...</i>
@@ -59,19 +59,23 @@
 
       <!-- Location -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{
+        <label class="col-md-3 col-form-label text-md-right">
+          {{
           $t('categories')
-        }}</label>
+          }}
+        </label>
         <div class="col-md-7">
           <div class="container">
             <ul class="ks-cboxtags">
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxOne"
                   value="coffee"
                   v-model="checkedCategories"
-                /><label for="checkboxOne">Coffee & Tea</label>
+                />
+                <label for="checkboxOne">Coffee & Tea</label>
               </li>
               <li>
                 <input
@@ -79,15 +83,12 @@
                   id="checkboxTwo"
                   value="desserts"
                   v-model="checkedCategories"
-                /><label for="checkboxTwo">Desserts</label>
+                />
+                <label for="checkboxTwo">Desserts</label>
               </li>
               <li>
-                <input
-                  type="checkbox"
-                  id="checkboxThree"
-                  value="meats"
-                  v-model="checkedCategories"
-                /><label for="checkboxThree">Meat</label>
+                <input type="checkbox" id="checkboxThree" value="meats" v-model="checkedCategories" />
+                <label for="checkboxThree">Meat</label>
               </li>
               <li>
                 <input
@@ -95,15 +96,12 @@
                   id="checkboxFour"
                   value="seafoodmarkets"
                   v-model="checkedCategories"
-                /><label for="checkboxFour">Seafood</label>
+                />
+                <label for="checkboxFour">Seafood</label>
               </li>
               <li>
-                <input
-                  type="checkbox"
-                  id="checkboxFive"
-                  value="bars"
-                  v-model="checkedCategories"
-                /><label for="checkboxFive">Bars</label>
+                <input type="checkbox" id="checkboxFive" value="bars" v-model="checkedCategories" />
+                <label for="checkboxFive">Bars</label>
               </li>
               <li>
                 <input
@@ -111,7 +109,8 @@
                   id="checkboxSix"
                   value="restaurants"
                   v-model="checkedCategories"
-                /><label for="checkboxSix">Restaurants (all)</label>
+                />
+                <label for="checkboxSix">Restaurants (all)</label>
               </li>
               <li>
                 <input
@@ -119,7 +118,8 @@
                   id="checkboxEight"
                   value="french"
                   v-model="checkedCategories"
-                /><label for="checkboxEight">French</label>
+                />
+                <label for="checkboxEight">French</label>
               </li>
               <li class="ks-selected">
                 <input
@@ -127,7 +127,8 @@
                   id="checkboxEleven"
                   value="chinese"
                   v-model="checkedCategories"
-                /><label for="checkboxEleven">Chinese</label>
+                />
+                <label for="checkboxEleven">Chinese</label>
               </li>
               <li>
                 <input
@@ -135,23 +136,16 @@
                   id="checkboxSeven"
                   value="asianfusion"
                   v-model="checkedCategories"
-                /><label for="checkboxSeven">Asian Fusion</label>
+                />
+                <label for="checkboxSeven">Asian Fusion</label>
               </li>
               <li>
-                <input
-                  type="checkbox"
-                  id="checkboxNine"
-                  value="indpak"
-                  v-model="checkedCategories"
-                /><label for="checkboxNine">Indian</label>
+                <input type="checkbox" id="checkboxNine" value="indpak" v-model="checkedCategories" />
+                <label for="checkboxNine">Indian</label>
               </li>
               <li>
-                <input
-                  type="checkbox"
-                  id="checkboxTen"
-                  value="italian"
-                  v-model="checkedCategories"
-                /><label for="checkboxTen">Italian</label>
+                <input type="checkbox" id="checkboxTen" value="italian" v-model="checkedCategories" />
+                <label for="checkboxTen">Italian</label>
               </li>
               <li>
                 <input
@@ -159,7 +153,8 @@
                   id="checkboxFourteen"
                   value="thai"
                   v-model="checkedCategories"
-                /><label for="checkboxFourteen">Thai</label>
+                />
+                <label for="checkboxFourteen">Thai</label>
               </li>
               <li>
                 <input
@@ -167,7 +162,8 @@
                   id="checkboxTwelve"
                   value="japanese"
                   v-model="checkedCategories"
-                /><label for="checkboxTwelve">Japanese</label>
+                />
+                <label for="checkboxTwelve">Japanese</label>
               </li>
               <li>
                 <input
@@ -175,7 +171,8 @@
                   id="checkboxThirteen"
                   value="mexican"
                   v-model="checkedCategories"
-                /><label for="checkboxThirteen">Mexican</label>
+                />
+                <label for="checkboxThirteen">Mexican</label>
               </li>
               <li>
                 <input
@@ -183,7 +180,8 @@
                   id="checkboxSeventeen"
                   value="turkish"
                   v-model="checkedCategories"
-                /><label for="checkboxSeventeen">Turkish</label>
+                />
+                <label for="checkboxSeventeen">Turkish</label>
               </li>
               <li>
                 <input
@@ -191,7 +189,8 @@
                   id="checkboxFifteen"
                   value="mideastern"
                   v-model="checkedCategories"
-                /><label for="checkboxFifteen">Middle Eastern</label>
+                />
+                <label for="checkboxFifteen">Middle Eastern</label>
               </li>
               <li>
                 <input
@@ -199,7 +198,8 @@
                   id="checkboxSixteen"
                   value="russian"
                   v-model="checkedCategories"
-                /><label for="checkboxSixteen">Russian</label>
+                />
+                <label for="checkboxSixteen">Russian</label>
               </li>
             </ul>
             <span>{{ checkedCategories }}</span>
@@ -210,9 +210,7 @@
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">
-            {{ $t('update') }}
-          </v-button>
+          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
         </div>
       </div>
     </form>
@@ -235,6 +233,7 @@ export default {
     location: null,
     gettingLocation: false,
     errorStr: null,
+    formData: {},
     checkedCategories: [],
     city_names: [
       'Aberdeen',
@@ -640,16 +639,25 @@ export default {
     })
     this.form.range = 10000
   },
-  watch: {
-    checkedCategories: function() {
-      console.log(this.checkedCategories)
-    }
-  },
   methods: {
-    async update() {
-      console.log(this.checkedCategories)
-      console.log(this.form)
-      //const { data } = await this.form.patch('/api/settings/profile')
+    async update(e) {
+      console.log(e.target.checked)
+      //if checked insert
+      //if unchecked delete
+      console.log(this.checkedCategories[this.checkedCategories.length - 1])
+
+      //get id of category name first
+      //
+
+      //console.log(this.checkedCategories)
+      //console.log(this.form)
+      /* this.formData = {
+        range: this.form.range,
+        location: this.form.location,
+        categories: this.checkedCategories
+      } */
+      //console.log(this.formData)
+      //const { data } = await this.form.patch('/api/settings/preferences')
       //this.$store.dispatch('auth/updateUser', { user: data })
     },
     getLocation() {
