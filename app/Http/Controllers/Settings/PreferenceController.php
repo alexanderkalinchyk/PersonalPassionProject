@@ -28,6 +28,16 @@ class PreferenceController extends Controller
 
     }
 
+    public function updatelocation($location, Request $request)
+    {
+        $user = $request->user();
+
+        DB::table('preferences')
+        ->where('user_id', $user->id)
+        ->update(['location' => $location]);
+
+    }
+
     public function deletecategory($name, Request $request)
     {
         $user = $request->user();

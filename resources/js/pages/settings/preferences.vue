@@ -35,7 +35,7 @@
         </label>
         <div class="col-md-7">
           <input
-            v-model="form.location"
+            v-model="location"
             :class="{ 'is-invalid': form.errors.has('location') }"
             class="form-control"
             type="text"
@@ -49,10 +49,6 @@
             <i>Getting your location...</i>
           </div>
 
-          <div v-if="location">
-            Your location data is {{ location.coords.latitude }},
-            {{ location.coords.longitude }}
-          </div>
           <has-error :form="form" field="location" />
         </div>
       </div>
@@ -232,13 +228,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Submit Button -->
-      <div class="form-group row">
-        <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
-        </div>
-      </div>
     </form>
   </card>
 </template>
@@ -247,6 +236,7 @@
 import Form from 'vform'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import { debounce } from 'lodash'
 
 export default {
   scrollToTop: false,
@@ -257,6 +247,7 @@ export default {
 
   data: () => ({
     message: 'Toggle',
+    updating: false,
     location: null,
     gettingLocation: false,
     errorStr: null,
@@ -660,16 +651,15 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
-
+  watch: {
+    location: debounce(function() {
+      console.log(this.location)
+      // axios.patch(`/api/settings/preferences/updateLocation/${this.location}`)
+    }, 2000)
+  },
   async created() {
-    // Fill the form with user data.
-    /*
-    this.form.keys().forEach(key => {
-      console.log(this.user[key])
-      this.form[key] = this.user[key]
-    })
+    // Fill the form with preference data.
 
-    */
     console.log(this.form.keys())
 
     await axios.get(`/api/settings/preferences/get`).then(response => {
@@ -691,7 +681,7 @@ export default {
     async fillForm() {
       console.log(this.preferences)
       this.form.range = this.preferences[0].radius
-      this.form.location = this.preferences[0].location
+      this.location = this.preferences[0].location
 
       for (let i = 0; i < this.preferences.length; i++) {
         console.log(this.preferences[i].category_name)
