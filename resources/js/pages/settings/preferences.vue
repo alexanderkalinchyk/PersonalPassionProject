@@ -19,6 +19,7 @@
             name="range"
             min="1"
             max="40000"
+            @change="updateRadius()"
           />
           &nbsp;
           <span>{{ form.range }}</span>
@@ -654,8 +655,8 @@ export default {
   watch: {
     location: debounce(function() {
       console.log(this.location)
-      // axios.patch(`/api/settings/preferences/updateLocation/${this.location}`)
-    }, 2000)
+      axios.patch(`/api/settings/preferences/updateLocation/${this.location}`)
+    }, 500)
   },
   async created() {
     // Fill the form with preference data.
@@ -687,6 +688,10 @@ export default {
         console.log(this.preferences[i].category_name)
         this.checkedCategories[i] = this.preferences[i].category_name
       }
+    },
+    updateRadius() {
+      console.log(this.form.range)
+      axios.patch(`/api/settings/preferences/updateRadius/${this.form.range}`)
     },
     getLocation() {
       /*

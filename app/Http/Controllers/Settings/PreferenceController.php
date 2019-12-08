@@ -38,6 +38,16 @@ class PreferenceController extends Controller
 
     }
 
+    public function updateradius($radius, Request $request)
+    {
+        $user = $request->user();
+
+        DB::table('preferences')
+        ->where('user_id', $user->id)
+        ->update(['radius' => $radius]);
+
+    }
+
     public function deletecategory($name, Request $request)
     {
         $user = $request->user();
