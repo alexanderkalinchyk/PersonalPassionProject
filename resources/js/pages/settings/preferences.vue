@@ -79,6 +79,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxTwo"
                   value="desserts"
@@ -87,11 +88,18 @@
                 <label for="checkboxTwo">Desserts</label>
               </li>
               <li>
-                <input type="checkbox" id="checkboxThree" value="meats" v-model="checkedCategories" />
+                <input
+                  @change="update($event)"
+                  type="checkbox"
+                  id="checkboxThree"
+                  value="meats"
+                  v-model="checkedCategories"
+                />
                 <label for="checkboxThree">Meat</label>
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxFour"
                   value="seafoodmarkets"
@@ -100,11 +108,18 @@
                 <label for="checkboxFour">Seafood</label>
               </li>
               <li>
-                <input type="checkbox" id="checkboxFive" value="bars" v-model="checkedCategories" />
+                <input
+                  @change="update($event)"
+                  type="checkbox"
+                  id="checkboxFive"
+                  value="bars"
+                  v-model="checkedCategories"
+                />
                 <label for="checkboxFive">Bars</label>
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxSix"
                   value="restaurants"
@@ -114,6 +129,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxEight"
                   value="french"
@@ -123,6 +139,7 @@
               </li>
               <li class="ks-selected">
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxEleven"
                   value="chinese"
@@ -132,6 +149,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxSeven"
                   value="asianfusion"
@@ -140,15 +158,28 @@
                 <label for="checkboxSeven">Asian Fusion</label>
               </li>
               <li>
-                <input type="checkbox" id="checkboxNine" value="indpak" v-model="checkedCategories" />
+                <input
+                  @change="update($event)"
+                  type="checkbox"
+                  id="checkboxNine"
+                  value="indpak"
+                  v-model="checkedCategories"
+                />
                 <label for="checkboxNine">Indian</label>
               </li>
               <li>
-                <input type="checkbox" id="checkboxTen" value="italian" v-model="checkedCategories" />
+                <input
+                  @change="update($event)"
+                  type="checkbox"
+                  id="checkboxTen"
+                  value="italian"
+                  v-model="checkedCategories"
+                />
                 <label for="checkboxTen">Italian</label>
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxFourteen"
                   value="thai"
@@ -158,6 +189,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxTwelve"
                   value="japanese"
@@ -167,6 +199,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxThirteen"
                   value="mexican"
@@ -176,6 +209,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxSeventeen"
                   value="turkish"
@@ -185,6 +219,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxFifteen"
                   value="mideastern"
@@ -194,6 +229,7 @@
               </li>
               <li>
                 <input
+                  @change="update($event)"
                   type="checkbox"
                   id="checkboxSixteen"
                   value="russian"
@@ -220,6 +256,7 @@
 <script>
 import Form from 'vform'
 import { mapGetters } from 'vuex'
+import axios from 'axios'
 
 export default {
   scrollToTop: false,
@@ -235,6 +272,8 @@ export default {
     errorStr: null,
     formData: {},
     checkedCategories: [],
+    categoryId: '',
+    preferences: [],
     city_names: [
       'Aberdeen',
       'Abilene',
@@ -632,33 +671,37 @@ export default {
     user: 'auth/user'
   }),
 
-  created() {
+  async created() {
     // Fill the form with user data.
+    /*
     this.form.keys().forEach(key => {
+      console.log(this.user[key])
       this.form[key] = this.user[key]
     })
-    this.form.range = 10000
+
+    */
+    console.log(this.form.keys())
+
+    await axios.get(`/api/settings/preferences/get`).then(response => {
+      this.preferences = response.data
+      this.fillForm()
+    })
   },
   methods: {
     async update(e) {
       console.log(e.target.checked)
-      //if checked insert
-      //if unchecked delete
-      console.log(this.checkedCategories[this.checkedCategories.length - 1])
-
-      //get id of category name first
-      //
-
-      //console.log(this.checkedCategories)
-      //console.log(this.form)
-      /* this.formData = {
-        range: this.form.range,
-        location: this.form.location,
-        categories: this.checkedCategories
-      } */
-      //console.log(this.formData)
-      //const { data } = await this.form.patch('/api/settings/preferences')
-      //this.$store.dispatch('auth/updateUser', { user: data })
+      console.log(e.target.value)
+      if (e.target.checked) {
+        await axios.post(`/api/settings/preferences/update/${e.target.value}`)
+      } else {
+        await axios.post(`/api/settings/preferences/delete/${e.target.value}`)
+      }
+    },
+    fillForm() {
+      console.log(this.preferences)
+      this.form.range = this.preferences[0].radius
+      this.form.location = this.preferences[0].location
+      this.checkedCategories[0] = 'italian'
     },
     getLocation() {
       /*

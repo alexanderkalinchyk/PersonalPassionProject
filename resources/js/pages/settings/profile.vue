@@ -5,9 +5,11 @@
 
       <!-- Name -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{
+        <label class="col-md-3 col-form-label text-md-right">
+          {{
           $t('name')
-        }}</label>
+          }}
+        </label>
         <div class="col-md-7">
           <input
             v-model="form.name"
@@ -22,9 +24,11 @@
 
       <!-- Email -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{
+        <label class="col-md-3 col-form-label text-md-right">
+          {{
           $t('email')
-        }}</label>
+          }}
+        </label>
         <div class="col-md-7">
           <input
             v-model="form.email"
@@ -40,18 +44,18 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">Gravatar</label>
         <div class="col-md-7 flex-center">
-          <a href="https://en.gravatar.com/emails/" target="_blank">{{
+          <a href="https://en.gravatar.com/emails/" target="_blank">
+            {{
             $t('gravatar')
-          }}</a>
+            }}
+          </a>
         </div>
       </div>
 
       <!-- Submit Button -->
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">
-            {{ $t('update') }}
-          </v-button>
+          <v-button :loading="form.busy" type="success">{{ $t('update') }}</v-button>
         </div>
       </div>
     </form>
@@ -83,6 +87,8 @@ export default {
   created() {
     // Fill the form with user data.
     this.form.keys().forEach(key => {
+      console.log(key)
+      console.log(this.user)
       this.form[key] = this.user[key]
     })
   },
@@ -90,7 +96,7 @@ export default {
   methods: {
     async update() {
       const { data } = await this.form.patch('/api/settings/profile')
-      //this.$store.dispatch('auth/updateUser', { user: data })
+      this.$store.dispatch('auth/updateUser', { user: data })
     }
   }
 }

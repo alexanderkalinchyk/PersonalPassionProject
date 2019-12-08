@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+    Route::post('settings/preferences/update/{name}', 'Settings\PreferenceController@updatecategory');
+    Route::post('settings/preferences/delete/{name}', 'Settings\PreferenceController@deletecategory');
+    Route::get('settings/preferences/get', 'Settings\PreferenceController@getpreferences');
 
     Route::post('favorites', 'Favorites\FavoriteController@store');
     Route::get('favorites', 'Favorites\FavoriteController@show');
