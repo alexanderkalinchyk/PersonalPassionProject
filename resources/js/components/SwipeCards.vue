@@ -9,6 +9,13 @@
       <h2>Loading...</h2>
     </div>
     <div
+      v-if="loading == false && businesses == ''"
+      class="loading-cards fixed fixed--center"
+      style="z-index: 4; color: black; text-align:center;"
+    >
+      <p>No results, adjust your settings or increase radius to see more restaurants</p>
+    </div>
+    <div
       v-if="current"
       class="fixed fixed--center"
       style="z-index: 3"
@@ -89,6 +96,10 @@ export default {
       user: [],
       offset: [],
       list: [],
+      radius: '',
+      location: '',
+      categories: [],
+      preferencesArray: '',
       isVisible: true,
       index: 0,
       interactEventBus: {
@@ -98,6 +109,7 @@ export default {
     }
   },
   mounted: function() {
+    this.$store.dispatch('preferences/fetchPreferences')
     this.getCurrentUser()
   },
   computed: {
@@ -107,7 +119,10 @@ export default {
     next() {
       return this.businesses[this.index + 1]
     },
-    ...mapGetters({ message: 'favorites/info' })
+    ...mapGetters({
+      message: 'favorites/info',
+      preferences: 'preferences/preferences'
+    })
   },
   methods: {
     test() {
@@ -131,8 +146,37 @@ export default {
       })
     },
     getBusinesses() {
+      //console.log('store', this.preferences)
+      console.log('preferences', this.preferences)
+      if (this.preferences != null || !this.preferences) {
+        console.log('store')
+        console.log('store pref', this.preferences)
+        this.radius = this.preferences[0].radius
+        this.location = this.preferences[0].location
+        for (let i = 0; i < this.preferences.length; i++) {
+          this.categories[i] = this.preferences[i].category_name
+        }
+      } else {
+        console.log('local storage')
+        this.preferencesArray = JSON.parse(localStorage.getItem('preferences'))
+        this.radius = this.preferencesArray[0].radius
+        this.location = this.preferencesArray[0].location
+        for (let i = 0; i < this.preferencesArray.length; i++) {
+          this.categories[i] = this.preferencesArray[i].category_name
+        }
+      }
+
+      let filteredCategories = this.categories.filter(function(el) {
+        return el != null
+      })
+      console.log(filteredCategories)
+      filteredCategories = filteredCategories.join(',')
+      console.log(filteredCategories)
+
       axios
-        .get(`api/businesses/San Francisco/10000/${this.offset[0].offset}`)
+        .get(
+          `api/businesses/${this.location}/${this.radius}/${filteredCategories}/${this.offset[0].offset}`
+        )
         .then(response => (this.businesses = response.data.businesses))
         .finally(() => (this.loading = false))
     },

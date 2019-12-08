@@ -40,7 +40,7 @@ class BusinessController extends Controller
     {
             //
     }
-    public function showbusinesses($location, $radius, $offset)
+    public function showbusinesses($location, $radius, $categories, $offset)
     {
         $location = str_replace(' ', '+', $location);
 
@@ -54,7 +54,7 @@ class BusinessController extends Controller
         $context = stream_context_create($opts);
 
         // Open the file using the HTTP headers set above
-        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?&categories=restaurants&location='.$location.'&radius='.$radius.'&offset='.$offset.'&limit=5', false, $context);
+        $file = file_get_contents('https://api.yelp.com/v3/businesses/search?&location='.$location.'&radius='.$radius.'&categories='.$categories.'&offset='.$offset.'&limit=5', false, $context);
 
         return $file;
 

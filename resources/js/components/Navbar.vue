@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container">
-      <router-link :to="{ name: user ? 'welcome' : 'welcome' }" class="navbar-brand">{{ appName }}</router-link>
+      <router-link :to="{ name: user ? 'swipe' : 'swipe' }" class="navbar-brand">{{ appName }}</router-link>
 
       <button
         class="navbar-toggler"

@@ -10,5 +10,8 @@ export const UPDATE_USER = 'UPDATE_USER'
 export const SET_LOCALE = 'SET_LOCALE'
 
 // favorites.js
-
 export const SET_INFO = 'SET_INFO'
+
+// preferences.js
+export const FETCH_PREFERENCES = 'FETCH_PREFERENCES'
+export const FETCH_PREFERENCES_SUCCESS = 'FETCH_PREFERENCES_SUCCESS'

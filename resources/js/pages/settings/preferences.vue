@@ -227,16 +227,6 @@
                 />
                 <label for="checkboxFifteen">Middle Eastern</label>
               </li>
-              <li>
-                <input
-                  @change="update($event)"
-                  type="checkbox"
-                  id="checkboxSixteen"
-                  value="russian"
-                  v-model="checkedCategories"
-                />
-                <label for="checkboxSixteen">Russian</label>
-              </li>
             </ul>
             <span>{{ checkedCategories }}</span>
           </div>
@@ -696,12 +686,17 @@ export default {
       } else {
         await axios.post(`/api/settings/preferences/delete/${e.target.value}`)
       }
+      await this.$store.dispatch('preferences/fetchPreferences')
     },
-    fillForm() {
+    async fillForm() {
       console.log(this.preferences)
       this.form.range = this.preferences[0].radius
       this.form.location = this.preferences[0].location
-      this.checkedCategories[0] = 'italian'
+
+      for (let i = 0; i < this.preferences.length; i++) {
+        console.log(this.preferences[i].category_name)
+        this.checkedCategories[i] = this.preferences[i].category_name
+      }
     },
     getLocation() {
       /*

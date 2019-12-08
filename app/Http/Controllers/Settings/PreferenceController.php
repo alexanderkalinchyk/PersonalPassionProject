@@ -46,7 +46,12 @@ class PreferenceController extends Controller
     {
         $user = $request->user();
 
-        $preferences = DB::table('preferences')->where('user_id', $user->id)->get();
+        //$preferences = DB::table('preferences')->where('user_id', $user->id)->get();
+        $preferences = DB::table('preferences')
+        ->select(['preferences.radius', 'preferences.location', 'preferences.category', 'categories.category_name'])
+        ->leftJoin('categories', 'preferences.category', '=', 'categories.id')
+        ->where('preferences.user_id', $user->id)
+        ->get();
         return response()->json($preferences);
     }
 
