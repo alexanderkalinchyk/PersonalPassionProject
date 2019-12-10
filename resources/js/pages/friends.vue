@@ -43,20 +43,20 @@
             />
           </div>
           <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4 d-flex justify-content-around">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 d-flex justify-content-around">
               <span
                 v-for="category in details.categories"
                 class="category-tag"
                 >{{ category.title }}</span
               >
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-3"></div>
           </div>
           <div>
-            <div>
-              <span>Enter your friend's phone number</span>
-              <div class="phone-wrap">
+            <div class="row justify-content-center">
+              <label>Enter your friend's phone number</label>
+              <div class="col-md-12 d-flex justify-content-center">
                 <vue-tel-input
                   v-model="phone"
                   v-bind="bindProps"
@@ -65,14 +65,19 @@
                   Invite
                 </button>
               </div>
+              <div class="col-md-6"></div>
+            </div>
+            <div>
               <br />
-              <span>Or search our database:</span>
-              <div>
-                <input type="text" />
-                <button @click="findUser()" class="btn btn-success">
-                  Search
-                </button>
-              </div>
+              <p>- OR -</p>
+            </div>
+            <br />
+            <span>Or search our database:</span>
+            <div>
+              <input type="text" />
+              <button @click="findUser()" class="btn btn-success">
+                Search
+              </button>
             </div>
           </div>
         </div>
@@ -228,10 +233,18 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-.phone-wrap {
-  display: flex;
-  justify-content: space-around;
-  width: 75%;
+.row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.category-tag {
+  padding: 6px 15px;
+  border-radius: 25px;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  background-color: #12bbd4;
+  color: #fff;
+  margin: 0 2px;
 }
 .btn {
   position: relative;
