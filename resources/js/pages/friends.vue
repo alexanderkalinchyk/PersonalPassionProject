@@ -1,13 +1,5 @@
 <template>
   <div class="details">
-    <div>
-      <router-link
-        :to="{ name: 'swipe' }"
-        class="btn-primary"
-        active-class="active"
-        >Back</router-link
-      >
-    </div>
     <FavoriteList :messageson="messageson" />
     <section class="container">
       <div
@@ -18,8 +10,25 @@
         <h2>Loading...</h2>
       </div>
       <div v-if="!loading" class="loading-cards fixed fixed--center">
-        <div style="height: 100%" class="rounded-borders card card--one">
-          <div style="height: 100%">
+        <div>
+          <router-link
+            :to="{ name: 'swipe' }"
+            class="btn-primary"
+            active-class="active"
+            >Back</router-link
+          >
+        </div>
+        <div style="height: 100%">
+          <h2 class="text-center">
+            Invite friends to
+            <span v-if="info" class="text-primary">{{ details.name }}</span>
+            <span v-else class="text-primary">{{ detailsLocal.name }}</span>
+          </h2>
+          <p class="text-center">
+            Go out together with your friends, schedule a meeting to this place
+            with a friend below:
+          </p>
+          <div class="col-md-12 text-center">
             <img
               v-if="info"
               :src="details.image_url"
@@ -32,61 +41,37 @@
               :alt="details.name"
               class="rounded-borders"
             />
-            <div class="text">
-              <div class="thumbnails">
-                <button v-for="photo in details.photos">
-                  <img :src="photo" :alt="details.name" />
+          </div>
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 d-flex justify-content-around">
+              <span
+                v-for="category in details.categories"
+                class="category-tag"
+                >{{ category.title }}</span
+              >
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+          <div>
+            <div>
+              <span>Enter your friend's phone number</span>
+              <div class="phone-wrap">
+                <vue-tel-input
+                  v-model="phone"
+                  v-bind="bindProps"
+                ></vue-tel-input>
+                <button @click="inviteFriend()" class="btn btn-success">
+                  Invite
                 </button>
               </div>
-              <h2 v-if="info">
-                <span>{{ details.name }}</span>
-                <span>{{ Number(info.distance).toFixed(1) }}m away</span>
-                <span>{{ details.price }}</span>
-              </h2>
-              <h2 v-else>
-                <span>{{ detailsLocal.name }}</span>
-                <span
-                  >{{ Number(detailsLocal.distance).toFixed(1) }}m away</span
-                >
-                <span>{{ detailsLocal.price }}</span>
-              </h2>
-              <span
-                v-for="(address, index) in details.location.display_address"
-              >
-                {{ address }}
-                <span v-if="index == 0">,</span>
-              </span>
+              <br />
+              <span>Or search our database:</span>
               <div>
-                <span v-for="category in details.categories">{{
-                  category.title
-                }}</span>
-              </div>
-              <div>
-                <h3>Invite friends to this place</h3>
-                <p>
-                  Go out together with your friends, schedule a meeting with a
-                  friend below:
-                </p>
-                <div>
-                  <span>Enter your friend's phone number</span>
-                  <div class="phone-wrap">
-                    <vue-tel-input
-                      v-model="phone"
-                      v-bind="bindProps"
-                    ></vue-tel-input>
-                    <button @click="inviteFriend()" class="btn btn-success">
-                      Invite
-                    </button>
-                  </div>
-                  <br />
-                  <span>Or search our database:</span>
-                  <div>
-                    <input type="text" />
-                    <button @click="findUser()" class="btn btn-success">
-                      Search
-                    </button>
-                  </div>
-                </div>
+                <input type="text" />
+                <button @click="findUser()" class="btn btn-success">
+                  Search
+                </button>
               </div>
             </div>
           </div>
@@ -295,12 +280,13 @@ export default {
   position: fixed;
   &--center {
     left: 50%;
-    top: 50%;
+    top: 30rem;
     transform: translate(-50%, -50%);
   }
 }
 .rounded-borders {
-  border-radius: 12px 12px 0px 0px;
+  width: 20rem;
+  border-radius: 12px 12px 12px 12px;
 }
 .card {
   width: 30rem;

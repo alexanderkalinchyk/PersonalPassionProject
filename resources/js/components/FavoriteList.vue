@@ -36,7 +36,12 @@
       </router-link>
       <br />
       <br />
-      <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
+      <button
+        @click="deleteFavorite(item.business_id, index)"
+        class="btn btn-danger"
+      >
+        Remove
+      </button>
     </article>
     <article
       v-if="messageson != ''"
@@ -70,7 +75,12 @@
       </router-link>
       <br />
       <br />
-      <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
+      <button
+        @click="deleteFavorite(message.business_id, index)"
+        class="btn btn-danger"
+      >
+        Remove
+      </button>
     </article>
   </section>
 </template>
@@ -136,6 +146,7 @@ export default {
 <style lang="scss" scoped>
 .favorites-list {
   background-color: #fff;
+  width: 15rem;
 }
 .favorite-item {
   margin-top: 2rem;
