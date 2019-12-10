@@ -5,7 +5,9 @@
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">{{
+              $t('email')
+            }}</label>
             <div class="col-md-7">
               <input
                 v-model="form.email"
@@ -20,7 +22,9 @@
 
           <!-- Password -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">{{
+              $t('password')
+            }}</label>
             <div class="col-md-7">
               <input
                 v-model="form.password"
@@ -37,12 +41,15 @@
           <div class="form-group row">
             <div class="col-md-3" />
             <div class="col-md-7 d-flex">
-              <checkbox v-model="remember" name="remember">{{ $t('remember_me') }}</checkbox>
-
+              <checkbox v-model="remember" name="remember">{{
+                $t('remember_me')
+              }}</checkbox>
+              <!--
               <router-link
                 :to="{ name: 'password.request' }"
                 class="small ml-auto my-auto"
               >{{ $t('forgot_password') }}</router-link>
+              -->
             </div>
           </div>
 

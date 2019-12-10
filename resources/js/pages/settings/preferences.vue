@@ -6,9 +6,7 @@
       <!-- Range -->
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">
-          {{
-          $t('range')
-          }}
+          {{ $t('range') }}
         </label>
         <div class="col-md-7 flex-center">
           <input
@@ -30,19 +28,18 @@
       <!-- Location -->
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">
-          {{
-          $t('location')
-          }}
+          {{ $t('location') }}
         </label>
-        <autocomplete :suggestions="suggestions" v-model="selection"></autocomplete>
+        <autocomplete
+          :suggestions="suggestions"
+          v-model="selection"
+        ></autocomplete>
       </div>
 
       <!-- Categories -->
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">
-          {{
-          $t('categories')
-          }}
+          {{ $t('categories') }}
         </label>
         <div class="col-md-7">
           <div class="container">
@@ -208,7 +205,6 @@
                 <label for="checkboxFifteen">Middle Eastern</label>
               </li>
             </ul>
-            <span>{{ checkedCategories }}</span>
           </div>
         </div>
       </div>
