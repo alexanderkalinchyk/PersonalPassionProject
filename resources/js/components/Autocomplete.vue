@@ -1,6 +1,7 @@
 <template>
   <div class="col-md-7">
     <input
+      required
       name="location"
       class="form-control"
       type="text"
@@ -10,14 +11,18 @@
     <ul v-if="open" class="menu" style="width:100%">
       <li
         v-for="(suggestion, index) in matches"
-        v-bind:class="{'active': isActive(index)}"
+        v-bind:class="{ active: isActive(index) }"
         @click="suggestionClick(index)"
       >
         <a href="#">{{ suggestion }}</a>
       </li>
     </ul>
-
-    <button disabled @click="getLocation()" class="btn custom-btn">Use my current location</button>
+    <span v-if="locRequired" style="color: red"
+      >Location must not be empty <br
+    /></span>
+    <button disabled @click="getLocation()" class="btn custom-btn">
+      Use my current location
+    </button>
   </div>
 </template>
 <script>
@@ -38,13 +43,19 @@ export default {
     return {
       open: false,
       current: 0,
-      preferences: []
+      preferences: [],
+      locRequired: false
     }
   },
   watch: {
     value: debounce(function() {
       console.log(this.value)
-      axios.patch(`/api/settings/preferences/updateLocation/${this.value}`)
+      if (this.value) {
+        this.locRequired = false
+        axios.patch(`/api/settings/preferences/updateLocation/${this.value}`)
+      } else {
+        this.locRequired = true
+      }
     }, 500)
   },
   async mounted() {

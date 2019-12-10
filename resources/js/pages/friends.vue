@@ -1,7 +1,12 @@
 <template>
   <div class="details">
     <div>
-      <router-link :to="{ name: 'swipe' }" class="btn-primary" active-class="active">Back</router-link>
+      <router-link
+        :to="{ name: 'swipe' }"
+        class="btn-primary"
+        active-class="active"
+        >Back</router-link
+      >
     </div>
     <FavoriteList :messageson="messageson" />
     <section class="container">
@@ -15,8 +20,18 @@
       <div v-if="!loading" class="loading-cards fixed fixed--center">
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
-            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
+            <img
+              v-if="info"
+              :src="details.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
+            <img
+              v-else
+              :src="detailsLocal.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
             <div class="text">
               <div class="thumbnails">
                 <button v-for="photo in details.photos">
@@ -30,19 +45,48 @@
               </h2>
               <h2 v-else>
                 <span>{{ detailsLocal.name }}</span>
-                <span>{{ Number(detailsLocal.distance).toFixed(1) }}m away</span>
+                <span
+                  >{{ Number(detailsLocal.distance).toFixed(1) }}m away</span
+                >
                 <span>{{ detailsLocal.price }}</span>
               </h2>
-              <span v-for="(address, index) in details.location.display_address">
+              <span
+                v-for="(address, index) in details.location.display_address"
+              >
                 {{ address }}
                 <span v-if="index == 0">,</span>
               </span>
               <div>
-                <span v-for="category in details.categories">{{ category.title }}</span>
+                <span v-for="category in details.categories">{{
+                  category.title
+                }}</span>
               </div>
               <div>
                 <h3>Invite friends to this place</h3>
-                <p>Go out together with your friends, schedule a meeting with a friend below:</p>
+                <p>
+                  Go out together with your friends, schedule a meeting with a
+                  friend below:
+                </p>
+                <div>
+                  <span>Enter your friend's phone number</span>
+                  <div class="phone-wrap">
+                    <vue-tel-input
+                      v-model="phone"
+                      v-bind="bindProps"
+                    ></vue-tel-input>
+                    <button @click="inviteFriend()" class="btn btn-success">
+                      Invite
+                    </button>
+                  </div>
+                  <br />
+                  <span>Or search our database:</span>
+                  <div>
+                    <input type="text" />
+                    <button @click="findUser()" class="btn btn-success">
+                      Search
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -53,13 +97,15 @@
 </template>
 
 <script>
+import { VueTelInput } from 'vue-tel-input'
 import FavoriteList from '../components/FavoriteList'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default {
   name: 'favorite_details',
   components: {
-    FavoriteList
+    FavoriteList,
+    VueTelInput
   },
   props: {
     msg: String
@@ -69,7 +115,17 @@ export default {
       messageson: [],
       details: [],
       loading: true,
-      detailsLocal: ''
+      detailsLocal: '',
+      phone: null,
+      bindProps: {
+        mode: 'international',
+        defaultCountry: 'BE',
+        autocomplete: 'on',
+        enabledCountryCode: true,
+        name: 'telephone',
+        validCharactersOnly: true
+      },
+      results: null
     }
   },
   computed: mapGetters({
@@ -89,6 +145,9 @@ export default {
     this.storeLocaldata()
   },
   methods: {
+    inviteFriend() {
+      console.log(this.phone)
+    },
     storeLocaldata() {
       //
       // store data locally to show info after page refresh
@@ -184,14 +243,14 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-
+.phone-wrap {
+  display: flex;
+  justify-content: space-around;
+  width: 75%;
+}
 .btn {
   position: relative;
-  width: 50px;
-  height: 50px;
-  padding: 0.2rem;
-  border-radius: 50%;
-  background-color: white;
+  width: 5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
@@ -244,7 +303,7 @@ export default {
   border-radius: 12px 12px 0px 0px;
 }
 .card {
-  width: 22rem;
+  width: 30rem;
   height: 30rem;
   color: white;
   img {
