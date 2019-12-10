@@ -27,15 +27,16 @@
       <!--  <button @click="moreInfo(item.business_id)"></button> -->
       <br />
       <br />
-      <button @click="showData" class="btn btn-info">Invite Friends</button>
-      <br />
-      <br />
-      <button
-        @click="deleteFavorite(item.business_id, index)"
-        class="btn btn-danger"
+      <router-link
+        :to="{ path: `/friends/${item.business_id}` }"
+        class="btn btn-primary"
+        active-class="active"
       >
-        Remove
-      </button>
+        <span @click="storeInfoBack(index)">Invite Friends</span>
+      </router-link>
+      <br />
+      <br />
+      <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
     <article
       v-if="messageson != ''"
@@ -60,15 +61,16 @@
       </router-link>
       <br />
       <br />
-      <button @click="showData" class="btn btn-info">Invite Friends</button>
-      <br />
-      <br />
-      <button
-        @click="deleteFavorite(message.business_id, index)"
-        class="btn btn-danger"
+      <router-link
+        :to="{ path: `/friends/${message.business_id}` }"
+        class="btn btn-primary"
+        active-class="active"
       >
-        Remove
-      </button>
+        <span @click="storeInfoFront(index)">Invite Friends</span>
+      </router-link>
+      <br />
+      <br />
+      <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
   </section>
 </template>

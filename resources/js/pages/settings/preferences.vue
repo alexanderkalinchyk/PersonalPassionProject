@@ -34,27 +34,10 @@
           $t('location')
           }}
         </label>
-        <div class="col-md-7">
-          <input
-            v-model="location"
-            :class="{ 'is-invalid': form.errors.has('location') }"
-            class="form-control"
-            type="text"
-            name="location"
-            placeholder="Enter your city"
-          />
-          <button disabled @click="getLocation()" class="btn custom-btn">Use my current location</button>
-          <div v-if="errorStr">Sorry, but the following error occurred: {{ errorStr }}</div>
-
-          <div v-if="gettingLocation">
-            <i>Getting your location...</i>
-          </div>
-
-          <has-error :form="form" field="location" />
-        </div>
+        <autocomplete :suggestions="suggestions" v-model="selection"></autocomplete>
       </div>
 
-      <!-- Location -->
+      <!-- Categories -->
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">
           {{
@@ -234,6 +217,7 @@
 </template>
 
 <script>
+import Autocomplete from '../../components/Autocomplete'
 import Form from 'vform'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
@@ -241,6 +225,9 @@ import { debounce } from 'lodash'
 
 export default {
   scrollToTop: false,
+  components: {
+    Autocomplete
+  },
 
   metaInfo() {
     return { title: this.$t('settings') }
@@ -256,7 +243,8 @@ export default {
     checkedCategories: [],
     categoryId: '',
     preferences: [],
-    city_names: [
+    selection: '',
+    suggestions: [
       'Aberdeen',
       'Abilene',
       'Akron',
@@ -652,12 +640,6 @@ export default {
   computed: mapGetters({
     user: 'auth/user'
   }),
-  watch: {
-    location: debounce(function() {
-      console.log(this.location)
-      axios.patch(`/api/settings/preferences/updateLocation/${this.location}`)
-    }, 500)
-  },
   async created() {
     // Fill the form with preference data.
 
@@ -680,9 +662,9 @@ export default {
       await this.$store.dispatch('preferences/fetchPreferences')
     },
     async fillForm() {
-      console.log(this.preferences)
+      //console.log('pref', this.preferences)
       this.form.range = this.preferences[0].radius
-      this.location = this.preferences[0].location
+      //this.location = this.preferences[0].location
 
       for (let i = 0; i < this.preferences.length; i++) {
         console.log(this.preferences[i].category_name)

@@ -13,6 +13,11 @@ export default [
     name: 'details',
     component: page('details.vue')
   },
+  {
+    path: '/friends/:id',
+    name: 'friends',
+    component: page('friends.vue')
+  },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
