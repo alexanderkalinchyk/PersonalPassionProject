@@ -1,8 +1,9 @@
 <template>
   <card :title="$t('your_preferences')">
+    <div v-if="noData" class="alert alert-danger">
+      Please choose your search radius and select your location
+    </div>
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('info_updated')" />
-
       <!-- Range -->
       <div class="form-group row">
         <label class="col-md-3 col-form-label text-md-right">
@@ -23,18 +24,17 @@
           <span>{{ form.range }}</span>
           <has-error :form="form" field="range" />
         </div>
+        <div class="col-md-12">
+          <div v-if="success" class="col-md-12 alert alert-success">
+            Radius successfully updated
+          </div>
+        </div>
       </div>
-
       <!-- Location -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">
-          {{ $t('location') }}
-        </label>
-        <autocomplete
-          :suggestions="suggestions"
-          v-model="selection"
-        ></autocomplete>
-      </div>
+      <autocomplete
+        :suggestions="suggestions"
+        v-model="selection"
+      ></autocomplete>
 
       <!-- Categories -->
       <div class="form-group row">
@@ -239,6 +239,8 @@ export default {
     checkedCategories: [],
     categoryId: '',
     preferences: [],
+    noData: false,
+    success: false,
     selection: '',
     suggestions: [
       'Aberdeen',
@@ -666,17 +668,17 @@ export default {
       //if(this.preferences)
       console.log('we here', this.preferences)
       if (this.preferences.length != 0) {
-        if (this.preferences[0].location && this.preferences[0].radius) {
+        if (this.preferences[0].location || this.preferences[0].radius) {
           console.log('we here 1')
           this.form.range = this.preferences[0].radius
-        } else {
-          console.log('we here too')
-          this.form.range = 10000
         }
         for (let i = 0; i < this.preferences.length; i++) {
           console.log(this.preferences[i].category_name)
           this.checkedCategories[i] = this.preferences[i].category_name
         }
+      } else {
+        this.form.range = 10000
+        this.noData = true
       }
 
       //this.form.range = 5000
@@ -685,8 +687,11 @@ export default {
       //this.location = this.preferences[0].location
     },
     updateRadius() {
-      console.log(this.form.range)
-      axios.patch(`/api/settings/preferences/updateRadius/${this.form.range}`)
+      console.log('radius', this.form.range)
+      axios
+        .patch(`/api/settings/preferences/updateRadius/${this.form.range}`)
+        .then((this.noData = false))
+        .then((this.success = true))
     },
     getLocation() {
       /*

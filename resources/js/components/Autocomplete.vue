@@ -1,28 +1,38 @@
 <template>
-  <div class="col-md-7">
-    <input
-      required
-      name="location"
-      class="form-control"
-      type="text"
-      :value="value"
-      @input="updateValue($event.target.value)"
-    />
-    <ul v-if="open" class="menu" style="width:100%">
-      <li
-        v-for="(suggestion, index) in matches"
-        v-bind:class="{ active: isActive(index) }"
-        @click="suggestionClick(index)"
-      >
-        <a href="#">{{ suggestion }}</a>
-      </li>
-    </ul>
-    <span v-if="locRequired" style="color: red"
-      >Location must not be empty <br
-    /></span>
-    <button disabled @click="getLocation()" class="btn custom-btn">
-      Use my current location
-    </button>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label text-md-right">
+      {{ $t('location') }}
+    </label>
+    <div class="col-md-7">
+      <input
+        required
+        name="location"
+        class="form-control"
+        type="text"
+        :value="value"
+        @input="updateValue($event.target.value)"
+      />
+      <ul v-if="open" class="menu" style="width:100%">
+        <li
+          v-for="(suggestion, index) in matches"
+          v-bind:class="{ active: isActive(index) }"
+          @click="suggestionClick(index)"
+        >
+          <a href="#">{{ suggestion }}</a>
+        </li>
+      </ul>
+      <span v-if="locRequired" class="text-danger">
+        Location must not be empty <br
+      /></span>
+      <button disabled @click="getLocation()" class="btn custom-btn">
+        Use my current location
+      </button>
+    </div>
+    <div class="col-md-12">
+      <div v-if="success" class="col-md-12 alert alert-success">
+        Location successfully updated
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -32,7 +42,7 @@ export default {
   props: {
     value: {
       type: String,
-      required: true
+      required: false
     },
     suggestions: {
       type: Array,
@@ -44,14 +54,20 @@ export default {
       open: false,
       current: 0,
       preferences: [],
-      locRequired: false
+      locRequired: false,
+      success: false,
+      count: 0
     }
   },
   watch: {
     value: debounce(function() {
+      this.count++
       if (this.value && this.value.trim().length != 0) {
         this.locRequired = false
         axios.patch(`/api/settings/preferences/updateLocation/${this.value}`)
+        if (this.count > 1) {
+          this.success = true
+        }
       } else {
         this.locRequired = true
       }

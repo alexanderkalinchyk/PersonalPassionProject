@@ -160,7 +160,7 @@ export default {
       //console.log('store', this.preferences)
       console.log('preferences', this.preferences)
 
-      if (this.preferences != null) {
+      if (this.preferences != null && this.preferences.length != 0) {
         console.log('store')
         console.log('store pref', this.preferences)
         this.radius = this.preferences[0].radius
@@ -180,6 +180,7 @@ export default {
         filteredCategories = 'food'
       }
       if (
+        this.preferences.length != 0 &&
         this.preferences[0].location != null &&
         this.preferences[0].radius != null
       ) {
