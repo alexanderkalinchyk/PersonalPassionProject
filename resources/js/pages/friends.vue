@@ -19,6 +19,9 @@
           >
         </div>
         <div style="height: 100%">
+          <div v-if="success" class="alert alert-success">
+            Your invitation was successful!
+          </div>
           <h2 class="text-center">
             Invite friends to
             <span v-if="info" class="text-primary">{{ details.name }}</span>
@@ -190,12 +193,13 @@ export default {
             name: this.details.name,
             url: this.details.url
           })
-          .then(function(response) {
-            console.log(response)
-            this.date = null
-            this.time = null
-            this.phone = null
-            this.success = true
+          .then(response => {
+            console.log(response),
+              //console.log('user', this.user)
+              (this.date = ''),
+              (this.time = ''),
+              (this.phone = ''),
+              (this.success = true)
           })
           .catch(function(error) {
             console.log(error)

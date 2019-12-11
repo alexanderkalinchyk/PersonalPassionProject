@@ -57,17 +57,17 @@ class NotificationController extends Controller
         $notifications = DB::table('notifications')
         ->insert(['user_id' => $user->id, 'phone_number' => $validatedData['phone'], 'date' => $validatedData['date'], 'time' => $validatedData['time'], 'restaurant_name' => $validatedData['name'], 'restaurant_url' => $validatedData['url']]);
 
-        $this->sendSms($validatedData);
+        $this->sendSms($validatedData, $user);
         return response()->json($notifications);
     }
-    private function sendSms($data)
+    private function sendSms($data, $user)
     {
         $account_sid = getenv("TWILIO_ACCOUNT_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_PHONE_NUMBER");
         $client = new Client($account_sid, $auth_token);
 
-        $message = "";
+        $message = "You have been invited to ". $data['name'] ." by ". $user->name ." on ".$data['date']." at ". $data['time'] .". More info: ". $data['url'] ." Reply to the number ". $twilio_number ." with 'Accept' or 'Decline'";
 
         $client->messages->create($data['phone'],
                 ['from' => $twilio_number, 'body' => $message] );
