@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::post('offset/{id}', 'Offset\OffsetController@updatebyuserid');
     Route::get('offset/get/{id}', 'Offset\OffsetController@offsetbyuserid');
+
+    Route::post('sms/notification', 'Notifications\NotificationController@sendnotification');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

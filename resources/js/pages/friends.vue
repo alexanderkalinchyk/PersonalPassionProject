@@ -54,18 +54,52 @@
             <div class="col-md-3"></div>
           </div>
           <div>
-            <div class="row justify-content-center">
-              <label>Enter your friend's phone number</label>
-              <div class="col-md-12 d-flex justify-content-center">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="date">Pick a Date</label>
+                <input
+                  type="date"
+                  v-model="date"
+                  class="form-control"
+                  name="date"
+                  id="date"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="time">Choose the time</label>
+                <input
+                  type="time"
+                  v-model="time"
+                  class="form-control"
+                  name="time"
+                  id="time"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row flex-column justify-content-center">
+              <div class="col-md-12">
+                <label>Enter your friend's phone number</label>
                 <vue-tel-input
                   v-model="phone"
                   v-bind="bindProps"
                 ></vue-tel-input>
+              </div>
+            </div>
+            <div class="row text-center">
+              <div class="col-md-12 d-flex justify-content-center">
                 <button @click="inviteFriend()" class="btn btn-success">
                   Invite
                 </button>
               </div>
-              <div class="col-md-6"></div>
+              <div class="row w-100">
+                <div class="col-md-12 d-flex justify-content-center">
+                  <span v-if="errors" class="text-danger"
+                    >Please fill in every input</span
+                  >
+                </div>
+              </div>
             </div>
             <div>
               <br />
@@ -107,6 +141,9 @@ export default {
       loading: true,
       detailsLocal: '',
       phone: null,
+      date: null,
+      time: null,
+      errors: false,
       bindProps: {
         mode: 'international',
         defaultCountry: 'BE',
@@ -136,7 +173,29 @@ export default {
   },
   methods: {
     inviteFriend() {
+      console.log('det', this.details.name)
       console.log(this.phone)
+      console.log(this.date)
+      console.log(this.time)
+      if (!this.phone || !this.date || !this.time) {
+        this.errors = true
+      } else {
+        //axios.post(`/api/sms/${this.phone}`)
+        axios
+          .post('/api/sms/notification', {
+            date: this.date,
+            time: this.time,
+            phone: this.phone,
+            name: this.details.name,
+            url: this.details.url
+          })
+          .then(function(response) {
+            console.log(response)
+          })
+          .catch(function(error) {
+            console.log(error)
+          })
+      }
     },
     storeLocaldata() {
       //
@@ -248,7 +307,7 @@ export default {
 }
 .btn {
   position: relative;
-  width: 5rem;
+  width: 15rem;
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
