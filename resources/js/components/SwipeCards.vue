@@ -13,7 +13,10 @@
       class="loading-cards fixed fixed--center"
       style="z-index: 4; color: black; text-align:center;"
     >
-      <p>No results, adjust your settings or increase radius to see more restaurants</p>
+      <p>
+        No results, adjust your settings or increase radius to see more
+        restaurants
+      </p>
     </div>
     <div
       v-if="current"
@@ -36,7 +39,11 @@
         :key="current.id"
       >
         <div style="height: 100%">
-          <img :src="`${current.image_url}`" :alt="current.name" class="rounded-borders" />
+          <img
+            :src="`${current.image_url}`"
+            :alt="current.name"
+            class="rounded-borders"
+          />
           <div class="text">
             <h2>
               <span>{{ current.name }}</span>
@@ -47,13 +54,17 @@
         </div>
       </Vue2InteractDraggable>
     </div>
-    <div v-if="next" class="rounded-borders card card--two fixed fixed--center" style="z-index: 2">
+    <div
+      v-if="next"
+      class="rounded-borders card card--two fixed fixed--center"
+      style="z-index: 2"
+    >
       <div style="height: 100%">
         <img :src="`${next.image_url}`" class="rounded-borders" />
         <div class="text">
           <h2>
-            {{ next.name }},
-            <span>{{ Number(next.distance).toFixed(1) }}</span>,
+            {{ next.name }}, <span>{{ Number(next.distance).toFixed(1) }}</span
+            >,
             <span>{{ next.price }}</span>
           </h2>
         </div>
@@ -169,10 +180,12 @@ export default {
       let filteredCategories = this.categories.filter(function(el) {
         return el != null
       })
-      console.log(filteredCategories)
+      //console.log(filteredCategories)
       filteredCategories = filteredCategories.join(',')
-      console.log(filteredCategories)
 
+      if (!filteredCategories) {
+        filteredCategories = 'food'
+      }
       axios
         .get(
           `api/businesses/${this.location}/${this.radius}/${filteredCategories}/${this.offset[0].offset}`

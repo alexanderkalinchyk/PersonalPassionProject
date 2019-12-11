@@ -32,6 +32,10 @@ class PreferenceController extends Controller
     {
         $user = $request->user();
 
+        $get = DB::table('preferences')->where('user_id', $user->id)->first();
+        if(!$get){
+            DB::table('preferences')->insert(['user_id' => $user->id, 'location' => $location]);
+        }
         DB::table('preferences')
         ->where('user_id', $user->id)
         ->update(['location' => $location]);
@@ -41,7 +45,10 @@ class PreferenceController extends Controller
     public function updateradius($radius, Request $request)
     {
         $user = $request->user();
-
+        $get = DB::table('preferences')->where('user_id', $user->id)->first();
+        if(!$get){
+            DB::table('preferences')->insert(['user_id' => $user->id, 'radius' => $radius]);
+        }
         DB::table('preferences')
         ->where('user_id', $user->id)
         ->update(['radius' => $radius]);
