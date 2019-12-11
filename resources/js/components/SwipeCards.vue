@@ -159,21 +159,14 @@ export default {
     getBusinesses() {
       //console.log('store', this.preferences)
       console.log('preferences', this.preferences)
-      if (this.preferences != null || !this.preferences) {
+
+      if (this.preferences != null) {
         console.log('store')
         console.log('store pref', this.preferences)
         this.radius = this.preferences[0].radius
         this.location = this.preferences[0].location
         for (let i = 0; i < this.preferences.length; i++) {
           this.categories[i] = this.preferences[i].category_name
-        }
-      } else {
-        console.log('local storage')
-        this.preferencesArray = JSON.parse(localStorage.getItem('preferences'))
-        this.radius = this.preferencesArray[0].radius
-        this.location = this.preferencesArray[0].location
-        for (let i = 0; i < this.preferencesArray.length; i++) {
-          this.categories[i] = this.preferencesArray[i].category_name
         }
       }
 
@@ -186,12 +179,19 @@ export default {
       if (!filteredCategories) {
         filteredCategories = 'food'
       }
-      axios
-        .get(
-          `api/businesses/${this.location}/${this.radius}/${filteredCategories}/${this.offset[0].offset}`
-        )
-        .then(response => (this.businesses = response.data.businesses))
-        .finally(() => (this.loading = false))
+      if (
+        this.preferences[0].location != null &&
+        this.preferences[0].radius != null
+      ) {
+        axios
+          .get(
+            `api/businesses/${this.location}/${this.radius}/${filteredCategories}/${this.offset[0].offset}`
+          )
+          .then(response => (this.businesses = response.data.businesses))
+          .finally(() => (this.loading = false))
+      } else {
+        this.loading = false
+      }
     },
     match() {
       InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')

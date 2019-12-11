@@ -49,8 +49,7 @@ export default {
   },
   watch: {
     value: debounce(function() {
-      console.log(this.value)
-      if (this.value) {
+      if (this.value && this.value.trim().length != 0) {
         this.locRequired = false
         axios.patch(`/api/settings/preferences/updateLocation/${this.value}`)
       } else {
@@ -81,7 +80,9 @@ export default {
     fillForm() {
       //this.value = this.preferences[0].location
       //this.$emit('value', this.preferences[0].location)
-      this.$emit('input', this.preferences[0].location)
+      if (this.preferences.length != 0) {
+        this.$emit('input', this.preferences[0].location)
+      }
     },
     updateValue(value) {
       if (this.open === false) {

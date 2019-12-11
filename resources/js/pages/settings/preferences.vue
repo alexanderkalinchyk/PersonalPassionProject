@@ -641,10 +641,15 @@ export default {
 
     console.log(this.form.keys())
 
-    await axios.get(`/api/settings/preferences/get`).then(response => {
-      this.preferences = response.data
-      this.fillForm()
-    })
+    await axios
+      .get(`/api/settings/preferences/get`)
+      .then(response => {
+        this.preferences = response.data
+        this.fillForm()
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
   },
   methods: {
     async update(e) {
@@ -658,14 +663,26 @@ export default {
       await this.$store.dispatch('preferences/fetchPreferences')
     },
     async fillForm() {
-      //console.log('pref', this.preferences)
-      this.form.range = this.preferences[0].radius
-      //this.location = this.preferences[0].location
-
-      for (let i = 0; i < this.preferences.length; i++) {
-        console.log(this.preferences[i].category_name)
-        this.checkedCategories[i] = this.preferences[i].category_name
+      //if(this.preferences)
+      console.log('we here', this.preferences)
+      if (this.preferences.length != 0) {
+        if (this.preferences[0].location && this.preferences[0].radius) {
+          console.log('we here 1')
+          this.form.range = this.preferences[0].radius
+        } else {
+          console.log('we here too')
+          this.form.range = 10000
+        }
+        for (let i = 0; i < this.preferences.length; i++) {
+          console.log(this.preferences[i].category_name)
+          this.checkedCategories[i] = this.preferences[i].category_name
+        }
       }
+
+      //this.form.range = 5000
+      //console.log('pref', this.preferences)
+
+      //this.location = this.preferences[0].location
     },
     updateRadius() {
       console.log(this.form.range)
