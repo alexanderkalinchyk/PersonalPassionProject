@@ -144,6 +144,7 @@ export default {
       date: null,
       time: null,
       errors: false,
+      success: false,
       bindProps: {
         mode: 'international',
         defaultCountry: 'BE',
@@ -191,6 +192,10 @@ export default {
           })
           .then(function(response) {
             console.log(response)
+            this.date = null
+            this.time = null
+            this.phone = null
+            this.success = true
           })
           .catch(function(error) {
             console.log(error)
@@ -357,7 +362,7 @@ export default {
   }
 }
 .rounded-borders {
-  width: 20rem;
+  width: 17rem;
   border-radius: 12px 12px 12px 12px;
 }
 .card {

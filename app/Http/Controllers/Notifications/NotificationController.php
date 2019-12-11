@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Notification;
+namespace App\Http\Controllers\Notifications;
 
 use App\Notification;
+use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -45,19 +46,31 @@ class NotificationController extends Controller
         $user = $request->user();
 
         $validatedData = $request->validate([
-            'phone_number' => 'required',
+            'phone' => 'required',
             'date' => 'required|date',
             'time' => 'required',
-            'restaurant_name' => 'required',
-            'restaurant_url' => 'required',
+            'name' => 'required',
+            'url' => 'required',
         ]);
 
+
         $notifications = DB::table('notifications')
-        ->insert(['user_id' => $user->id, 'phone_number' => $validatedData['phone_number'], 'date' => $validatedData['date'], 'time' => $validatedData['time'], 'restaurant_name' => $validatedData['restaurant_name'], 'restaurant_url' => $validatedData['restaurant_url']]);
+        ->insert(['user_id' => $user->id, 'phone_number' => $validatedData['phone'], 'date' => $validatedData['date'], 'time' => $validatedData['time'], 'restaurant_name' => $validatedData['name'], 'restaurant_url' => $validatedData['url']]);
 
+        $this->sendSms($validatedData);
         return response()->json($notifications);
+    }
+    private function sendSms($data)
+    {
+        $account_sid = getenv("TWILIO_ACCOUNT_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_number = getenv("TWILIO_PHONE_NUMBER");
+        $client = new Client($account_sid, $auth_token);
 
+        $message = "";
 
+        $client->messages->create($data['phone'],
+                ['from' => $twilio_number, 'body' => $message] );
     }
     /**
      * Display the specified resource.
