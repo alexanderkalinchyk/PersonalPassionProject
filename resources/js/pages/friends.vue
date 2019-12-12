@@ -11,17 +11,10 @@
       </div>
       <div v-if="!loading" class="loading-cards fixed fixed--center">
         <div>
-          <router-link
-            :to="{ name: 'swipe' }"
-            class="btn-primary"
-            active-class="active"
-            >Back</router-link
-          >
+          <router-link :to="{ name: 'swipe' }" class="btn-primary" active-class="active">Back</router-link>
         </div>
         <div style="height: 100%">
-          <div v-if="success" class="alert alert-success">
-            Your invitation was successful!
-          </div>
+          <div v-if="success" class="alert alert-success">Your invitation was successful!</div>
           <h2 class="text-center">
             Invite friends to
             <span v-if="info" class="text-primary">{{ details.name }}</span>
@@ -32,27 +25,13 @@
             with a friend below:
           </p>
           <div class="col-md-12 text-center">
-            <img
-              v-if="info"
-              :src="details.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
-            <img
-              v-else
-              :src="detailsLocal.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
+            <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
+            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
           </div>
           <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 d-flex justify-content-around">
-              <span
-                v-for="category in details.categories"
-                class="category-tag"
-                >{{ category.title }}</span
-              >
+              <span v-for="category in details.categories" class="category-tag">{{ category.title }}</span>
             </div>
             <div class="col-md-3"></div>
           </div>
@@ -84,37 +63,18 @@
             <div class="row flex-column justify-content-center">
               <div class="col-md-12">
                 <label>Enter your friend's phone number</label>
-                <vue-tel-input
-                  v-model="phone"
-                  v-bind="bindProps"
-                ></vue-tel-input>
+                <vue-tel-input v-model="phone" v-bind="bindProps"></vue-tel-input>
               </div>
             </div>
             <div class="row text-center">
               <div class="col-md-12 d-flex justify-content-center">
-                <button @click="inviteFriend()" class="btn btn-success">
-                  Invite
-                </button>
+                <button @click="inviteFriend()" class="btn btn-success">Invite</button>
               </div>
               <div class="row w-100">
                 <div class="col-md-12 d-flex justify-content-center">
-                  <span v-if="errors" class="text-danger"
-                    >Please fill in every input</span
-                  >
+                  <span v-if="errors" class="text-danger">Please fill in every input</span>
                 </div>
               </div>
-            </div>
-            <div>
-              <br />
-              <p>- OR -</p>
-            </div>
-            <br />
-            <span>Or search our database:</span>
-            <div>
-              <input type="text" />
-              <button @click="findUser()" class="btn btn-success">
-                Search
-              </button>
             </div>
           </div>
         </div>
@@ -361,7 +321,7 @@ export default {
   position: fixed;
   &--center {
     left: 50%;
-    top: 30rem;
+    top: 50vh;
     transform: translate(-50%, -50%);
   }
 }

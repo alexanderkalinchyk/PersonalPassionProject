@@ -34,30 +34,36 @@ class ReplyController extends Controller
     {
         $from = $request->input("From");
         $body = strtolower($request->input("Body"));
-        if ($body == 'Accept') {
-        DB::table('preferences')
-        ->where('user_id', 5)
-        ->update(['radius' => 6001]);
-        $this->sendMessage($from);
-            /*
+        $status;
+        if ($body == 'accept') {
+            $status = 'Accepted';
             DB::table('notifications')
             ->where('phone_number', $from)
             ->orderBy('id','desc')
             ->take(1)
-            ->update(['reply' => $body]);
-            */
+            ->update(['reply' => $status]);
+            //$this->modifyTable();
         }
-        return "message received";
+        elseif($body == 'decline'){
+            $status = 'Declined';
+            DB::table('notifications')
+            ->where('phone_number', $from)
+            ->orderBy('id','desc')
+            ->take(1)
+            ->update(['reply' => $status]);
+        }
+        $this->sendMessage($from, $status);
+        return "message received".$body." ". $from ." " . $request . "";
     }
-    private function sendMessage($from)
+    private function sendMessage($to, $status)
     {
         $account_sid = getenv("TWILIO_ACCOUNT_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_PHONE_NUMBER");
         $client = new Client($account_sid, $auth_token);
 
-        $message = "Confirmation: You have accepted the invitation";
-        $client->messages->create($data['phone'],
+        $message = "Confirmation: You have ". $status ." the invitation";
+        $client->messages->create($to,
                 ['from' => $twilio_number, 'body' => $message] );
     }
     /**
