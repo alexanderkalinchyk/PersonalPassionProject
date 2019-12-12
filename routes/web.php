@@ -14,3 +14,5 @@
 Route::get('{path}', function () {
     return view('index');
 })->where('path', '(.*)');
+
+//Route::post("reply", "Reply\ReplyController@commandHandler");
