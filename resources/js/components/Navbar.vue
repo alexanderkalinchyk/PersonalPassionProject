@@ -46,17 +46,26 @@
                   </div>
                 </div>
                 <ul class="notification-list">
-                  <li class="notification-item" v-for="user of users">
-                    <div class="img-left">
-                      <img class="user-photo" alt="User Photo" v-bind:src="user.picture.thumbnail" />
-                    </div>
+                  <li class="notification-item" v-for="notification in notifications">
                     <div class="user-content">
                       <p class="user-info">
+                        <span class="name">{{notification.phone_number}}</span> -
+                        <span class="text-primary">{{notification.restaurant_name}}</span>
+                        <br />Reply Status:
                         <span
-                          class="name"
-                        >{{user.name.first | capitalize}} {{user.name.last | capitalize}}</span> left a comment.
+                          v-if="notification.reply == 'Accepted'"
+                          class="name text-success"
+                        >{{notification.reply}}</span>
+                        <span
+                          v-if="notification.reply == 'Declined'"
+                          class="name text-danger"
+                        >{{notification.reply}}</span>
+                        <span
+                          v-if="notification.reply == 'Pending'"
+                          class="name text-warning"
+                        >{{notification.reply}}</span>
                       </p>
-                      <p class="time">1 hour ago</p>
+                      <p class="time">{{notification.date}} - {{notification.time.slice(0, -3)}}</p>
                     </div>
                   </li>
                 </ul>
@@ -124,7 +133,7 @@ export default {
 
   data: () => ({
     appName: window.config.appName,
-    users: [],
+    notifications: [],
     errors: [],
     show: false
   }),
@@ -133,15 +142,16 @@ export default {
     user: 'auth/user'
   }),
   mounted() {
-    this.getUsers()
+    this.getNotifications()
   },
   methods: {
-    getUsers() {
+    getNotifications() {
       axios
-        .get('https://randomuser.me/api/?results=3')
+        .get('/api/sms/notification/get')
         .then(response => {
-          console.log(JSON.stringify(response.data.results))
-          this.users = response.data.results
+          console.log('notif', response.data)
+          //console.log(JSON.stringify(response.data.results))
+          this.notifications = response.data
         })
         .catch(e => {
           this.errors.push(e)
@@ -153,13 +163,6 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
-    }
-  },
-  filters: {
-    capitalize: function(value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   }
 }

@@ -73,6 +73,19 @@ class NotificationController extends Controller
         $client->messages->create($data['phone'],
                 ['from' => $twilio_number, 'body' => $message] );
     }
+    public function getnotifications(Request $request)
+    {
+        $user = $request->user();
+
+        $notifications = DB::table('notifications')
+        ->select(['phone_number', 'reply', 'date', 'time', 'restaurant_name'])
+        ->where('user_id', $user->id)
+        ->orderBy('id','desc')
+        ->limit(5)
+        ->get();
+
+        return response()->json($notifications);
+    }
     /**
      * Display the specified resource.
      *

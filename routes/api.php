@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('offset/get/{id}', 'Offset\OffsetController@offsetbyuserid');
 
     Route::post('sms/notification', 'Notifications\NotificationController@sendnotification');
+    Route::get('sms/notification/get', 'Notifications\NotificationController@getnotifications');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
