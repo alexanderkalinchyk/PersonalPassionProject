@@ -24,7 +24,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item d-flex align-items-center">
             <div class="notification">
-              <a v-on:click="show = !show" class="tooltip-bell">
+              <a v-on:click="getNotifications()" class="tooltip-bell">
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +44,9 @@
                   <div class="heading-left">
                     <h6 class="heading-title">Notifications</h6>
                   </div>
+                </div>
+                <div v-if="loading">
+                  <p>Loading...</p>
                 </div>
                 <ul class="notification-list">
                   <li class="notification-item" v-for="notification in notifications">
@@ -135,27 +138,31 @@ export default {
     appName: window.config.appName,
     notifications: [],
     errors: [],
-    show: false
+    show: false,
+    loading: true
   }),
 
   computed: mapGetters({
     user: 'auth/user'
   }),
-  mounted() {
-    this.getNotifications()
-  },
+  mounted() {},
   methods: {
     getNotifications() {
-      axios
-        .get('/api/sms/notification/get')
-        .then(response => {
-          console.log('notif', response.data)
-          //console.log(JSON.stringify(response.data.results))
-          this.notifications = response.data
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
+      this.loading = true
+      this.show = !this.show
+      if (this.show == true) {
+        axios
+          .get('/api/sms/notification/get')
+          .then(response => {
+            console.log('notif', response.data)
+            //console.log(JSON.stringify(response.data.results))
+            this.notifications = response.data
+            this.loading = false
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
+      }
     },
     async logout() {
       // Log out the user.
