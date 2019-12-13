@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\PasswordController@update');
     Route::patch('settings/preferences/updateLocation/{location}', 'Settings\PreferenceController@updatelocation');
     Route::patch('settings/preferences/updateRadius/{radius}', 'Settings\PreferenceController@updateradius');
+    Route::get('settings/preferences/getRadius', 'Settings\PreferenceController@getradius');
+    Route::post('settings/preferences/insertRadius/{radius}', 'Settings\PreferenceController@insertradius');
     Route::post('settings/preferences/update/{name}', 'Settings\PreferenceController@updatecategory');
     Route::post('settings/preferences/delete/{name}', 'Settings\PreferenceController@deletecategory');
     Route::get('settings/preferences/get', 'Settings\PreferenceController@getpreferences');

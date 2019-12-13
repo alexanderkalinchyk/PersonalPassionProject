@@ -48,6 +48,11 @@
                 <div v-if="loading">
                   <p>Loading...</p>
                 </div>
+                <div class="notification-list">
+                  <p class="user-info mt-3 mb-3" v-if="notifications">
+                    <span class="name">No notifications yet</span>
+                  </p>
+                </div>
                 <ul class="notification-list">
                   <li class="notification-item" v-for="notification in notifications">
                     <div class="user-content">

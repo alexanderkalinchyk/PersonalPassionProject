@@ -1,14 +1,13 @@
 <template>
   <card :title="$t('your_preferences')">
-    <div v-if="noData" class="alert alert-danger">
-      Please choose your search radius and select your location
-    </div>
+    <div
+      v-if="noData"
+      class="alert alert-warning"
+    >Please choose your search radius and select your location</div>
     <form @submit.prevent="update" @keydown="form.onKeydown($event)">
       <!-- Range -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">
-          {{ $t('range') }}
-        </label>
+        <label class="col-md-3 col-form-label text-md-right">{{ $t('range') }}</label>
         <div class="col-md-7 flex-center">
           <input
             v-model="form.range"
@@ -25,22 +24,15 @@
           <has-error :form="form" field="range" />
         </div>
         <div class="col-md-12">
-          <div v-if="success" class="col-md-12 alert alert-success">
-            Radius successfully updated
-          </div>
+          <div v-if="success" class="col-md-12 alert alert-success">Radius successfully updated</div>
         </div>
       </div>
       <!-- Location -->
-      <autocomplete
-        :suggestions="suggestions"
-        v-model="selection"
-      ></autocomplete>
+      <autocomplete :suggestions="suggestions" v-model="selection"></autocomplete>
 
       <!-- Categories -->
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">
-          {{ $t('categories') }}
-        </label>
+        <label class="col-md-3 col-form-label text-md-right">{{ $t('categories') }}</label>
         <div class="col-md-7">
           <div class="container">
             <ul class="ks-cboxtags">
@@ -208,6 +200,12 @@
           </div>
         </div>
       </div>
+      <div class="form-group row">
+        <div class="col-md-9 ml-md-auto">
+          <router-link :to="{ name: 'swipe' }" class="btn btn-success" active-class="active">Confirm</router-link>
+        </div>
+      </div>
+      <div></div>
     </form>
   </card>
 </template>
@@ -653,6 +651,9 @@ export default {
         console.log(error)
       })
   },
+  mounted() {
+    this.checkRadius()
+  },
   methods: {
     async update(e) {
       console.log(e.target.checked)
@@ -692,6 +693,21 @@ export default {
         .patch(`/api/settings/preferences/updateRadius/${this.form.range}`)
         .then((this.noData = false))
         .then((this.success = true))
+    },
+    async checkRadius() {
+      await axios.get(`/api/settings/preferences/getRadius`).then(response => {
+        console.log(response)
+        if (response.data.length == 0) {
+          this.insertRadius()
+        }
+      })
+    },
+    insertRadius() {
+      axios
+        .post(`/api/settings/preferences/insertRadius/${this.form.range}`)
+        .then(response => {
+          console.log(response)
+        })
     },
     getLocation() {
       /*

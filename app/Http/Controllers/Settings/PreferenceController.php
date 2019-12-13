@@ -36,23 +36,36 @@ class PreferenceController extends Controller
         if(!$get){
             DB::table('preferences')->insert(['user_id' => $user->id, 'location' => $location]);
         }
-        DB::table('preferences')
-        ->where('user_id', $user->id)
-        ->update(['location' => $location]);
+        else{
+            DB::table('preferences')
+            ->where('user_id', $user->id)
+            ->update(['location' => $location]);
+        }
+
 
     }
+    public function getradius(Request $request)
+    {
+        $user = $request->user();
 
+        //$preferences = DB::table('preferences')->where('user_id', $user->id)->get();
+        $preferences = DB::table('preferences')
+        ->select(['radius'])
+        ->where('user_id', $user->id)
+        ->get();
+        return response()->json($preferences);
+    }
     public function updateradius($radius, Request $request)
     {
         $user = $request->user();
-        $get = DB::table('preferences')->where('user_id', $user->id)->first();
-        if(!$get){
-            DB::table('preferences')->insert(['user_id' => $user->id, 'radius' => $radius]);
-        }
+
         DB::table('preferences')
         ->where('user_id', $user->id)
         ->update(['radius' => $radius]);
-
+    }
+    public function insertradius($radius, Request $request){
+        $user = $request->user();
+        DB::table('preferences')->insert(['user_id' => $user->id, 'radius' => $radius]);
     }
 
     public function deletecategory($name, Request $request)
