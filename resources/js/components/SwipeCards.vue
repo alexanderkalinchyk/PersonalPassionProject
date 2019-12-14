@@ -424,6 +424,9 @@ export default {
   border-bottom-left-radius: 12px;
   box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.25);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   & p {
     @media (min-width: 1000px) {
       font-size: 1rem;

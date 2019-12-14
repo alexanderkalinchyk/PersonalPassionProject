@@ -15,8 +15,11 @@
             <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
             <div class="text">
               <div class="thumbnails">
-                <button v-for="photo in details.photos">
-                  <img :src="photo" :alt="details.name" />
+                <button
+                  v-for="photo, index in details.photos"
+                  @click="selected = index; showPic($event)"
+                >
+                  <img :class="{highlight:index == selected}" :src="photo" :alt="details.name" />
                 </button>
               </div>
               <h2 v-if="info">
@@ -95,6 +98,7 @@ export default {
       messageson: [],
       details: [],
       loading: true,
+      selected: undefined,
       detailsLocal: ''
     }
   },
@@ -106,6 +110,7 @@ export default {
       console.log('new route')
       this.getBusinesses()
       this.storeLocaldata()
+      this.selected = undefined
     }
   },
   mounted() {
@@ -161,6 +166,16 @@ export default {
           localStorage.getItem(`${this.$route.params.id}`)
         )
         this.loading = false
+      }
+    },
+    showPic(e) {
+      console.log(e.target.src)
+      console.log('details', this.details)
+      console.log('detailsLocal', this.detailsLocal)
+      //
+      this.details.image_url = e.target.src
+      if (this.detailsLocal != '') {
+        this.detailsLocal.image_url = e.target.src
       }
     }
   }
@@ -284,6 +299,9 @@ export default {
     border: none;
     outline: none;
   }
+}
+.highlight {
+  border: 3px solid #a4d792 !important;
 }
 
 .transition {
