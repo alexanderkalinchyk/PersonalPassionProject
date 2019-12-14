@@ -1,7 +1,8 @@
 <template>
   <section class="favorites-list">
     <h2>Favorites</h2>
-    <button class="btn btn-primary">Cant Decide?</button>
+    <div class="favorites-img"></div>
+    <!-- <button class="btn btn-primary">Cant Decide?</button> -->
     <p v-if="loading">Loading...</p>
     <article
       v-if="!loading"
@@ -13,20 +14,8 @@
         <img :src="item.image_url" :alt="item.name" />
       </div>
       <h3>{{ item.name }}</h3>
-      <p>
-        {{ item.distance }} m -
-        <span>{{ item.price }}</span>
-      </p>
-      <router-link
-        :to="{ path: `/details/${item.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoBack(index)">More Info</span>
-      </router-link>
-      <!--  <button @click="moreInfo(item.business_id)"></button> -->
-      <br />
-      <br />
+      <p class="item-range">{{ item.distance }}m away</p>
+      <span>{{ item.price }}</span>
       <router-link
         :to="{ path: `/friends/${item.business_id}` }"
         class="btn btn-primary"
@@ -34,14 +23,14 @@
       >
         <span @click="storeInfoBack(index)">Invite Friends</span>
       </router-link>
-      <br />
-      <br />
-      <button
-        @click="deleteFavorite(item.business_id, index)"
-        class="btn btn-danger"
+      <router-link
+        :to="{ path: `/details/${item.business_id}` }"
+        class="btn btn-primary"
+        active-class="active"
       >
-        Remove
-      </button>
+        <span @click="storeInfoBack(index)">More Info</span>
+      </router-link>
+      <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
     <article
       v-if="messageson != ''"
@@ -53,19 +42,8 @@
         <img :src="message.image_url" :alt="message.name" />
       </div>
       <h3>{{ message.name }}</h3>
-      <p>
-        {{ Number(message.distance).toFixed(1) }}m -
-        <span>{{ message.price }}</span>
-      </p>
-      <router-link
-        :to="{ path: `/details/${message.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoFront(index)">More Info</span>
-      </router-link>
-      <br />
-      <br />
+      <p class="item-range">{{ Number(message.distance).toFixed(1) }}m away</p>
+      <span>{{ message.price }}</span>
       <router-link
         :to="{ path: `/friends/${message.business_id}` }"
         class="btn btn-primary"
@@ -73,14 +51,14 @@
       >
         <span @click="storeInfoFront(index)">Invite Friends</span>
       </router-link>
-      <br />
-      <br />
-      <button
-        @click="deleteFavorite(message.business_id, index)"
-        class="btn btn-danger"
+      <router-link
+        :to="{ path: `/details/${message.business_id}` }"
+        class="btn btn-primary"
+        active-class="active"
       >
-        Remove
-      </button>
+        <span @click="storeInfoFront(index)">More Info</span>
+      </router-link>
+      <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
   </section>
 </template>
@@ -146,12 +124,27 @@ export default {
 <style lang="scss" scoped>
 .favorites-list {
   background-color: #fff;
-  width: 15rem;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & article {
+    width: 100%;
+  }
+  & h3 {
+    padding: 0.5rem;
+  }
 }
 .favorite-item {
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #a4d792;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item-range {
+  margin: 0;
 }
 .item-img {
   width: 8rem;
@@ -163,5 +156,11 @@ export default {
   img {
     width: 100%;
   }
+}
+.favorites-img {
+  height: 7rem;
+  width: 7rem;
+  background: url(/images/favorites_img.png) no-repeat;
+  background-position: center;
 }
 </style>
