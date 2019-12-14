@@ -10,8 +10,12 @@
         <h2>Loading...</h2>
       </div>
       <div v-if="!loading" class="loading-cards fixed fixed--center">
-        <div>
-          <router-link :to="{ name: 'swipe' }" class="btn-primary" active-class="active">Back</router-link>
+        <div class="back-wrap">
+          <router-link
+            :to="{ name: 'swipe' }"
+            class="btn btn-primary btn-back"
+            active-class="active"
+          >Back</router-link>
         </div>
         <div style="height: 100%">
           <div v-if="success" class="alert alert-success">Your invitation was successful!</div>
@@ -265,6 +269,14 @@ export default {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+.back-wrap {
+  width: 20rem;
+  margin: 1rem;
+}
+.btn-back {
+  width: 8rem;
+  border-radius: 2rem;
+}
 .category-tag {
   padding: 6px 15px;
   border-radius: 25px;
@@ -276,7 +288,7 @@ export default {
 }
 .btn {
   position: relative;
-  width: 15rem;
+  width: 12rem;
   cursor: pointer;
   transition: all 0.3s ease;
   user-select: none;
