@@ -328,11 +328,21 @@ export default {
   }
 }
 .btn-choice {
-  width: 7rem;
-  height: 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (min-width: 1000px) {
+    width: 4rem;
+    height: 4rem;
+  }
+  @media (min-width: 1200px) {
+    width: 5rem;
+    height: 5rem;
+  }
+  @media (min-width: 1900px) {
+    width: 7rem;
+    height: 7rem;
+  }
 }
 .icon-no {
   background: url('/images/no.png') no-repeat;
@@ -360,8 +370,17 @@ export default {
   position: fixed;
   &--center {
     left: 50%;
-    top: 47%;
     transform: translate(-50%, -50%);
+
+    @media (min-width: 1000px) {
+      top: 43%;
+    }
+    @media (min-width: 1200px) {
+      top: 38%;
+    }
+    @media (min-width: 1900px) {
+      top: 40%;
+    }
   }
 }
 .rounded-borders {
@@ -370,8 +389,6 @@ export default {
 }
 .card {
   width: 22rem;
-  height: 30vw;
-  max-height: 30rem;
   color: white;
   img {
     object-fit: cover;
@@ -388,6 +405,15 @@ export default {
     box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2),
       0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12);
   }
+  @media (min-width: 1000px) {
+    height: 47vh;
+  }
+  @media (min-width: 1200px) {
+    height: 40vh;
+  }
+  @media (min-width: 1900px) {
+    height: 30rem;
+  }
 }
 .text {
   bottom: 0;
@@ -396,16 +422,33 @@ export default {
   background: white;
   border-bottom-right-radius: 12px;
   border-bottom-left-radius: 12px;
-  padding: 0.5rem;
   box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.25);
-  height: 10rem;
   text-align: center;
   & p {
-    font-size: 1.5rem;
+    @media (min-width: 1000px) {
+      font-size: 1rem;
+    }
+    @media (min-width: 1200px) {
+      font-size: 1.5rem;
+    }
+  }
+  @media (min-width: 1000px) {
+    height: 6rem;
+    padding: 0;
+  }
+  @media (min-width: 1200px) {
+    height: 10rem;
+    padding: 0.5rem;
   }
 }
 .h2-name {
   font-weight: bold;
+  @media (min-width: 1000px) {
+    font-size: 1.2rem;
+  }
+  @media (min-width: 1200px) {
+    font-size: 2rem;
+  }
 }
 .item-price {
   background-color: #a4d792;
@@ -415,7 +458,12 @@ export default {
   border-radius: 5rem;
   width: 3.5rem;
   text-align: center;
-  font-size: 1.3rem;
+  @media (min-width: 1000px) {
+    font-size: 1rem;
+  }
+  @media (min-width: 1200px) {
+    font-size: 1.3rem;
+  }
 }
 
 .transition {
