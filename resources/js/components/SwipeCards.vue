@@ -41,10 +41,10 @@
           <img :src="`${current.image_url}`" :alt="current.name" class="rounded-borders" />
           <div class="text">
             <h2>
-              <span>{{ current.name }}</span>
-              <span>{{ Number(current.distance).toFixed(1) }}m</span>
-              <span>{{ current.price }}</span>
+              <span class="h2-name">{{ current.name }}</span>
+              <span v-if="current.price" class="item-price">{{ current.price }}</span>
             </h2>
+            <p>{{ Number(current.distance).toFixed(1) }}m away</p>
           </div>
         </div>
       </Vue2InteractDraggable>
@@ -54,19 +54,12 @@
         <img :src="`${next.image_url}`" class="rounded-borders" />
         <div class="text">
           <h2>
-            {{ next.name }},
-            <span>{{ Number(next.distance).toFixed(1) }}</span>,
-            <span>{{ next.price }}</span>
+            <span class="h2-name">{{ next.name }}</span>
+            <span v-if="next.price" class="item-price">{{ next.price }}</span>
           </h2>
+          <p>{{ Number(next.distance).toFixed(1) }}m away</p>
         </div>
       </div>
-    </div>
-    <div
-      v-if="index + 2 < businesses.length"
-      class="rounded-borders card card--three fixed fixed--center"
-      style="z-index: 1"
-    >
-      <div style="height: 100%"></div>
     </div>
     <div class="footer fixed">
       <div class="btn btn-choice" @click="reject">
@@ -287,13 +280,13 @@ export default {
 }
 
 .footer {
-  width: 20vw;
+  width: 24rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: space-around;
   align-items: center;
-  bottom: 13vh;
+  bottom: 2rem;
 }
 
 .btn {
@@ -367,16 +360,18 @@ export default {
   position: fixed;
   &--center {
     left: 50%;
-    top: 50%;
+    top: 47%;
     transform: translate(-50%, -50%);
   }
 }
 .rounded-borders {
-  border-radius: 12px;
+  border-radius: 12px 12px 0px 0px;
+  border: 0.1px solid white;
 }
 .card {
   width: 22rem;
-  height: 30rem;
+  height: 30vw;
+  max-height: 30rem;
   color: white;
   img {
     object-fit: cover;
@@ -393,25 +388,34 @@ export default {
     box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2),
       0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12);
   }
-  &--three {
-    background: rgba(black, 0.8);
-    transform: translate(-46%, -46%);
-    box-shadow: 0 10px 13px -6px rgba(0, 0, 0, 0.2),
-      0 20px 31px 3px rgba(0, 0, 0, 0.14), 0 8px 38px 7px rgba(0, 0, 0, 0.12);
+}
+.text {
+  bottom: 0;
+  width: 100%;
+  color: #3e3c3e;
+  background: white;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.25);
+  height: 10rem;
+  text-align: center;
+  & p {
+    font-size: 1.5rem;
   }
-  .text {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: black;
-    background: rgba(0, 0, 0, 0.5);
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-    padding: 0.5rem;
-    span {
-      font-weight: normal;
-    }
-  }
+}
+.h2-name {
+  font-weight: bold;
+}
+.item-price {
+  background-color: #a4d792;
+  padding: 0.5rem;
+  color: white;
+  margin: 0.5rem;
+  border-radius: 5rem;
+  width: 3.5rem;
+  text-align: center;
+  font-size: 1.3rem;
 }
 
 .transition {

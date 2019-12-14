@@ -137,6 +137,8 @@ export default {
   }
   & h3 {
     margin-bottom: 0;
+    text-align: center;
+    padding: 0.5rem;
   }
   & h2 {
     margin-top: 1rem;

@@ -1,37 +1,18 @@
 <template>
   <div class="details">
-    <div>
-      <router-link
-        :to="{ name: 'swipe' }"
-        class="btn-primary"
-        active-class="active"
-        >Back</router-link
-      >
-    </div>
     <FavoriteList :messageson="messageson" />
     <section class="container">
-      <div
-        v-if="loading"
-        class="loading-cards fixed fixed--center"
-        style="z-index: 4; color: black; text-align:center;"
-      >
+      <div v-if="loading" style="z-index: 4; color: black; text-align:center;">
         <h2>Loading...</h2>
       </div>
-      <div v-if="!loading" class="loading-cards fixed fixed--center">
+      <div v-if="!loading" class="loading-cards">
+        <div class="back-wrap">
+          <router-link :to="{ name: 'swipe' }" class="btn btn-primary" active-class="active">Back</router-link>
+        </div>
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img
-              v-if="info"
-              :src="details.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
-            <img
-              v-else
-              :src="detailsLocal.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
+            <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
+            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
             <div class="text">
               <div class="thumbnails">
                 <button v-for="photo in details.photos">
@@ -45,26 +26,18 @@
               </h2>
               <h2 v-else>
                 <span>{{ detailsLocal.name }}</span>
-                <span
-                  >{{ Number(detailsLocal.distance).toFixed(1) }}m away</span
-                >
+                <span>{{ Number(detailsLocal.distance).toFixed(1) }}m away</span>
                 <span>{{ detailsLocal.price }}</span>
               </h2>
-              <span
-                v-for="(address, index) in details.location.display_address"
-              >
+              <span v-for="(address, index) in details.location.display_address">
                 {{ address }}
                 <span v-if="index == 0">,</span>
               </span>
               <div>
-                <span v-for="category in details.categories">
-                  {{ category.title }}
-                </span>
+                <span v-for="category in details.categories">{{ category.title }}</span>
               </div>
               <table>
-                <tr v-if="details.hours.is_open_now == true">
-                  OPEN NOW
-                </tr>
+                <tr v-if="details.hours.is_open_now == true">OPEN NOW</tr>
                 <tr v-for="hour in details.hours[0].open">
                   <td>{{ hour.day }}</td>
                   <td>{{ hour.start }}</td>
@@ -78,15 +51,18 @@
                 <button>{{ details.display_phone }}</button>
                 <div v-if="details.messaging">
                   message business:
-                  <a :href="details.messaging.url" target="_blank">
-                    {{ details.messaging.use_case_text }}
-                  </a>
+                  <a
+                    :href="details.messaging.url"
+                    target="_blank"
+                  >{{ details.messaging.use_case_text }}</a>
                 </div>
               </div>
               <div>
-                <span v-for="coordinate in details.coordinates">{{
+                <span v-for="coordinate in details.coordinates">
+                  {{
                   coordinate
-                }}</span>
+                  }}
+                </span>
                 <button>navigate</button>
               </div>
 
@@ -234,46 +210,21 @@ export default {
   justify-content: space-around;
   align-items: center;
 }
-
-.btn {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  padding: 0.2rem;
-  border-radius: 50%;
-  background-color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  &:active {
-    transform: translateY(4px);
-  }
-  i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    &::before {
-      content: '';
-    }
-  }
-  &--like {
-    padding: 0.5rem;
-    box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.23);
-    i {
-      font-size: 32px;
-    }
-  }
-  &--decline {
-    color: dislike;
-  }
-  box-shadow: 0px 3px 33.25px 1.75px rgba(154, 161, 171, 0.23);
-  i {
-    font-size: 32px;
-  }
+.loading-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(4rem);
 }
-
+.btn {
+  width: 8rem;
+  border-radius: 2rem;
+}
+.back-wrap {
+  width: 20rem;
+  margin: 1rem;
+}
 .flex {
   display: flex;
   &--center {
@@ -282,14 +233,6 @@ export default {
   }
 }
 
-.fixed {
-  position: fixed;
-  &--center {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
 .rounded-borders {
   border-radius: 12px 12px 0px 0px;
 }
