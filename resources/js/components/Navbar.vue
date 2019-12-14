@@ -1,7 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <router-link :to="{ name: user ? 'swipe' : 'swipe' }" class="navbar-brand">{{ appName }}</router-link>
+      <router-link :to="{ name: user ? 'swipe' : 'swipe' }" class="navbar-brand">
+        <img src="/images/logo.png" alt="swipe logo" />
+      </router-link>
 
       <button
         class="navbar-toggler"
@@ -181,6 +183,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.navbar {
+  padding: 0.2rem 1rem;
+  background-color: #a4d792;
+}
 .profile-photo {
   width: 2rem;
   height: 2rem;
@@ -188,6 +194,7 @@ export default {
 }
 .notification {
   margin-right: 2rem;
+  position: relative;
 }
 .tooltip {
   &::before {
@@ -201,6 +208,7 @@ export default {
   }
   position: absolute;
   top: 2.5rem;
+  right: -9.5rem;
   line-height: 1.5;
   color: #27303d;
   width: 20rem;

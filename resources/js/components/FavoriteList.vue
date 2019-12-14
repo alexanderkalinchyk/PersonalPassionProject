@@ -15,21 +15,23 @@
       </div>
       <h3>{{ item.name }}</h3>
       <p class="item-range">{{ item.distance }}m away</p>
-      <span>{{ item.price }}</span>
-      <router-link
-        :to="{ path: `/friends/${item.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoBack(index)">Invite Friends</span>
-      </router-link>
-      <router-link
-        :to="{ path: `/details/${item.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoBack(index)">More Info</span>
-      </router-link>
+      <span class="item-price">{{ item.price }}</span>
+      <div class="d-flex justify-content-center w-100">
+        <router-link
+          :to="{ path: `/friends/${item.business_id}` }"
+          class="btn btn-success"
+          active-class="active"
+        >
+          <span @click="storeInfoBack(index)">Invite Friends</span>
+        </router-link>
+        <router-link
+          :to="{ path: `/details/${item.business_id}` }"
+          class="btn btn-primary"
+          active-class="active"
+        >
+          <span @click="storeInfoBack(index)">More Info</span>
+        </router-link>
+      </div>
       <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
     <article
@@ -43,21 +45,23 @@
       </div>
       <h3>{{ message.name }}</h3>
       <p class="item-range">{{ Number(message.distance).toFixed(1) }}m away</p>
-      <span>{{ message.price }}</span>
-      <router-link
-        :to="{ path: `/friends/${message.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoFront(index)">Invite Friends</span>
-      </router-link>
-      <router-link
-        :to="{ path: `/details/${message.business_id}` }"
-        class="btn btn-primary"
-        active-class="active"
-      >
-        <span @click="storeInfoFront(index)">More Info</span>
-      </router-link>
+      <span class="item-price">{{ message.price }}</span>
+      <div class="d-flex justify-content-center w-100">
+        <router-link
+          :to="{ path: `/friends/${message.business_id}` }"
+          class="btn btn-success"
+          active-class="active"
+        >
+          <span @click="storeInfoFront(index)">Invite Friends</span>
+        </router-link>
+        <router-link
+          :to="{ path: `/details/${message.business_id}` }"
+          class="btn btn-primary"
+          active-class="active"
+        >
+          <span @click="storeInfoFront(index)">More Info</span>
+        </router-link>
+      </div>
       <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
     </article>
   </section>
@@ -132,7 +136,10 @@ export default {
     width: 100%;
   }
   & h3 {
-    padding: 0.5rem;
+    margin-bottom: 0;
+  }
+  & h2 {
+    margin-top: 1rem;
   }
 }
 .favorite-item {
@@ -145,6 +152,15 @@ export default {
 }
 .item-range {
   margin: 0;
+}
+.item-price {
+  background-color: #a4d792;
+  padding: 0.5rem;
+  color: white;
+  margin: 0.5rem;
+  border-radius: 5rem;
+  width: 3.5rem;
+  text-align: center;
 }
 .item-img {
   width: 8rem;
@@ -162,5 +178,14 @@ export default {
   width: 7rem;
   background: url(/images/favorites_img.png) no-repeat;
   background-position: center;
+}
+.btn-primary {
+  margin: 0 0.3rem;
+}
+.btn-success {
+  margin: 0 0.3rem;
+}
+.btn-danger {
+  margin-top: 1rem;
 }
 </style>

@@ -69,11 +69,11 @@
       <div style="height: 100%"></div>
     </div>
     <div class="footer fixed">
-      <div class="btn btn--decline" @click="reject">
-        <i class="material-icons">X</i>
+      <div class="btn btn-choice" @click="reject">
+        <div class="icon-no"></div>
       </div>
-      <div class="btn btn--like" @click="match">
-        <i class="material-icons">V</i>
+      <div class="btn btn-choice" @click="match">
+        <div class="icon-yes"></div>
       </div>
     </div>
   </section>
@@ -288,12 +288,12 @@ export default {
 
 .footer {
   width: 20vw;
-  bottom: 4vh;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  bottom: 13vh;
 }
 
 .btn {
@@ -334,7 +334,27 @@ export default {
     font-size: 32px;
   }
 }
-
+.btn-choice {
+  width: 7rem;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-no {
+  background: url('/images/no.png') no-repeat;
+  height: 6rem;
+  width: 6rem;
+  background-position: center;
+  background-size: 80%;
+}
+.icon-yes {
+  background: url('/images/favorites_img.png') no-repeat;
+  height: 6rem;
+  width: 6rem;
+  background-position: center;
+  background-size: 80%;
+}
 .flex {
   display: flex;
   &--center {
