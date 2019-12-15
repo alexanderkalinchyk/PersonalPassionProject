@@ -107,17 +107,16 @@
                   }}</a>
                 </div>
               </div>
-              <div v-if="details.messaging">
-                Message Business:
+              <div class="text-center" v-if="details.messaging">
                 <a :href="details.messaging.url" target="_blank">{{
                   details.messaging.use_case_text
                 }}</a>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12 text-center">
-                  <h2>
+                  <h3>
                     Location
-                  </h2>
+                  </h3>
                   <GmapMap
                     :center="{
                       lat: details.coordinates.latitude,
@@ -136,9 +135,21 @@
                   </GmapMap>
                 </div>
               </div>
-              <div>
-                <h3>Rating</h3>
-                <span>{{ details.rating }}</span>
+              <div class="row mb-2">
+                <div
+                  class="col-md-12 text-center d-flex flex-column justify-content-center"
+                >
+                  <h3>
+                    Rating
+                  </h3>
+                  <star-rating
+                    :show-rating="false"
+                    read-only
+                    :increment="0.5"
+                    :fixed-points="1"
+                    :rating="details.rating"
+                  ></star-rating>
+                </div>
               </div>
             </div>
           </div>
@@ -149,14 +160,15 @@
 </template>
 <script>
 import FavoriteList from '../components/FavoriteList'
-
 import axios from 'axios'
-import VueGoogleMaps from 'vue2-google-maps'
 import { mapGetters } from 'vuex'
+import StarRating from 'vue-star-rating'
+
 export default {
   name: 'favorite_details',
   components: {
-    FavoriteList
+    FavoriteList,
+    StarRating
   },
   props: {
     msg: String
@@ -219,7 +231,6 @@ export default {
         //console.log(localStorage.getItem(`${this.$route.params.id}`))
         axios
           .get(`/api/businesses/${this.$route.params.id}`)
-          //.then(response => console.log('response data', response.data))
           .then(response => {
             this.details = response.data
             localStorage.setItem(
@@ -329,6 +340,10 @@ export default {
     width: 7rem;
   }
 }
+.vue-star-rating {
+  display: flex;
+  justify-content: center;
+}
 .rounded-borders {
   border-radius: 12px 12px 0px 0px;
 }
@@ -336,6 +351,7 @@ export default {
   width: 22rem;
   height: 30rem;
   color: white;
+  padding-bottom: 1rem;
   img {
     object-fit: cover;
     display: block;
