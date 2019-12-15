@@ -7,6 +7,7 @@ use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 
 class NotificationController extends Controller
@@ -59,6 +60,7 @@ class NotificationController extends Controller
         ->insert(['user_id' => $user->id, 'phone_number' => $validatedData['phone'], 'date' => $validatedData['date'], 'time' => $validatedData['time'], 'restaurant_name' => $validatedData['name'], 'restaurant_url' => $validatedData['url']]);
 
         $this->sendSms($validatedData, $user);
+        $this->insertReminder($validatedData, $user);
         return response()->json($notifications);
     }
     private function sendSms($data, $user)
@@ -72,6 +74,15 @@ class NotificationController extends Controller
 
         $client->messages->create($data['phone'],
                 ['from' => $twilio_number, 'body' => $message] );
+    }
+    public function insertReminder($data, $user){
+
+        $timezoneoffset = Carbon::parse("{$data['date']} {$data['time']}");
+
+        $reminders = DB::table('reminders')
+        ->insert(['mobile_no' => $data['phone'], 'timezoneoffset' => $timezoneoffset, 'message' => "". $data['name'] ." meeting with ". $user->name . " at ". $data['time'] ."", 'created_at' => date("Y-m-d H:i:s")]);
+
+        return response()->json($reminders);
     }
     public function getnotifications(Request $request)
     {

@@ -42,7 +42,7 @@ class ReplyController extends Controller
             ->orderBy('id','desc')
             ->take(1)
             ->update(['reply' => $status]);
-            //$this->modifyTable();
+            $this->setReminder($from, $body);
         }
         elseif($body == 'decline'){
             $status = 'Declined';
@@ -51,6 +51,7 @@ class ReplyController extends Controller
             ->orderBy('id','desc')
             ->take(1)
             ->update(['reply' => $status]);
+            $this->setReminder($from, $body);
         }
         $this->sendMessage($from, $status);
         return "message received".$body." ". $from ." " . $request . "";
@@ -72,6 +73,14 @@ class ReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function setReminder($to, $status)
+    {
+        DB::table('reminders')
+        ->where('mobile_no', $to)
+        ->orderBy('id','desc')
+        ->take(1)
+        ->update(['reply' => $status]);
+    }
     public function store(Request $request)
     {
             //

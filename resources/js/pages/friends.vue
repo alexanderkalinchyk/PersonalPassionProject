@@ -10,8 +10,12 @@
         <h2>Loading...</h2>
       </div>
       <div v-if="!loading" class="loading-cards fixed fixed--center">
-        <div>
-          <router-link :to="{ name: 'swipe' }" class="btn-primary" active-class="active">Back</router-link>
+        <div class="back-wrap">
+          <router-link
+            :to="{ name: 'swipe' }"
+            class="btn btn-back btn-primary"
+            active-class="active"
+          >Back</router-link>
         </div>
         <div style="height: 100%">
           <div v-if="success" class="alert alert-success">Your invitation was successful!</div>
@@ -316,7 +320,14 @@ export default {
     justify-content: center;
   }
 }
-
+.btn-back {
+  width: 8rem;
+  border-radius: 2rem;
+}
+.back-wrap {
+  width: 20rem;
+  margin: 1rem;
+}
 .fixed {
   position: fixed;
   &--center {
