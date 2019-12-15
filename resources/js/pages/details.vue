@@ -7,68 +7,135 @@
       </div>
       <div v-if="!loading" class="loading-cards">
         <div class="back-wrap">
-          <router-link :to="{ name: 'swipe' }" class="btn btn-primary" active-class="active">Back</router-link>
+          <router-link
+            :to="{ name: 'swipe' }"
+            class="btn btn-primary"
+            active-class="active"
+            >Back</router-link
+          >
         </div>
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
-            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
+            <img
+              v-if="info"
+              :src="details.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
+            <img
+              v-else
+              :src="detailsLocal.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
             <div class="text">
               <div class="thumbnails">
                 <button
-                  v-for="photo, index in details.photos"
-                  @click="selected = index; showPic($event)"
+                  v-for="(photo, index) in details.photos"
+                  @click="
+                    selected = index
+                    showPic($event)
+                  "
                 >
-                  <img :class="{highlight:index == selected}" :src="photo" :alt="details.name" />
+                  <img
+                    :class="{ highlight: index == selected }"
+                    :src="photo"
+                    :alt="details.name"
+                  />
                 </button>
               </div>
-              <h2 v-if="info">
-                <span>{{ details.name }}</span>
-                <span>{{ Number(info.distance).toFixed(1) }}m away</span>
-                <span>{{ details.price }}</span>
-              </h2>
-              <h2 v-else>
-                <span>{{ detailsLocal.name }}</span>
-                <span>{{ Number(detailsLocal.distance).toFixed(1) }}m away</span>
-                <span>{{ detailsLocal.price }}</span>
-              </h2>
-              <span v-for="(address, index) in details.location.display_address">
-                {{ address }}
-                <span v-if="index == 0">,</span>
-              </span>
-              <div>
-                <span v-for="category in details.categories">{{ category.title }}</span>
+              <div v-if="info">
+                <h2>
+                  <span class="h2-name">{{ details.name }}</span>
+                  <span class="item-price">{{ details.price }}</span>
+                </h2>
+                <p>{{ Number(info.distance).toFixed(1) }}m away</p>
               </div>
-              <table>
-                <tr v-if="details.hours.is_open_now == true">OPEN NOW</tr>
+              <div v-else>
+                <h2>
+                  <span class="h2-name">{{ detailsLocal.name }}</span>
+                  <span class="item-price">{{ detailsLocal.price }}</span>
+                </h2>
+                <p>{{ Number(detailsLocal.distance).toFixed(1) }}m away</p>
+              </div>
+              <div class="address">
+                <span
+                  v-for="(address, index) in details.location.display_address"
+                >
+                  {{ address }}
+                  <span v-if="index == 0">,</span>
+                </span>
+              </div>
+              <div class="row d-flex justify-content-center">
+                <span
+                  v-for="category in details.categories"
+                  class="category-tag"
+                  >{{ category.title }}</span
+                >
+              </div>
+              <table class="table">
+                <thead>
+                  Open Hours
+                </thead>
+                <tr v-if="details.hours.is_open_now == true">
+                  OPEN NOW
+                </tr>
                 <tr v-for="hour in details.hours[0].open">
-                  <td>{{ hour.day }}</td>
-                  <td>{{ hour.start }}</td>
-                  <td>{{ hour.end }}</td>
+                  <td v-if="hour.day == 0" class="table-day">Monday</td>
+                  <td v-if="hour.day == 1" class="table-day">Tuesday</td>
+                  <td v-if="hour.day == 2" class="table-day">Wednesday</td>
+                  <td v-if="hour.day == 3" class="table-day">Thursday</td>
+                  <td v-if="hour.day == 4" class="table-day">Friday</td>
+                  <td v-if="hour.day == 5" class="table-day">Saturday</td>
+                  <td v-if="hour.day == 6" class="table-day">Sunday</td>
+                  <td>{{ hour.start.replace(/(..)/g, '$1:').slice(0, -1) }}</td>
+                  <td>-</td>
+                  <td>{{ hour.end.replace(/(..)/g, '$1:').slice(0, -1) }}</td>
                 </tr>
               </table>
 
-              <div>
-                <a :href="details.url" target="_blank">Visit website</a>
-                Call:
-                <button>{{ details.display_phone }}</button>
-                <div v-if="details.messaging">
-                  message business:
-                  <a
-                    :href="details.messaging.url"
-                    target="_blank"
-                  >{{ details.messaging.use_case_text }}</a>
+              <div class="row mb-2">
+                <div class="col-md-12 text-center">
+                  <a :href="details.url" target="_blank">Visit website</a>
                 </div>
               </div>
-              <div>
-                <span v-for="coordinate in details.coordinates">
-                  {{
-                  coordinate
-                  }}
-                </span>
-                <button>navigate</button>
+              <div class="row mb-2">
+                <div class="col-md-12 text-center">
+                  Call:
+                  <a href="tel:details.display_phone">{{
+                    details.display_phone
+                  }}</a>
+                </div>
               </div>
-
+              <div v-if="details.messaging">
+                Message Business:
+                <a :href="details.messaging.url" target="_blank">{{
+                  details.messaging.use_case_text
+                }}</a>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-12 text-center">
+                  <h2>
+                    Location
+                  </h2>
+                  <GmapMap
+                    :center="{
+                      lat: details.coordinates.latitude,
+                      lng: details.coordinates.longitude
+                    }"
+                    :map-type-id="mapTypeId"
+                    :zoom="17"
+                  >
+                    <GmapMarker
+                      :position="{
+                        lat: details.coordinates.latitude,
+                        lng: details.coordinates.longitude
+                      }"
+                      @click="center = position"
+                    />
+                  </GmapMap>
+                </div>
+              </div>
               <div>
                 <h3>Rating</h3>
                 <span>{{ details.rating }}</span>
@@ -80,10 +147,11 @@
     </section>
   </div>
 </template>
-
 <script>
 import FavoriteList from '../components/FavoriteList'
+
 import axios from 'axios'
+import VueGoogleMaps from 'vue2-google-maps'
 import { mapGetters } from 'vuex'
 export default {
   name: 'favorite_details',
@@ -99,7 +167,10 @@ export default {
       details: [],
       loading: true,
       selected: undefined,
-      detailsLocal: ''
+      detailsLocal: '',
+      center: { lat: -3.350235, lng: 111.995865 },
+      mapTypeId: 'terrain',
+      position: { lat: -6.9127778, lng: 107.6205556 }
     }
   },
   computed: mapGetters({
@@ -247,7 +318,17 @@ export default {
     justify-content: center;
   }
 }
-
+.table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .table-day {
+    border-right: 1px solid #126ab3;
+    width: 7rem;
+  }
+}
 .rounded-borders {
   border-radius: 12px 12px 0px 0px;
 }
@@ -284,14 +365,43 @@ export default {
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
     padding: 0.5rem;
-    span {
-      font-weight: normal;
+    .h2-name {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+    .item-price {
+      background-color: #a4d792;
+      padding: 0.5rem;
+      color: white;
+      margin: 0.5rem;
+      border-radius: 5rem;
+      width: 3.5rem;
+      text-align: center;
+      font-size: 1.3rem;
+    }
+    p {
+      font-size: 1.5rem;
     }
   }
+}
+.category-tag {
+  padding: 6px 15px;
+  border-radius: 25px;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  background-color: #12bbd4;
+  color: #fff;
+  margin: 0 1rem 1rem 0;
+}
+.address {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #8e8e8e;
 }
 .thumbnails {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 1rem;
   button {
     width: 100px;
     height: 100px;
@@ -307,7 +417,10 @@ export default {
 .transition {
   animation: appear 200ms ease-in;
 }
-
+.vue-map-container {
+  height: 25rem;
+  width: 100%;
+}
 @keyframes appear {
   from {
     transform: translate(-48%, -48%);
