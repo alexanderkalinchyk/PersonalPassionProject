@@ -66,7 +66,9 @@
                   <span v-if="index == 0">,</span>
                 </span>
               </div>
-              <div class="row d-flex justify-content-center">
+              <div
+                class="categories row d-flex justify-content-around mb-3 mt-3"
+              >
                 <span
                   v-for="category in details.categories"
                   class="category-tag"
@@ -312,7 +314,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: translateY(4rem);
+  transform: translateY(1rem);
 }
 .btn {
   width: 8rem;
@@ -400,6 +402,9 @@ export default {
     }
   }
 }
+.categories {
+  padding: 0 1rem;
+}
 .category-tag {
   padding: 6px 15px;
   border-radius: 25px;
@@ -407,7 +412,6 @@ export default {
   -webkit-tap-highlight-color: transparent;
   background-color: #12bbd4;
   color: #fff;
-  margin: 0 1rem 1rem 0;
 }
 .address {
   margin-bottom: 0.5rem;
