@@ -36,6 +36,10 @@ class SendReminder extends Command
      */
     public function handle()
     {
+        //reminder command
+        //check of het tijd is om reminder te versturen
+        //
+        //refresh om de 60 seconden
        print_r("Reminder Daemon Started \n");
         while (true) {
             $account_sid = getenv('TWILIO_ACCOUNT_SID');

@@ -36,15 +36,18 @@ class ReplyController extends Controller
         $body = strtolower($request->input("Body"));
         $status;
         if ($body == 'accept') {
+            //als iemand "accept" antwoordt
             $status = 'Accepted';
             DB::table('notifications')
             ->where('phone_number', $from)
             ->orderBy('id','desc')
             ->take(1)
             ->update(['reply' => $status]);
+            //reminder op "accepted" zetten
             $this->setReminder($from, $body);
         }
         elseif($body == 'decline'){
+            //als iemand "decline" antwoordt
             $status = 'Declined';
             DB::table('notifications')
             ->where('phone_number', $from)
@@ -58,6 +61,8 @@ class ReplyController extends Controller
     }
     private function sendMessage($to, $status)
     {
+        //sms versturen met twilio telefoonnummer
+        //en twilio id
         $account_sid = getenv("TWILIO_ACCOUNT_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_PHONE_NUMBER");
