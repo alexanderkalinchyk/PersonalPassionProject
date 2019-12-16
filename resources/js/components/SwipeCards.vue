@@ -442,7 +442,7 @@ export default {
     height: 47vh;
   }
   @media (min-width: 1200px) {
-    height: 40vh;
+    height: 45vh;
     width: 28rem;
   }
   @media (min-width: 1900px) {
