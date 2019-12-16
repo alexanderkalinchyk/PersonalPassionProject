@@ -17,6 +17,9 @@ export default {
   height: 100vh;
   font-weight: 100;
   position: relative;
+  @media (max-width: 500px) {
+    height: 100%;
+  }
 
   .links > a {
     color: #3e3c3e;

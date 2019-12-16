@@ -57,6 +57,10 @@ export default {
   margin-bottom: 0rem;
   background-position: center;
   background-size: 85vh;
+  @media (max-width: 500px) {
+    height: 22vh;
+    margin-top: 7vh;
+  }
 }
 .top-right {
   position: absolute;
@@ -75,6 +79,10 @@ export default {
   @media (max-width: 1200px) {
     width: 70vw;
     height: 35rem;
+  }
+  @media (max-width: 500px) {
+    width: 90vw;
+    margin-bottom: 3rem;
   }
 }
 .title {
