@@ -1,7 +1,10 @@
 # PersonalPassionProject
 
 http://alexprojects.be/ - online
+
 https://personalpassionproject.blogspot.com/ - blog
+
+https://drive.google.com/open?id=1uuF3XMiAdg6YvOLVYioKLTckRNYaXhPX - eerste design / idee
 
 Personal Passion Project - Expert Development Module
 
