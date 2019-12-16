@@ -7,7 +7,7 @@
       type="checkbox"
       class="custom-control-input"
       @click="handleClick"
-    >
+    />
     <label :for="id || name" class="custom-control-label my-auto">
       <slot />
     </label>
@@ -30,33 +30,32 @@ export default {
   }),
 
   watch: {
-    value (val) {
+    value(val) {
       this.internalValue = val
     },
 
-    checked (val) {
+    checked(val) {
       this.internalValue = val
     },
 
-    internalValue (val, oldVal) {
+    internalValue(val, oldVal) {
       if (val !== oldVal) {
         this.$emit('input', val)
       }
     }
   },
 
-  created () {
+  created() {
     this.internalValue = this.value
 
     if ('checked' in this.$options.propsData) {
       this.internalValue = this.checked
     }
   },
-
+  //remember me checkbox
   methods: {
-    handleClick (e) {
+    handleClick(e) {
       this.$emit('click', e)
-
       if (!e.isPropagationStopped) {
         this.internalValue = e.target.checked
       }

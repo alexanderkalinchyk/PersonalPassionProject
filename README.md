@@ -1,8 +1,12 @@
 # PersonalPassionProject
 
+http://alexprojects.be/ - online
+
 Personal Passion Project - Expert Development Module
 
-Onderzoeksvraag: Hoe kan een persoon nieuwe restaurants of gerechten ontdekken op een leuke en interactieve manier?
+Onderzoeksvraag: Hoe kan een persoon nieuwe restaurants ontdekken op een leuke, interactieve manier en delen met andere mensen?
+
+## Oude Pitch:
 
 Ik wil een webapp maken waar je kunt swipen op verschilende gerechten. Als je een gerecht goed vindt, dan komt het in een “favorites” lijst waar je de details en de locatie van het restaurant kan bekijken.
 

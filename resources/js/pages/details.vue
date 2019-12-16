@@ -141,6 +141,7 @@ import { mapGetters } from 'vuex'
 import StarRating from 'vue-star-rating'
 
 export default {
+  middleware: 'auth',
   name: 'favorite_details',
   components: {
     FavoriteList,
@@ -166,7 +167,7 @@ export default {
   }),
   watch: {
     $route(to, from) {
-      console.log('new route')
+      //console.log('new route')
       this.getBusinesses()
       this.storeLocaldata()
       this.selected = undefined
@@ -187,13 +188,13 @@ export default {
       var retrievedObject
       if (this.info) {
         localStorage.setItem('detailsObject', JSON.stringify(this.info))
-        console.log('hello?', this.info)
+        //console.log('hello?', this.info)
         //retrievedObject = localStorage.getItem('detailsObject')
         //   console.log('retrieved', JSON.parse(retrievedObject))
       } else {
         retrievedObject = localStorage.getItem('detailsObject')
         this.detailsLocal = JSON.parse(retrievedObject)
-        console.log('else retrieved', this.detailsLocal)
+        //console.log('else retrieved', this.detailsLocal)
         //   console.log('info1', this.detailsLocal)
       }
     },
@@ -214,11 +215,11 @@ export default {
               JSON.stringify(this.details)
             )
             this.loading = false
-            console.log('localstorage get')
+            //console.log('localstorage get')
           })
           .finally(() => (this.loading = false))
       } else {
-        console.log('else')
+        //console.log('else')
         //console.log('id', this.$route.params.id)
         this.details = JSON.parse(
           localStorage.getItem(`${this.$route.params.id}`)
@@ -227,9 +228,9 @@ export default {
       }
     },
     showPic(e) {
-      console.log(e.target.src)
-      console.log('details', this.details)
-      console.log('detailsLocal', this.detailsLocal)
+      //console.log(e.target.src)
+      //console.log('details', this.details)
+      //console.log('detailsLocal', this.detailsLocal)
       //
       this.details.image_url = e.target.src
       if (this.detailsLocal != '') {

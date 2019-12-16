@@ -59,7 +59,7 @@ export default {
       password_confirmation: ''
     })
   }),
-
+  //update password to new password
   methods: {
     async update() {
       await this.form.patch('/api/settings/password')

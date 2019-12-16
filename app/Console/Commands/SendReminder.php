@@ -56,7 +56,7 @@ class SendReminder extends Command
                 $reminder->status = 'sent';
                 $reminder->save();
             }
-            \sleep(1);
+            \sleep(60);
         }
     }
 }

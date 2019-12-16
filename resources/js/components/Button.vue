@@ -1,16 +1,22 @@
 <template>
-  <button :type="nativeType" :disabled="loading" :class="{
+  <button
+    :type="nativeType"
+    :disabled="loading"
+    :class="{
     [`btn-${type}`]: true,
     'btn-block': block,
     'btn-lg': large,
     'btn-loading': loading
-  }" class="btn"
+  }"
+    class="btn"
   >
+    <!-- slots, van de officiele website van vuejs: Slots can contain any template code, including HTML or even other components  -->
     <slot />
   </button>
 </template>
 
 <script>
+//verschillende types buttons
 export default {
   name: 'VButton',
 

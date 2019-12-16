@@ -7,6 +7,7 @@
 </template>
 
 <script>
+//child component voor 2 layouts: basic en default
 export default {
   name: 'Child'
 }

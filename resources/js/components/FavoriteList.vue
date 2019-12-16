@@ -110,14 +110,14 @@ export default {
       //console.log('info', this.info)
     },
     storeInfoFront(index) {
-      console.log('favorite items', this.messageson[index])
+      //console.log('favorite items', this.messageson[index])
       this.$store.dispatch('favorites/setInfo', {
         info: this.messageson[index]
       })
       //console.log('info', this.info)
     },
     showData() {
-      console.log(this.favoriteItems)
+      // console.log(this.favoriteItems)
     },
     moreInfo(id) {
       console.log(id)

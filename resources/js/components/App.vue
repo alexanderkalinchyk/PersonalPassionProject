@@ -14,10 +14,9 @@ import Loading from './Loading'
 // Load layout components dynamically.
 const requireContext = require.context('~/layouts', false, /.*\.vue$/)
 
-const layouts = requireContext.keys()
-  .map(file =>
-    [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)]
-  )
+const layouts = requireContext
+  .keys()
+  .map(file => [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)])
   .reduce((components, [name, component]) => {
     components[name] = component.default || component
     return components
@@ -35,7 +34,7 @@ export default {
     defaultLayout: 'default'
   }),
 
-  metaInfo () {
+  metaInfo() {
     const { appName } = window.config
 
     return {
@@ -44,7 +43,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.$loading = this.$refs.loading
   },
 
@@ -54,7 +53,7 @@ export default {
      *
      * @param {String} layout
      */
-    setLayout (layout) {
+    setLayout(layout) {
       if (!layout || !layouts[layout]) {
         layout = this.defaultLayout
       }

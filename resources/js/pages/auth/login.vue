@@ -5,9 +5,11 @@
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{
+            <label class="col-md-3 col-form-label text-md-right">
+              {{
               $t('email')
-            }}</label>
+              }}
+            </label>
             <div class="col-md-7">
               <input
                 v-model="form.email"
@@ -22,9 +24,11 @@
 
           <!-- Password -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{
+            <label class="col-md-3 col-form-label text-md-right">
+              {{
               $t('password')
-            }}</label>
+              }}
+            </label>
             <div class="col-md-7">
               <input
                 v-model="form.password"
@@ -41,9 +45,11 @@
           <div class="form-group row">
             <div class="col-md-3" />
             <div class="col-md-7 d-flex">
-              <checkbox v-model="remember" name="remember">{{
+              <checkbox v-model="remember" name="remember">
+                {{
                 $t('remember_me')
-              }}</checkbox>
+                }}
+              </checkbox>
               <!--
               <router-link
                 :to="{ name: 'password.request' }"
@@ -58,8 +64,9 @@
               <!-- Submit Button -->
               <v-button :loading="form.busy">{{ $t('login') }}</v-button>
 
-              <!-- GitHub Login Button -->
+              <!-- GitHub Login Button
               <login-with-github />
+              -->
             </div>
           </div>
         </form>
@@ -70,14 +77,12 @@
 
 <script>
 import Form from 'vform'
-import LoginWithGithub from '~/components/LoginWithGithub'
+//import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
   middleware: 'guest',
 
-  components: {
-    LoginWithGithub
-  },
+  components: {},
 
   metaInfo() {
     return { title: this.$t('login') }

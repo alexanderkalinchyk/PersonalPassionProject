@@ -171,9 +171,10 @@ export default {
       this.show = !this.show
       if (this.show == true) {
         axios
+          //onclick notifications ophalen
           .get('/api/sms/notification/get')
           .then(response => {
-            console.log('notif', response.data)
+            //console.log('notif', response.data)
             //console.log(JSON.stringify(response.data.results))
             this.notifications = response.data
             this.loading = false

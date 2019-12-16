@@ -48,6 +48,11 @@
   "Asian Fusion": "Fusión asiática",
   "Indian": "India",
   "Italian": "Italiano",
+  "Thai": "Thai",
+  "Japanese": "Japonés",
+  "Mexican": "Mexicano",
+  "Turkish": "Turco",
+  "Middle Eastern": "Medio este",
   "away": "de distancia",
   "Monday": "Lunes",
   "Tuesday": "Martes",
@@ -72,5 +77,6 @@
   "Time": "Elige el tiempo",
   "Phone": "Ingrese el número de teléfono de su amigo",
   "Invite": "Invitar",
-  "please fill in": "Por favor complete cada entrada"
+  "please fill in": "Por favor complete cada entrada",
+  "Confirm": "Confirmar"
 }

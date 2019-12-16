@@ -90,6 +90,7 @@ import FavoriteList from '../components/FavoriteList'
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default {
+  middleware: 'auth',
   name: 'favorite_details',
   components: {
     FavoriteList,
@@ -125,7 +126,7 @@ export default {
   }),
   watch: {
     $route(to, from) {
-      console.log('new route')
+      //console.log('new route')
       this.success = false
       this.getBusinesses()
       this.storeLocaldata()
@@ -139,10 +140,10 @@ export default {
   },
   methods: {
     inviteFriend() {
-      console.log('det', this.details.name)
-      console.log(this.phone)
-      console.log(this.date)
-      console.log(this.time)
+      //console.log('det', this.details.name)
+      //console.log(this.phone)
+      // console.log(this.date)
+      // console.log(this.time)
       if (!this.phone || !this.date || !this.time) {
         this.errors = true
       } else {
@@ -156,15 +157,15 @@ export default {
             url: this.details.url
           })
           .then(response => {
-            console.log(response),
-              //console.log('user', this.user)
-              (this.date = ''),
+            //console.log(response),
+            //console.log('user', this.user)
+            ;(this.date = ''),
               (this.time = ''),
               (this.phone = ''),
               (this.success = true)
           })
           .catch(function(error) {
-            console.log(error)
+            //   console.log(error)
           })
       }
     },
@@ -175,13 +176,13 @@ export default {
       var retrievedObject
       if (this.info) {
         localStorage.setItem('detailsObject', JSON.stringify(this.info))
-        console.log('hello?', this.info)
+        //  console.log('hello?', this.info)
         //retrievedObject = localStorage.getItem('detailsObject')
         //   console.log('retrieved', JSON.parse(retrievedObject))
       } else {
         retrievedObject = localStorage.getItem('detailsObject')
         this.detailsLocal = JSON.parse(retrievedObject)
-        console.log('else retrieved', this.detailsLocal)
+        //  console.log('else retrieved', this.detailsLocal)
         //   console.log('info1', this.detailsLocal)
       }
     },
@@ -203,11 +204,11 @@ export default {
               JSON.stringify(this.details)
             )
             this.loading = false
-            console.log('localstorage get')
+            // console.log('localstorage get')
           })
           .finally(() => (this.loading = false))
       } else {
-        console.log('else')
+        //   console.log('else')
         //console.log('id', this.$route.params.id)
         this.details = JSON.parse(
           localStorage.getItem(`${this.$route.params.id}`)

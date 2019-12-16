@@ -154,7 +154,7 @@
                   value="thai"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxFourteen">Thai</label>
+                <label for="checkboxFourteen">{{ $t('Thai') }}</label>
               </li>
               <li>
                 <input
@@ -164,7 +164,7 @@
                   value="japanese"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxTwelve">Japanese</label>
+                <label for="checkboxTwelve">{{ $t('Japanese') }}</label>
               </li>
               <li>
                 <input
@@ -174,7 +174,7 @@
                   value="mexican"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxThirteen">Mexican</label>
+                <label for="checkboxThirteen">{{ $t('Mexican') }}</label>
               </li>
               <li>
                 <input
@@ -184,7 +184,7 @@
                   value="turkish"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxSeventeen">Turkish</label>
+                <label for="checkboxSeventeen">{{ $t('Turkish') }}</label>
               </li>
               <li>
                 <input
@@ -194,7 +194,7 @@
                   value="mideastern"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxFifteen">Middle Eastern</label>
+                <label for="checkboxFifteen">{{ $t('Middle Eastern') }}</label>
               </li>
             </ul>
           </div>
@@ -202,7 +202,11 @@
       </div>
       <div class="form-group row">
         <div class="col-md-9 ml-md-auto">
-          <router-link :to="{ name: 'swipe' }" class="btn btn-success" active-class="active">Confirm</router-link>
+          <router-link
+            :to="{ name: 'swipe' }"
+            class="btn btn-success"
+            active-class="active"
+          >{{ $t('Confirm') }}</router-link>
         </div>
       </div>
       <div></div>
@@ -639,7 +643,7 @@ export default {
   async created() {
     // Fill the form with preference data.
 
-    console.log(this.form.keys())
+    //console.log(this.form.keys())
 
     await axios
       .get(`/api/settings/preferences/get`)
@@ -648,7 +652,7 @@ export default {
         this.fillForm()
       })
       .catch(function(error) {
-        console.log(error)
+        // console.log(error)
       })
   },
   mounted() {
@@ -656,8 +660,8 @@ export default {
   },
   methods: {
     async update(e) {
-      console.log(e.target.checked)
-      console.log(e.target.value)
+      // console.log(e.target.checked)
+      // console.log(e.target.value)
       if (e.target.checked) {
         await axios.post(`/api/settings/preferences/update/${e.target.value}`)
       } else {
@@ -667,14 +671,14 @@ export default {
     },
     async fillForm() {
       //if(this.preferences)
-      console.log('we here', this.preferences)
+      //  console.log('we here', this.preferences)
       if (this.preferences.length != 0) {
         if (this.preferences[0].location || this.preferences[0].radius) {
-          console.log('we here 1')
+          //console.log('we here 1')
           this.form.range = this.preferences[0].radius
         }
         for (let i = 0; i < this.preferences.length; i++) {
-          console.log(this.preferences[i].category_name)
+          // console.log(this.preferences[i].category_name)
           this.checkedCategories[i] = this.preferences[i].category_name
         }
       } else {
@@ -688,7 +692,7 @@ export default {
       //this.location = this.preferences[0].location
     },
     updateRadius() {
-      console.log('radius', this.form.range)
+      // console.log('radius', this.form.range)
       axios
         .patch(`/api/settings/preferences/updateRadius/${this.form.range}`)
         .then((this.noData = false))
@@ -696,7 +700,7 @@ export default {
     },
     async checkRadius() {
       await axios.get(`/api/settings/preferences/getRadius`).then(response => {
-        console.log(response)
+        // console.log(response)
         if (response.data.length == 0) {
           this.insertRadius()
         }
@@ -706,7 +710,7 @@ export default {
       axios
         .post(`/api/settings/preferences/insertRadius/${this.form.range}`)
         .then(response => {
-          console.log(response)
+          // console.log(response)
         })
     },
     getLocation() {

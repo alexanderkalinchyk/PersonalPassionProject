@@ -1,8 +1,6 @@
 <template>
   <div class="form-group row">
-    <label class="col-md-3 col-form-label text-md-right">
-      {{ $t('location') }}
-    </label>
+    <label class="col-md-3 col-form-label text-md-right">{{ $t('location') }}</label>
     <div class="col-md-7">
       <input
         required
@@ -22,22 +20,21 @@
         </li>
       </ul>
       <span v-if="locRequired" class="text-danger">
-        Location must not be empty <br
-      /></span>
-      <button disabled @click="getLocation()" class="btn custom-btn">
-        Use my current location
-      </button>
+        Location must not be empty
+        <br />
+      </span>
+      <button disabled @click="getLocation()" class="btn custom-btn">Use my current location</button>
     </div>
     <div class="col-md-12">
-      <div v-if="success" class="col-md-12 alert alert-success">
-        Location successfully updated
-      </div>
+      <div v-if="success" class="col-md-12 alert alert-success">Location successfully updated</div>
     </div>
   </div>
 </template>
 <script>
 import { debounce } from 'lodash'
 import axios from 'axios'
+//location autocomplete component
+//gebruikt suggestions array om voor autocomplete
 export default {
   props: {
     value: {

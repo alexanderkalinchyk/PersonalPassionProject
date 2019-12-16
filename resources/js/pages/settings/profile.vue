@@ -87,8 +87,8 @@ export default {
   created() {
     // Fill the form with user data.
     this.form.keys().forEach(key => {
-      console.log(key)
-      console.log(this.user)
+      // console.log(key)
+      // console.log(this.user)
       this.form[key] = this.user[key]
     })
   },

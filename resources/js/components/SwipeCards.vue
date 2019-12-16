@@ -121,6 +121,7 @@ export default {
   },
   methods: {
     getCurrentUser() {
+      //ingelogde user ophalen uit database
       axios.get('/api/user').then(response => {
         this.user = response.data
         //console.log('user', this.user)
@@ -128,19 +129,20 @@ export default {
       })
     },
     getCurrentUserOffset() {
-      //console.log('userid offset', this.user.id)
+      //offset is een parameter voor Yelp api, zodat ik altijd nieuwe restaurants krijg
       axios.get(`/api/offset/get/${this.user.id}`).then(response => {
         this.offset = response.data
         this.getBusinesses()
       })
     },
+    //restautants ophalen uit yelp api
     getBusinesses() {
       //console.log('store', this.preferences)
-      console.log('preferences', this.preferences)
+      //console.log('preferences', this.preferences)
 
       if (this.preferences != null && this.preferences.length != 0) {
-        console.log('store')
-        console.log('store pref', this.preferences)
+        // console.log('store')
+        // console.log('store pref', this.preferences)
         this.radius = this.preferences[0].radius
         this.location = this.preferences[0].location
         for (let i = 0; i < this.preferences.length; i++) {
@@ -154,14 +156,17 @@ export default {
       //console.log(filteredCategories)
       filteredCategories = filteredCategories.join(',')
 
+      //als er geen categorien geselecteerd zijn, pak default categorie
       if (!filteredCategories) {
         filteredCategories = 'food'
       }
+      //locatie en radius moeten wel ingevuld zijn
       if (
         this.preferences.length != 0 &&
         this.preferences[0].location != null &&
         this.preferences[0].radius != null
       ) {
+        //restaurants ophalen
         axios
           .get(
             `api/businesses/${this.location}/${this.radius}/${filteredCategories}/${this.offset[0].offset}`
@@ -173,16 +178,20 @@ export default {
       }
     },
     match() {
+      //swipe right
       InteractEventBus.$emit(EVENTS.MATCH), console.log('click - match')
     },
     reject() {
+      //swipe left
       InteractEventBus.$emit(EVENTS.REJECT), console.log('click - reject')
     },
     emitAndNext(event) {
-      console.log('swipe - ', event)
+      // console.log('swipe - ', event)
       if (event == 'match') {
+        //aan favorites toevoegen bij right swipe
         this.addToFavorites()
         this.updateOffset()
+        //insert in database
         this.postData()
       } else {
         this.updateOffset()
@@ -192,10 +201,10 @@ export default {
       setTimeout(() => {
         this.index++
         this.isVisible = true
-        console.log('index', this.index)
-        console.log('business length', this.businesses.length)
+        //  console.log('index', this.index)
+        //  console.log('business length', this.businesses.length)
         if (this.index == this.businesses.length) {
-          console.log('fetching new shit')
+          //  console.log('fetching new things')
           this.index = 0
           this.businesses = []
           this.loading = true
@@ -228,6 +237,7 @@ export default {
       formData.set('image_url', this.businesses[this.index].image_url)
       formData.set('price', this.businesses[this.index].price)
       formData.set('distance', this.businesses[this.index].distance)
+      //favorites database insert
       axios({
         method: 'post',
         url: 'api/favorites',
@@ -236,7 +246,7 @@ export default {
       })
         .then(function(response) {
           //handle success
-          console.log(response)
+          //     console.log(response)
         })
         .catch(function(response) {
           //handle error
@@ -252,7 +262,7 @@ export default {
   background-color: #f9f9f9;
   height: 85vh;
   @media (max-width: 1000px) {
-    height: 73vh;
+    height: 100%;
   }
 }
 .header {
