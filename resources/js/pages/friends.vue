@@ -15,10 +15,13 @@
             :to="{ name: 'swipe' }"
             class="btn btn-back btn-primary"
             active-class="active"
-          >{{ $t('Back') }}</router-link>
+            >{{ $t('Back') }}</router-link
+          >
         </div>
         <div style="height: 100%">
-          <div v-if="success" class="alert alert-success">{{ $t('Invitation Successful') }}</div>
+          <div v-if="success" class="alert alert-success">
+            {{ $t('Invitation Successful') }}
+          </div>
           <h2 class="text-center">
             {{ $t('Invite friends to') }}
             <span v-if="info" class="text-primary">{{ details.name }}</span>
@@ -26,13 +29,27 @@
           </h2>
           <p class="text-center">{{ $t('Invitation-p') }}</p>
           <div class="col-md-12 text-center">
-            <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
-            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
+            <img
+              v-if="info"
+              :src="details.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
+            <img
+              v-else
+              :src="detailsLocal.image_url"
+              :alt="details.name"
+              class="rounded-borders"
+            />
           </div>
           <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 d-flex justify-content-around">
-              <span v-for="category in details.categories" class="category-tag">{{ category.title }}</span>
+              <span
+                v-for="category in details.categories"
+                class="category-tag"
+                >{{ category.title }}</span
+              >
             </div>
             <div class="col-md-3"></div>
           </div>
@@ -64,16 +81,23 @@
             <div class="row flex-column justify-content-center">
               <div class="col-md-12">
                 <label>{{ $t('Phone') }}</label>
-                <vue-tel-input v-model="phone" v-bind="bindProps"></vue-tel-input>
+                <vue-tel-input
+                  v-model="phone"
+                  v-bind="bindProps"
+                ></vue-tel-input>
               </div>
             </div>
             <div class="row text-center">
               <div class="col-md-12 d-flex justify-content-center">
-                <button @click="inviteFriend()" class="btn btn-success">{{ $t('Invite') }}</button>
+                <button @click="inviteFriend()" class="btn btn-success">
+                  {{ $t('Invite') }}
+                </button>
               </div>
               <div class="row w-100">
                 <div class="col-md-12 d-flex justify-content-center">
-                  <span v-if="errors" class="text-danger">{{ $t('please fill in') }}</span>
+                  <span v-if="errors" class="text-danger">{{
+                    $t('please fill in')
+                  }}</span>
                 </div>
               </div>
             </div>
@@ -338,8 +362,7 @@ export default {
   position: fixed;
   &--center {
     left: 50%;
-    top: 50vh;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 2%);
     @media (max-width: 1000px) {
       left: 0;
       top: 0;
