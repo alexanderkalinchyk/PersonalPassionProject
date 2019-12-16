@@ -52,15 +52,11 @@ export default {
 <style lang="scss" scoped>
 .main-logo {
   background: url(/images/main-logo.jpg) no-repeat;
-  height: 23rem;
-  margin-top: -21rem;
-  margin-bottom: 2rem;
+  height: 25vh;
+  margin-top: -5vh;
+  margin-bottom: 0rem;
   background-position: center;
-  @media (max-width: 1200px) {
-    height: 21rem;
-    margin-top: -15rem;
-    margin-bottom: 0;
-  }
+  background-size: 85vh;
 }
 .top-right {
   position: absolute;
