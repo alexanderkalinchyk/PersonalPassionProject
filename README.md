@@ -1,6 +1,7 @@
 # PersonalPassionProject
 
 http://alexprojects.be/ - online
+https://personalpassionproject.blogspot.com/ - blog
 
 Personal Passion Project - Expert Development Module
 
