@@ -7,27 +7,12 @@
       </div>
       <div v-if="!loading" class="loading-cards">
         <div class="back-wrap">
-          <router-link
-            :to="{ name: 'swipe' }"
-            class="btn btn-primary"
-            active-class="active"
-            >Back</router-link
-          >
+          <router-link :to="{ name: 'swipe' }" class="btn btn-primary" active-class="active">Back</router-link>
         </div>
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
-            <img
-              v-if="info"
-              :src="details.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
-            <img
-              v-else
-              :src="detailsLocal.image_url"
-              :alt="details.name"
-              class="rounded-borders"
-            />
+            <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
+            <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
             <div class="text">
               <div class="thumbnails">
                 <button
@@ -37,11 +22,7 @@
                     showPic($event)
                   "
                 >
-                  <img
-                    :class="{ highlight: index == selected }"
-                    :src="photo"
-                    :alt="details.name"
-                  />
+                  <img :class="{ highlight: index == selected }" :src="photo" :alt="details.name" />
                 </button>
               </div>
               <div v-if="info">
@@ -59,29 +40,20 @@
                 <p>{{ Number(detailsLocal.distance).toFixed(1) }}m away</p>
               </div>
               <div class="address">
-                <span
-                  v-for="(address, index) in details.location.display_address"
-                >
+                <span v-for="(address, index) in details.location.display_address">
                   {{ address }}
                   <span v-if="index == 0">,</span>
                 </span>
               </div>
-              <div
-                class="categories row d-flex justify-content-around mb-3 mt-3"
-              >
+              <div class="categories row d-flex justify-content-around mb-3 mt-3">
                 <span
                   v-for="category in details.categories"
                   class="category-tag"
-                  >{{ category.title }}</span
-                >
+                >{{ category.title }}</span>
               </div>
               <table class="table">
-                <thead>
-                  Open Hours
-                </thead>
-                <tr v-if="details.hours.is_open_now == true">
-                  OPEN NOW
-                </tr>
+                <thead>Open Hours</thead>
+                <tr v-if="details.hours.is_open_now == true">OPEN NOW</tr>
                 <tr v-for="hour in details.hours[0].open">
                   <td v-if="hour.day == 0" class="table-day">Monday</td>
                   <td v-if="hour.day == 1" class="table-day">Tuesday</td>
@@ -104,21 +76,23 @@
               <div class="row mb-2">
                 <div class="col-md-12 text-center">
                   Call:
-                  <a href="tel:details.display_phone">{{
+                  <a href="tel:details.display_phone">
+                    {{
                     details.display_phone
-                  }}</a>
+                    }}
+                  </a>
                 </div>
               </div>
               <div class="text-center" v-if="details.messaging">
-                <a :href="details.messaging.url" target="_blank">{{
+                <a :href="details.messaging.url" target="_blank">
+                  {{
                   details.messaging.use_case_text
-                }}</a>
+                  }}
+                </a>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12 text-center">
-                  <h3>
-                    Location
-                  </h3>
+                  <h3>Location</h3>
                   <GmapMap
                     :center="{
                       lat: details.coordinates.latitude,
@@ -138,12 +112,8 @@
                 </div>
               </div>
               <div class="row mb-2">
-                <div
-                  class="col-md-12 text-center d-flex flex-column justify-content-center"
-                >
-                  <h3>
-                    Rating
-                  </h3>
+                <div class="col-md-12 text-center d-flex flex-column justify-content-center">
+                  <h3>Rating</h3>
                   <star-rating
                     :show-rating="false"
                     read-only
@@ -269,10 +239,17 @@ export default {
 <style lang="scss" scoped>
 .details {
   display: flex;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 }
 .container {
   background-color: #f9f9f9;
   height: 85vh;
+  @media (max-width: 1000px) {
+    height: 100%;
+    padding-bottom: 4rem;
+  }
 }
 .header {
   width: 100%;

@@ -1,10 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <router-link
-        :to="{ name: user ? 'swipe' : 'swipe' }"
-        class="navbar-brand"
-      >
+      <router-link :to="{ name: user ? 'swipe' : 'swipe' }" class="navbar-brand">
         <img src="/images/logo.png" alt="swipe logo" />
       </router-link>
 
@@ -27,7 +24,7 @@
           </li>-->
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item d-flex align-items-center">
+          <li class="notification-li nav-item d-flex align-items-center">
             <div class="notification">
               <a v-on:click="getNotifications()" class="tooltip-bell">
                 <span>
@@ -54,43 +51,38 @@
                   <p>Loading...</p>
                 </div>
                 <div class="notification-list">
-                  <p
-                    class="user-info mt-3 mb-3"
-                    v-if="notifications.length == 0"
-                  >
+                  <p class="user-info mt-3 mb-3" v-if="notifications.length == 0">
                     <span class="name">No notifications yet</span>
                   </p>
                 </div>
                 <ul class="notification-list">
-                  <li
-                    class="notification-item"
-                    v-for="notification in notifications"
-                  >
+                  <li class="notification-item" v-for="notification in notifications">
                     <div class="user-content">
                       <p class="user-info">
-                        <span class="name">{{
+                        <span class="name">
+                          {{
                           notification.phone_number
-                        }}</span>
+                          }}
+                        </span>
                         -
-                        <span class="text-primary">{{
+                        <span class="text-primary">
+                          {{
                           notification.restaurant_name
-                        }}</span>
+                          }}
+                        </span>
                         <br />Reply Status:
                         <span
                           v-if="notification.reply == 'Accepted'"
                           class="name text-success"
-                          >{{ notification.reply }}</span
-                        >
+                        >{{ notification.reply }}</span>
                         <span
                           v-if="notification.reply == 'Declined'"
                           class="name text-danger"
-                          >{{ notification.reply }}</span
-                        >
+                        >{{ notification.reply }}</span>
                         <span
                           v-if="notification.reply == 'Pending'"
                           class="name text-warning"
-                          >{{ notification.reply }}</span
-                        >
+                        >{{ notification.reply }}</span>
                       </p>
                       <p class="time">
                         {{ notification.date }} -
@@ -112,17 +104,11 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img
-                :src="user.photo_url"
-                class="rounded-circle profile-photo mr-1"
-              />
+              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1" />
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
-              <router-link
-                :to="{ name: 'settings.profile' }"
-                class="dropdown-item pl-3"
-              >
+              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
                 <fa icon="cog" fixed-width />
                 {{ $t('settings') }}
               </router-link>
@@ -141,16 +127,14 @@
                 :to="{ name: 'login' }"
                 class="nav-link"
                 active-class="active"
-                >{{ $t('login') }}</router-link
-              >
+              >{{ $t('login') }}</router-link>
             </li>
             <li class="nav-item">
               <router-link
                 :to="{ name: 'register' }"
                 class="nav-link"
                 active-class="active"
-                >{{ $t('register') }}</router-link
-              >
+              >{{ $t('register') }}</router-link>
             </li>
           </template>
         </ul>
@@ -220,9 +204,17 @@ export default {
   height: 2rem;
   margin: -0.375rem 0;
 }
+.notification-li {
+  @media (max-width: 1000px) {
+    flex-direction: row-reverse;
+  }
+}
 .notification {
   margin-right: 2rem;
   position: relative;
+  @media (max-width: 1000px) {
+    margin-right: 0;
+  }
 }
 .tooltip {
   &::before {
@@ -233,6 +225,10 @@ export default {
     border-left: 2rem solid transparent;
     border-right: 2rem solid transparent;
     border-bottom: 1.5rem solid #fff;
+    @media (max-width: 1000px) {
+      top: -0.8rem;
+      right: 2.3rem;
+    }
   }
   position: absolute;
   top: 2.5rem;
@@ -245,6 +241,10 @@ export default {
   -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   opacity: 1;
+  @media (max-width: 1000px) {
+    top: 2.5rem;
+    right: -3.5rem;
+  }
 }
 
 #circle {

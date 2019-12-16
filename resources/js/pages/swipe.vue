@@ -31,5 +31,8 @@ export default {
 <style lang="scss" scoped>
 .swipe {
   display: flex;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 }
 </style>

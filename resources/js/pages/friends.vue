@@ -129,6 +129,7 @@ export default {
   watch: {
     $route(to, from) {
       console.log('new route')
+      this.success = false
       this.getBusinesses()
       this.storeLocaldata()
     }
@@ -172,7 +173,6 @@ export default {
     },
     storeLocaldata() {
       //
-      // store data locally to show info after page refresh
       // data stored: name, distance, image_url, price
       //
       var retrievedObject
@@ -225,10 +225,18 @@ export default {
 <style lang="scss" scoped>
 .details {
   display: flex;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 }
 .container {
   background-color: #f9f9f9;
   height: 85vh;
+  @media (max-width: 1000px) {
+    height: 100%;
+    padding-bottom: 3rem;
+    padding-top: 2rem;
+  }
 }
 .header {
   width: 100%;
@@ -334,6 +342,14 @@ export default {
     left: 50%;
     top: 50vh;
     transform: translate(-50%, -50%);
+    @media (max-width: 1000px) {
+      left: 0;
+      top: 0;
+      transform: none;
+    }
+  }
+  @media (max-width: 1000px) {
+    position: relative;
   }
 }
 .rounded-borders {

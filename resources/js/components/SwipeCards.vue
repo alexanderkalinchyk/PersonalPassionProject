@@ -49,8 +49,8 @@
         </div>
       </Vue2InteractDraggable>
     </div>
-    <div v-if="next" class="rounded-borders card card--two fixed fixed--center" style="z-index: 2">
-      <div style="height: 100%">
+    <div v-if="next" class="fixed fixed--center" style="z-index: 2">
+      <div class="rounded-borders card card--two">
         <img :src="`${next.image_url}`" class="rounded-borders" />
         <div class="text">
           <h2>
@@ -251,6 +251,9 @@ export default {
 .container {
   background-color: #f9f9f9;
   height: 85vh;
+  @media (max-width: 1000px) {
+    height: 73vh;
+  }
 }
 .header {
   width: 100%;
@@ -278,7 +281,6 @@ export default {
     padding: 24px;
   }
 }
-
 .footer {
   width: 24rem;
   left: 50%;
@@ -287,6 +289,13 @@ export default {
   justify-content: space-around;
   align-items: center;
   bottom: 2rem;
+  @media (max-width: 1000px) {
+    position: relative;
+    left: 0%;
+    transform: translateX(0%);
+    width: 100%;
+    margin-top: 10rem !important;
+  }
 }
 
 .btn {
@@ -331,6 +340,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 1000px) {
+    width: 6rem;
+    height: 6rem;
+  }
   @media (min-width: 1000px) {
     width: 4rem;
     height: 4rem;
@@ -368,9 +381,20 @@ export default {
 
 .fixed {
   position: fixed;
+  @media (max-width: 1000px) {
+    position: relative;
+    margin-top: 3rem;
+  }
   &--center {
     left: 50%;
     transform: translate(-50%, -50%);
+    @media (max-width: 1000px) {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      left: 0%;
+      transform: translate(0%, 0%);
+    }
 
     @media (min-width: 1000px) {
       top: 43%;
@@ -390,6 +414,9 @@ export default {
 .card {
   width: 22rem;
   color: white;
+  @media (max-width: 1000px) {
+    height: 25rem;
+  }
   img {
     object-fit: cover;
     display: block;
@@ -401,9 +428,15 @@ export default {
       0 2px 1px -1px rgba(0, 0, 0, 0.12);
   }
   &--two {
-    transform: translate(-48%, -48%);
-    box-shadow: 0 6px 6px -3px rgba(0, 0, 0, 0.2),
-      0 10px 14px 1px rgba(0, 0, 0, 0.14), 0 4px 18px 3px rgba(0, 0, 0, 0.12);
+    @media (max-width: 1000px) {
+      margin-top: -24rem;
+    }
+    @media (min-width: 1000px) {
+      transform: translate(0%, 6%);
+    }
+    @media (min-width: 1200px) {
+      transform: translate(0%, 17%);
+    }
   }
   @media (min-width: 1000px) {
     height: 47vh;
@@ -434,6 +467,15 @@ export default {
     @media (min-width: 1200px) {
       font-size: 1.5rem;
     }
+  }
+  & h2 {
+    @media (max-width: 1000px) {
+      font-size: 1.5rem;
+    }
+  }
+  @media (max-width: 1000px) {
+    height: 130px;
+    padding: 0.5rem;
   }
   @media (min-width: 1000px) {
     height: 6rem;

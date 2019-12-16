@@ -44,7 +44,7 @@
                   value="coffee"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxOne">Coffee & Tea</label>
+                <label for="checkboxOne">{{ $t('Coffee & Tea') }}</label>
               </li>
               <li>
                 <input
@@ -54,7 +54,7 @@
                   value="desserts"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxTwo">Desserts</label>
+                <label for="checkboxTwo">{{ $t('Desserts') }}</label>
               </li>
               <li>
                 <input
@@ -64,7 +64,7 @@
                   value="meats"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxThree">Meat</label>
+                <label for="checkboxThree">{{ $t('Meat') }}</label>
               </li>
               <li>
                 <input
@@ -74,7 +74,7 @@
                   value="seafoodmarkets"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxFour">Seafood</label>
+                <label for="checkboxFour">{{ $t('Seafood') }}</label>
               </li>
               <li>
                 <input
@@ -84,7 +84,7 @@
                   value="bars"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxFive">Bars</label>
+                <label for="checkboxFive">{{ $t('Bars') }}</label>
               </li>
               <li>
                 <input
@@ -94,7 +94,7 @@
                   value="restaurants"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxSix">Restaurants (all)</label>
+                <label for="checkboxSix">{{ $t('Restaurants') }}</label>
               </li>
               <li>
                 <input
@@ -104,7 +104,7 @@
                   value="french"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxEight">French</label>
+                <label for="checkboxEight">{{ $t('French') }}</label>
               </li>
               <li class="ks-selected">
                 <input
@@ -114,7 +114,7 @@
                   value="chinese"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxEleven">Chinese</label>
+                <label for="checkboxEleven">{{ $t('Chinese') }}</label>
               </li>
               <li>
                 <input
@@ -124,7 +124,7 @@
                   value="asianfusion"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxSeven">Asian Fusion</label>
+                <label for="checkboxSeven">{{ $t('Asian Fusion') }}</label>
               </li>
               <li>
                 <input
@@ -134,7 +134,7 @@
                   value="indpak"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxNine">Indian</label>
+                <label for="checkboxNine">{{ $t('Indian') }}</label>
               </li>
               <li>
                 <input
@@ -144,7 +144,7 @@
                   value="italian"
                   v-model="checkedCategories"
                 />
-                <label for="checkboxTen">Italian</label>
+                <label for="checkboxTen">{{ $t('Italian') }}</label>
               </li>
               <li>
                 <input

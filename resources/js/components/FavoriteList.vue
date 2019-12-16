@@ -143,6 +143,10 @@ export default {
   & h2 {
     margin-top: 1rem;
   }
+  @media (max-width: 1000px) {
+    order: 1;
+    width: 100%;
+  }
 }
 .favorite-item {
   margin-top: 1rem;
