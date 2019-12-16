@@ -38,11 +38,17 @@
         :key="current.id"
       >
         <div style="height: 100%">
-          <img :src="`${current.image_url}`" :alt="current.name" class="rounded-borders" />
+          <img
+            :src="`${current.image_url}`"
+            :alt="current.name"
+            class="rounded-borders"
+          />
           <div class="text">
             <h2>
               <span class="h2-name">{{ current.name }}</span>
-              <span v-if="current.price" class="item-price">{{ current.price }}</span>
+              <span v-if="current.price" class="item-price">{{
+                current.price
+              }}</span>
             </h2>
             <p>{{ Number(current.distance).toFixed(1) }}m {{ $t('away') }}</p>
           </div>
@@ -481,7 +487,7 @@ export default {
   }
   & h2 {
     @media (max-width: 1000px) {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
   }
   @media (max-width: 1000px) {
@@ -503,14 +509,13 @@ export default {
     font-size: 1.2rem;
   }
   @media (min-width: 1200px) {
-    font-size: 2rem;
+    font-size: 1.3rem;
   }
 }
 .item-price {
   background-color: #a4d792;
   padding: 0.5rem;
   color: white;
-  margin: 0.5rem;
   border-radius: 5rem;
   width: 3.5rem;
   text-align: center;

@@ -362,7 +362,7 @@ export default {
   position: fixed;
   &--center {
     left: 50%;
-    transform: translate(-50%, 2%);
+    transform: translate(-50%, 1%);
     @media (max-width: 1000px) {
       left: 0;
       top: 0;
@@ -374,7 +374,7 @@ export default {
   }
 }
 .rounded-borders {
-  width: 17rem;
+  height: 15rem;
   border-radius: 12px 12px 12px 12px;
 }
 .card {
