@@ -44,7 +44,7 @@
               <span class="h2-name">{{ current.name }}</span>
               <span v-if="current.price" class="item-price">{{ current.price }}</span>
             </h2>
-            <p>{{ Number(current.distance).toFixed(1) }}m away</p>
+            <p>{{ Number(current.distance).toFixed(1) }}m {{ $t('away') }}</p>
           </div>
         </div>
       </Vue2InteractDraggable>
@@ -57,7 +57,7 @@
             <span class="h2-name">{{ next.name }}</span>
             <span v-if="next.price" class="item-price">{{ next.price }}</span>
           </h2>
-          <p>{{ Number(next.distance).toFixed(1) }}m away</p>
+          <p>{{ Number(next.distance).toFixed(1) }}m {{ $t('away') }}</p>
         </div>
       </div>
     </div>
@@ -435,7 +435,7 @@ export default {
       transform: translate(0%, 6%);
     }
     @media (min-width: 1200px) {
-      transform: translate(0%, 17%);
+      transform: translate(0%, 15%);
     }
   }
   @media (min-width: 1000px) {
@@ -443,9 +443,10 @@ export default {
   }
   @media (min-width: 1200px) {
     height: 40vh;
+    width: 28rem;
   }
   @media (min-width: 1900px) {
-    height: 30rem;
+    height: 40vh;
   }
 }
 .text {

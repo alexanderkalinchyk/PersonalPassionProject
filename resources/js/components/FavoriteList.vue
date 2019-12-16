@@ -1,6 +1,6 @@
 <template>
   <section class="favorites-list">
-    <h2>Favorites</h2>
+    <h2>{{ $t('Favorites') }}</h2>
     <div class="favorites-img"></div>
     <!-- <button class="btn btn-primary">Cant Decide?</button> -->
     <p v-if="loading">Loading...</p>
@@ -14,7 +14,7 @@
         <img :src="item.image_url" :alt="item.name" />
       </div>
       <h3>{{ item.name }}</h3>
-      <p class="item-range">{{ item.distance }}m away</p>
+      <p class="item-range">{{ item.distance }}m {{ $t('away') }}</p>
       <span class="item-price">{{ item.price }}</span>
       <div class="d-flex justify-content-center w-100">
         <router-link
@@ -22,17 +22,20 @@
           class="btn btn-success"
           active-class="active"
         >
-          <span @click="storeInfoBack(index)">Invite Friends</span>
+          <span @click="storeInfoBack(index)">{{ $t('Invite Friends') }}</span>
         </router-link>
         <router-link
           :to="{ path: `/details/${item.business_id}` }"
           class="btn btn-primary"
           active-class="active"
         >
-          <span @click="storeInfoBack(index)">More Info</span>
+          <span @click="storeInfoBack(index)">{{ $t('More Info') }}</span>
         </router-link>
       </div>
-      <button @click="deleteFavorite(item.business_id, index)" class="btn btn-danger">Remove</button>
+      <button
+        @click="deleteFavorite(item.business_id, index)"
+        class="btn btn-danger"
+      >{{ $t('Remove') }}</button>
     </article>
     <article
       v-if="messageson != ''"
@@ -44,7 +47,7 @@
         <img :src="message.image_url" :alt="message.name" />
       </div>
       <h3>{{ message.name }}</h3>
-      <p class="item-range">{{ Number(message.distance).toFixed(1) }}m away</p>
+      <p class="item-range">{{ Number(message.distance).toFixed(1) }}m {{ $t('away') }}</p>
       <span class="item-price">{{ message.price }}</span>
       <div class="d-flex justify-content-center w-100">
         <router-link
@@ -52,17 +55,20 @@
           class="btn btn-success"
           active-class="active"
         >
-          <span @click="storeInfoFront(index)">Invite Friends</span>
+          <span @click="storeInfoFront(index)">{{ $t('Invite Friends') }}</span>
         </router-link>
         <router-link
           :to="{ path: `/details/${message.business_id}` }"
           class="btn btn-primary"
           active-class="active"
         >
-          <span @click="storeInfoFront(index)">More Info</span>
+          <span @click="storeInfoFront(index)">{{ $t('More Info') }}</span>
         </router-link>
       </div>
-      <button @click="deleteFavorite(message.business_id, index)" class="btn btn-danger">Remove</button>
+      <button
+        @click="deleteFavorite(message.business_id, index)"
+        class="btn btn-danger"
+      >{{ $t('Remove') }}</button>
     </article>
   </section>
 </template>

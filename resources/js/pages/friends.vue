@@ -15,19 +15,16 @@
             :to="{ name: 'swipe' }"
             class="btn btn-back btn-primary"
             active-class="active"
-          >Back</router-link>
+          >{{ $t('Back') }}</router-link>
         </div>
         <div style="height: 100%">
-          <div v-if="success" class="alert alert-success">Your invitation was successful!</div>
+          <div v-if="success" class="alert alert-success">{{ $t('Invitation Successful') }}</div>
           <h2 class="text-center">
-            Invite friends to
+            {{ $t('Invite friends to') }}
             <span v-if="info" class="text-primary">{{ details.name }}</span>
             <span v-else class="text-primary">{{ detailsLocal.name }}</span>
           </h2>
-          <p class="text-center">
-            Go out together with your friends, schedule a meeting to this place
-            with a friend below:
-          </p>
+          <p class="text-center">{{ $t('Invitation-p') }}</p>
           <div class="col-md-12 text-center">
             <img v-if="info" :src="details.image_url" :alt="details.name" class="rounded-borders" />
             <img v-else :src="detailsLocal.image_url" :alt="details.name" class="rounded-borders" />
@@ -42,7 +39,7 @@
           <div>
             <div class="row">
               <div class="col-md-6">
-                <label for="date">Pick a Date</label>
+                <label for="date">{{ $t('Date') }}</label>
                 <input
                   type="date"
                   v-model="date"
@@ -53,7 +50,7 @@
                 />
               </div>
               <div class="col-md-6">
-                <label for="time">Choose the time</label>
+                <label for="time">{{ $t('Time') }}</label>
                 <input
                   type="time"
                   v-model="time"
@@ -66,17 +63,17 @@
             </div>
             <div class="row flex-column justify-content-center">
               <div class="col-md-12">
-                <label>Enter your friend's phone number</label>
+                <label>{{ $t('Phone') }}</label>
                 <vue-tel-input v-model="phone" v-bind="bindProps"></vue-tel-input>
               </div>
             </div>
             <div class="row text-center">
               <div class="col-md-12 d-flex justify-content-center">
-                <button @click="inviteFriend()" class="btn btn-success">Invite</button>
+                <button @click="inviteFriend()" class="btn btn-success">{{ $t('Invite') }}</button>
               </div>
               <div class="row w-100">
                 <div class="col-md-12 d-flex justify-content-center">
-                  <span v-if="errors" class="text-danger">Please fill in every input</span>
+                  <span v-if="errors" class="text-danger">{{ $t('please fill in') }}</span>
                 </div>
               </div>
             </div>

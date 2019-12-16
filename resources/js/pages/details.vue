@@ -7,7 +7,11 @@
       </div>
       <div v-if="!loading" class="loading-cards">
         <div class="back-wrap">
-          <router-link :to="{ name: 'swipe' }" class="btn btn-primary" active-class="active">Back</router-link>
+          <router-link
+            :to="{ name: 'swipe' }"
+            class="btn btn-primary"
+            active-class="active"
+          >{{ $t('Back') }}</router-link>
         </div>
         <div style="height: 100%" class="rounded-borders card card--one">
           <div style="height: 100%">
@@ -30,14 +34,14 @@
                   <span class="h2-name">{{ details.name }}</span>
                   <span class="item-price">{{ details.price }}</span>
                 </h2>
-                <p>{{ Number(info.distance).toFixed(1) }}m away</p>
+                <p>{{ Number(info.distance).toFixed(1) }}m {{ $t('away') }}</p>
               </div>
               <div v-else>
                 <h2>
                   <span class="h2-name">{{ detailsLocal.name }}</span>
                   <span class="item-price">{{ detailsLocal.price }}</span>
                 </h2>
-                <p>{{ Number(detailsLocal.distance).toFixed(1) }}m away</p>
+                <p>{{ Number(detailsLocal.distance).toFixed(1) }}m {{ $t('away') }}</p>
               </div>
               <div class="address">
                 <span v-for="(address, index) in details.location.display_address">
@@ -52,16 +56,16 @@
                 >{{ category.title }}</span>
               </div>
               <table class="table">
-                <thead>Open Hours</thead>
+                <thead>{{ $t('Open Hours') }}</thead>
                 <tr v-if="details.hours.is_open_now == true">OPEN NOW</tr>
                 <tr v-for="hour in details.hours[0].open">
-                  <td v-if="hour.day == 0" class="table-day">Monday</td>
-                  <td v-if="hour.day == 1" class="table-day">Tuesday</td>
-                  <td v-if="hour.day == 2" class="table-day">Wednesday</td>
-                  <td v-if="hour.day == 3" class="table-day">Thursday</td>
-                  <td v-if="hour.day == 4" class="table-day">Friday</td>
-                  <td v-if="hour.day == 5" class="table-day">Saturday</td>
-                  <td v-if="hour.day == 6" class="table-day">Sunday</td>
+                  <td v-if="hour.day == 0" class="table-day">{{ $t('Monday') }}</td>
+                  <td v-if="hour.day == 1" class="table-day">{{ $t('Tuesday') }}</td>
+                  <td v-if="hour.day == 2" class="table-day">{{ $t('Wednesday') }}</td>
+                  <td v-if="hour.day == 3" class="table-day">{{ $t('Thursday') }}</td>
+                  <td v-if="hour.day == 4" class="table-day">{{ $t('Friday') }}</td>
+                  <td v-if="hour.day == 5" class="table-day">{{ $t('Saturday') }}</td>
+                  <td v-if="hour.day == 6" class="table-day">{{ $t('Sunday') }}</td>
                   <td>{{ hour.start.replace(/(..)/g, '$1:').slice(0, -1) }}</td>
                   <td>-</td>
                   <td>{{ hour.end.replace(/(..)/g, '$1:').slice(0, -1) }}</td>
@@ -70,12 +74,12 @@
 
               <div class="row mb-2">
                 <div class="col-md-12 text-center">
-                  <a :href="details.url" target="_blank">Visit website</a>
+                  <a :href="details.url" target="_blank">{{ $t('Visit Website') }}</a>
                 </div>
               </div>
               <div class="row mb-2">
                 <div class="col-md-12 text-center">
-                  Call:
+                  {{ $t('Call') }}
                   <a href="tel:details.display_phone">
                     {{
                     details.display_phone
@@ -92,7 +96,7 @@
               </div>
               <div class="row mb-2">
                 <div class="col-md-12 text-center">
-                  <h3>Location</h3>
+                  <h3>{{ $t('location') }}</h3>
                   <GmapMap
                     :center="{
                       lat: details.coordinates.latitude,
@@ -113,7 +117,7 @@
               </div>
               <div class="row mb-2">
                 <div class="col-md-12 text-center d-flex flex-column justify-content-center">
-                  <h3>Rating</h3>
+                  <h3>{{ $t('Rating') }}</h3>
                   <star-rating
                     :show-rating="false"
                     read-only
